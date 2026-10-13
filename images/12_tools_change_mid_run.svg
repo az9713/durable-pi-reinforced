@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="752" viewBox="0 0 1200 752" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Change the tools mid-run</title>
+  <desc id="desc">An agent's fourteen installed tools flow into its tool list, then turning on the Read only switch strikes the eight that write (bash, write, edit, update_state, run_durable_job, subagent, start_session and ping_on_call_engineer), so the agent's next request sees six: read, read_state, list_durable_jobs, check_durable_job, search_history and handoff.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <marker id="head-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#FF5252"/>
+    </marker>
+    <marker id="head-muted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#B9AAAE"/>
+    </marker>
+  </defs>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .an { animation-duration: 13s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(.4, 0, .2, 1); }
+    .draw { stroke-dasharray: 1 2; }
+
+    /* 1. all fourteen installed tools flow into AGENT TOOLS */
+    .f0 { animation-name: flow0; } .f1 { animation-name: flow1; } .f2 { animation-name: flow2; } .f3 { animation-name: flow3; }
+    .f4 { animation-name: flow4; } .f5 { animation-name: flow5; } .f6 { animation-name: flow6; } .f7 { animation-name: flow7; }
+    .f8 { animation-name: flow8; } .f9 { animation-name: flow9; } .f10 { animation-name: flow10; } .f11 { animation-name: flow11; }
+    .f12 { animation-name: flow12; } .f13 { animation-name: flow13; }
+    @keyframes flow0 { 0%, 4% { opacity: 0; transform: translateX(-412px) } 6% { opacity: 1 } 11%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow1 { 0%, 5% { opacity: 0; transform: translateX(-412px) } 7% { opacity: 1 } 12%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow2 { 0%, 6% { opacity: 0; transform: translateX(-412px) } 8% { opacity: 1 } 13%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow3 { 0%, 7% { opacity: 0; transform: translateX(-412px) } 9% { opacity: 1 } 14%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow4 { 0%, 8% { opacity: 0; transform: translateX(-412px) } 10% { opacity: 1 } 15%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow5 { 0%, 9% { opacity: 0; transform: translateX(-412px) } 11% { opacity: 1 } 16%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow6 { 0%, 10% { opacity: 0; transform: translateX(-412px) } 12% { opacity: 1 } 17%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow7 { 0%, 11% { opacity: 0; transform: translateX(-412px) } 13% { opacity: 1 } 18%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow8 { 0%, 12% { opacity: 0; transform: translateX(-412px) } 14% { opacity: 1 } 19%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow9 { 0%, 13% { opacity: 0; transform: translateX(-412px) } 15% { opacity: 1 } 20%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow10 { 0%, 14% { opacity: 0; transform: translateX(-412px) } 16% { opacity: 1 } 21%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow11 { 0%, 15% { opacity: 0; transform: translateX(-412px) } 17% { opacity: 1 } 22%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow12 { 0%, 16% { opacity: 0; transform: translateX(-412px) } 18% { opacity: 1 } 23%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes flow13 { 0%, 17% { opacity: 0; transform: translateX(-412px) } 19% { opacity: 1 } 24%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+
+    /* 2. the Read only switch turns on */
+    .sw-pill { animation-name: sw-pill; }
+    .sw-track { animation-name: sw-track; }
+    .sw-knob { animation-name: sw-knob; }
+    .sw-label { animation-name: sw-label; }
+    @keyframes sw-pill { 0%, 28% { stroke: #443438 } 31%, 96% { stroke: #FF5252 } 100% { stroke: #443438 } }
+    @keyframes sw-track { 0%, 28% { fill: #443438 } 31%, 96% { fill: #FF5252 } 100% { fill: #443438 } }
+    @keyframes sw-knob { 0%, 28% { transform: translateX(-22px); fill: #B9AAAE } 31%, 96% { transform: translateX(0); fill: #F3EDEE } 100% { transform: translateX(-22px); fill: #B9AAAE } }
+    @keyframes sw-label { 0%, 28% { fill: #B9AAAE } 31%, 96% { fill: #F3EDEE } 100% { fill: #B9AAAE } }
+    .sw-line { animation-name: sw-line; }
+    .sw-head { animation-name: sw-head; }
+    @keyframes sw-line { 0%, 31% { stroke-dashoffset: 1; opacity: 1 } 35%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    @keyframes sw-head { 0%, 34.5% { opacity: 0 } 35%, 96% { opacity: 1 } 100% { opacity: 0 } }
+
+    /* 3. the eight tools that write are struck and fade; the six read tools turn red */
+    .s0 { animation-name: strike0; } .s1 { animation-name: strike1; } .s2 { animation-name: strike2; } .s3 { animation-name: strike3; }
+    .s4 { animation-name: strike4; } .s5 { animation-name: strike5; } .s6 { animation-name: strike6; } .s7 { animation-name: strike7; }
+    @keyframes strike0 { 0%, 35% { stroke-dashoffset: 1; stroke: #FF5252 } 38%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike1 { 0%, 35.5% { stroke-dashoffset: 1; stroke: #FF5252 } 38.5%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike2 { 0%, 36% { stroke-dashoffset: 1; stroke: #FF5252 } 39%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike3 { 0%, 36.5% { stroke-dashoffset: 1; stroke: #FF5252 } 39.5%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike4 { 0%, 37% { stroke-dashoffset: 1; stroke: #FF5252 } 40%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike5 { 0%, 37.5% { stroke-dashoffset: 1; stroke: #FF5252 } 40.5%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike6 { 0%, 38% { stroke-dashoffset: 1; stroke: #FF5252 } 41%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    @keyframes strike7 { 0%, 38.5% { stroke-dashoffset: 1; stroke: #FF5252 } 41.5%, 42% { stroke-dashoffset: 0; stroke: #FF5252 } 46%, 100% { stroke-dashoffset: 0; stroke: #6B5A5E } }
+    .drop-rect { animation-name: drop-rect; }
+    .drop-text { animation-name: drop-text; }
+    .keep { animation-name: keep; }
+    @keyframes drop-rect { 0%, 42% { stroke: #443438 } 46%, 100% { stroke: #2E2427 } }
+    @keyframes drop-text { 0%, 42% { fill: #F3EDEE } 46%, 100% { fill: #6B5A5E } }
+    @keyframes keep { 0%, 42% { stroke: #443438 } 46%, 100% { stroke: #FF5252 } }
+
+    /* 4. the next request goes out with six tools */
+    .nx-line { animation-name: nx-line; }
+    .nx-head { animation-name: nx-head; }
+    .nx-in { animation-name: nx-in; }
+    @keyframes nx-line { 0%, 48% { stroke-dashoffset: 1; opacity: 1 } 53%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    @keyframes nx-head { 0%, 52.5% { opacity: 0 } 53%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes nx-in { 0%, 53% { opacity: 0; transform: translateY(8px) } 58%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="752" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Change the tools mid-run</text>
+
+  <!-- panels -->
+  <g fill="#21191B" stroke="#443438" stroke-width="2">
+    <rect x="48" y="112" width="328" height="558" rx="12"/>
+    <rect x="460" y="112" width="328" height="558" rx="12"/>
+    <rect x="872" y="112" width="280" height="254" rx="12"/>
+  </g>
+  <g font-size="20" letter-spacing="1" fill="#B9AAAE" text-anchor="middle">
+    <text x="212" y="148">INSTALLED TOOLS</text>
+    <text x="624" y="148">AGENT TOOLS</text>
+    <text x="1012" y="148">NEXT REQUEST</text>
+  </g>
+
+  <!-- installed tools: six that read, eight that write -->
+  <g fill="#141011" stroke="#443438" stroke-width="2">
+    <rect x="68" y="168" width="288" height="30" rx="7"/>
+    <rect x="68" y="203" width="288" height="30" rx="7"/>
+    <rect x="68" y="238" width="288" height="30" rx="7"/>
+    <rect x="68" y="273" width="288" height="30" rx="7"/>
+    <rect x="68" y="308" width="288" height="30" rx="7"/>
+    <rect x="68" y="343" width="288" height="30" rx="7"/>
+    <rect x="68" y="378" width="288" height="30" rx="7"/>
+    <rect x="68" y="413" width="288" height="30" rx="7"/>
+    <rect x="68" y="448" width="288" height="30" rx="7"/>
+    <rect x="68" y="483" width="288" height="30" rx="7"/>
+    <rect x="68" y="518" width="288" height="30" rx="7"/>
+    <rect x="68" y="553" width="288" height="30" rx="7"/>
+    <rect x="68" y="588" width="288" height="30" rx="7"/>
+    <rect x="68" y="623" width="288" height="30" rx="7"/>
+  </g>
+  <g class="mono" font-size="20" fill="#F3EDEE">
+    <text x="84" y="189">read</text>
+    <text x="84" y="224">read_state</text>
+    <text x="84" y="259">list_durable_jobs</text>
+    <text x="84" y="294">check_durable_job</text>
+    <text x="84" y="329">search_history</text>
+    <text x="84" y="364">handoff</text>
+    <text x="84" y="399">bash</text>
+    <text x="84" y="434">write</text>
+    <text x="84" y="469">edit</text>
+    <text x="84" y="504">update_state</text>
+    <text x="84" y="539">run_durable_job</text>
+    <text x="84" y="574">subagent</text>
+    <text x="84" y="609">start_session</text>
+    <text x="84" y="644">ping_on_call_engineer</text>
+  </g>
+
+  <!-- installed tools flow to the agent -->
+  <path d="M378 391H456" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+
+  <!-- the switch acts on the agent's tools that write -->
+  <path class="an draw sw-line" pathLength="1" d="M872 516H792" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="an sw-head" d="M800 516H792" fill="none" stroke="#FF5252" stroke-width="2.5" marker-end="url(#head-red)"/>
+
+  <!-- the agent's tools go out with its next request -->
+  <path class="an draw nx-line" pathLength="1" d="M790 258H868" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="an nx-head" d="M860 258H868" fill="none" stroke="#FF5252" stroke-width="2.5" marker-end="url(#head-red)"/>
+
+  <g class="mono" font-size="20">
+    <!-- agent tools: kept -->
+    <g class="an f0">
+      <rect class="an keep" x="480" y="168" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="189" fill="#F3EDEE">read</text>
+    </g>
+    <g class="an f1">
+      <rect class="an keep" x="480" y="203" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="224" fill="#F3EDEE">read_state</text>
+    </g>
+    <g class="an f2">
+      <rect class="an keep" x="480" y="238" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="259" fill="#F3EDEE">list_durable_jobs</text>
+    </g>
+    <g class="an f3">
+      <rect class="an keep" x="480" y="273" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="294" fill="#F3EDEE">check_durable_job</text>
+    </g>
+    <g class="an f4">
+      <rect class="an keep" x="480" y="308" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="329" fill="#F3EDEE">search_history</text>
+    </g>
+    <g class="an f5">
+      <rect class="an keep" x="480" y="343" width="288" height="30" rx="7" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+      <text x="496" y="364" fill="#F3EDEE">handoff</text>
+    </g>
+
+    <!-- agent tools: removed by Read only -->
+    <g class="an f6">
+      <rect class="an drop-rect" x="480" y="378" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="399" fill="#6B5A5E">bash</text>
+      <path class="an draw s0" pathLength="1" d="M491 393H549" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f7">
+      <rect class="an drop-rect" x="480" y="413" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="434" fill="#6B5A5E">write</text>
+      <path class="an draw s1" pathLength="1" d="M491 428H561" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f8">
+      <rect class="an drop-rect" x="480" y="448" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="469" fill="#6B5A5E">edit</text>
+      <path class="an draw s2" pathLength="1" d="M491 463H549" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f9">
+      <rect class="an drop-rect" x="480" y="483" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="504" fill="#6B5A5E">update_state</text>
+      <path class="an draw s3" pathLength="1" d="M491 498H645" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f10">
+      <rect class="an drop-rect" x="480" y="518" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="539" fill="#6B5A5E">run_durable_job</text>
+      <path class="an draw s4" pathLength="1" d="M491 533H681" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f11">
+      <rect class="an drop-rect" x="480" y="553" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="574" fill="#6B5A5E">subagent</text>
+      <path class="an draw s5" pathLength="1" d="M491 568H597" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f12">
+      <rect class="an drop-rect" x="480" y="588" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="609" fill="#6B5A5E">start_session</text>
+      <path class="an draw s6" pathLength="1" d="M491 603H657" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+    <g class="an f13">
+      <rect class="an drop-rect" x="480" y="623" width="288" height="30" rx="7" fill="#141011" stroke="#2E2427" stroke-width="2"/>
+      <text class="an drop-text" x="496" y="644" fill="#6B5A5E">ping_on_call_engineer</text>
+      <path class="an draw s7" pathLength="1" d="M491 638H753" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Read only switch -->
+  <rect class="an sw-pill" x="872" y="490" width="226" height="52" rx="26" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+  <rect class="an sw-track" x="890" y="503" width="48" height="26" rx="13" fill="#FF5252"/>
+  <circle class="an sw-knob" cx="925" cy="516" r="9" fill="#F3EDEE"/>
+  <text class="an sw-label" x="954" y="524" font-size="24" fill="#F3EDEE">Read only</text>
+
+  <!-- next request -->
+  <g class="an nx-in">
+    <use href="#g-pi" x="894" y="222" width="72" height="72"/>
+    <text x="982" y="266" font-size="22" fill="#B9AAAE">sees 6 tools</text>
+  </g>
+
+  <text x="48" y="720" font-size="22" fill="#B9AAAE">Tools, model, thinking and instructions apply from the agent's next request.</text>
+</svg>

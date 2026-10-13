@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Durable jobs wait for you</title>
+  <desc id="desc">The release-check job runs plan, gather, approve, publish and verify on mac-mini, writing one checkpoint per phase; it waits at approve for a person, the wait survives a device restart, and after approval the job finishes.</desc>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    @keyframes prog { 0%, 2.86% { stroke-dashoffset: 939 } 5.71%, 9.29% { stroke-dashoffset: 865 } 12.86%, 16.43% { stroke-dashoffset: 685 } 20%, 49.29% { stroke-dashoffset: 535 } 51.79%, 53.21% { stroke-dashoffset: 325 } 55.71%, 57.14% { stroke-dashoffset: 145 } 59.64%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 939 } }
+    .prog { animation: prog 14s ease-in-out infinite; }
+    @keyframes ck-plan { 0%, 5.71% { opacity: 0; transform: scale(0.55) } 7.11% { opacity: 1; transform: scale(1.12) } 7.86%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ck-plan { animation: ck-plan 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes cp-plan { 0%, 7.14% { opacity: 0 } 9.29%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cp-plan { animation: cp-plan 14s ease-in-out infinite; }
+    @keyframes ck-gather { 0%, 12.86% { opacity: 0; transform: scale(0.55) } 14.25% { opacity: 1; transform: scale(1.12) } 15%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ck-gather { animation: ck-gather 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes cp-gather { 0%, 14.29% { opacity: 0 } 16.43%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cp-gather { animation: cp-gather 14s ease-in-out infinite; }
+    @keyframes ck-publish { 0%, 51.79% { opacity: 0; transform: scale(0.55) } 53.18% { opacity: 1; transform: scale(1.12) } 53.93%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ck-publish { animation: ck-publish 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes cp-publish { 0%, 52.86% { opacity: 0 } 55%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cp-publish { animation: cp-publish 14s ease-in-out infinite; }
+    @keyframes ck-verify { 0%, 55.71% { opacity: 0; transform: scale(0.55) } 57.11% { opacity: 1; transform: scale(1.12) } 57.86%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ck-verify { animation: ck-verify 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes cp-verify { 0%, 56.79% { opacity: 0 } 58.93%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cp-verify { animation: cp-verify 14s ease-in-out infinite; }
+    @keyframes tile { 0%, 20% { stroke: #6B5A5E } 21.43%, 96% { stroke: #FF5252 } 100% { stroke: #6B5A5E } }
+    .tile { animation: tile 14s ease-in-out infinite; }
+    @keyframes waiting { 0%, 20% { opacity: 0 } 22.14%, 47.14% { opacity: 1 } 48.57%, 100% { opacity: 0 } }
+    .waiting { animation: waiting 14s ease-in-out infinite; }
+    @keyframes cp-approve { 0%, 21.43% { opacity: 0 } 23.57%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cp-approve { animation: cp-approve 14s ease-in-out infinite; }
+    @keyframes ring { 0%, 21.43% { opacity: 0; transform: scale(.85) } 21.79% { opacity: .9; transform: scale(.85) } 27.14% { opacity: 0; transform: scale(1.3) } 27.5% { opacity: .9; transform: scale(.85) } 32.86% { opacity: 0; transform: scale(1.3) } 41.43% { opacity: 0; transform: scale(.85) } 41.79% { opacity: .9; transform: scale(.85) } 47.14%, 100% { opacity: 0; transform: scale(1.3) } }
+    .ring { animation: ring 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes restart { 0%, 32.86% { opacity: 0 } 34.29%, 39.29% { opacity: 1 } 40.71%, 100% { opacity: 0 } }
+    .restart { animation: restart 14s ease-in-out infinite; }
+    @keyframes host { 0%, 32.86% { opacity: 1 } 34.29%, 39.29% { opacity: .25 } 40.71%, 100% { opacity: 1 } }
+    .host { animation: host 14s ease-in-out infinite; }
+    @keyframes approved { 0%, 47.86% { opacity: 0 } 49.29%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .approved { animation: approved 14s ease-in-out infinite; }
+    @keyframes ck-approve { 0%, 47.86% { opacity: 0; transform: scale(0.55) } 49.25% { opacity: 1; transform: scale(1.12) } 50%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ck-approve { animation: ck-approve 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes done { 0%, 59.64% { opacity: .3; transform: scale(.94) } 61.79%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: .3; transform: scale(.94) } }
+    .done { animation: done 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M3 24 A21 7 0 0 0 45 24 M3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-check" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="14" fill="#FF5252"/>
+      <path d="M9 16.5 L14 21.5 L23.5 11" fill="none" stroke="#141011" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-person" viewBox="0 0 40 40">
+      <circle cx="20" cy="13" r="7.5" fill="none" stroke="#F3EDEE" stroke-width="2.5"/>
+      <path d="M6 36 C7 27 13 23 20 23 C27 23 33 27 34 36" fill="none" stroke="#F3EDEE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <marker id="ah-red" viewBox="0 0 12 12" refX="4" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L12 6 L0 11 Z" fill="#FF5252"/></marker>
+    <marker id="ah-quiet" viewBox="0 0 12 12" refX="4" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L12 6 L0 11 Z" fill="#6B5A5E"/></marker>
+  </defs>
+
+  <rect width="1200" height="700" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Durable jobs wait for you</text>
+
+  <rect x="48" y="100" width="1104" height="568" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+
+  <!-- Header: the job and the device it runs on -->
+  <text class="mono" x="80" y="152" font-size="24" fill="#F3EDEE">release-check</text>
+  <g class="host">
+    <use href="#g-server" x="936" y="122" width="64" height="44"/>
+    <text class="mono" x="1016" y="151" font-size="22" fill="#F3EDEE">mac-mini</text>
+  </g>
+  <g class="restart" opacity="0">
+    <rect x="700" y="126" width="216" height="36" rx="18" fill="#141011" stroke="#6B5A5E" stroke-width="2"/>
+    <path d="M726.7 136.5 A8 8 0 1 0 732 144" fill="none" stroke="#B9AAAE" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M728 145 L732 139.5 L736 145 Z" fill="#B9AAAE"/>
+    <text x="744" y="151" font-size="20" fill="#B9AAAE">device restart</text>
+  </g>
+
+  <!-- Phase line: the red progress pauses at approve -->
+  <path d="M96 292 H1034" stroke="#6B5A5E" stroke-width="3" fill="none"/>
+  <path class="prog" d="M96 292 H1034" stroke="#FF5252" stroke-width="3.5" fill="none" stroke-dasharray="939"/>
+  <circle cx="170" cy="292" r="13" fill="#21191B" stroke="#6B5A5E" stroke-width="2.5"/>
+  <circle cx="350" cy="292" r="13" fill="#21191B" stroke="#6B5A5E" stroke-width="2.5"/>
+  <circle cx="710" cy="292" r="13" fill="#21191B" stroke="#6B5A5E" stroke-width="2.5"/>
+  <circle cx="890" cy="292" r="13" fill="#21191B" stroke="#6B5A5E" stroke-width="2.5"/>
+  <g class="ck-plan"><use href="#g-check" x="154" y="276" width="32" height="32"/></g>
+  <g class="ck-gather"><use href="#g-check" x="334" y="276" width="32" height="32"/></g>
+  <g class="ck-publish"><use href="#g-check" x="694" y="276" width="32" height="32"/></g>
+  <g class="ck-verify"><use href="#g-check" x="874" y="276" width="32" height="32"/></g>
+
+  <!-- approve: a person gate -->
+  <circle class="ring" cx="530" cy="292" r="46" fill="none" stroke="#FF5252" stroke-width="2.5" opacity="0"/>
+  <rect class="tile" x="500" y="262" width="60" height="60" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+  <use href="#g-person" x="510" y="272" width="40" height="40"/>
+  <g class="ck-approve"><use href="#g-check" x="546" y="306" width="26" height="26"/></g>
+  <text class="waiting" x="530" y="240" text-anchor="middle" font-size="22" fill="#FF5252" opacity="0">waiting for you</text>
+  <text class="approved" x="530" y="240" text-anchor="middle" font-size="22" fill="#FF5252">approved</text>
+
+  <!-- Done -->
+  <g class="done">
+    <use href="#g-pi" x="1034" y="260" width="64" height="64"/>
+    <text x="1066" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">Done</text>
+  </g>
+
+  <text x="170" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">plan</text>
+  <text x="350" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">gather</text>
+  <text x="530" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">approve</text>
+  <text x="710" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">publish</text>
+  <text x="890" y="354" text-anchor="middle" font-size="22" fill="#F3EDEE">verify</text>
+  <text x="350" y="380" text-anchor="middle" font-size="20" fill="#B9AAAE">subagent</text>
+
+  <!-- One checkpoint per phase -->
+  <use href="#g-db" x="482" y="490" width="96" height="120"/>
+  <path d="M170 396 L492.4 494.9 L492.4 494.9" stroke="#443438" stroke-width="2.5" fill="none" marker-end="url(#ah-quiet)"/>
+  <path class="cp-plan" d="M170 396 L492.4 494.9 L492.4 494.9" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <path d="M350 396 L508.1 489.8 L508.1 489.8" stroke="#443438" stroke-width="2.5" fill="none" marker-end="url(#ah-quiet)"/>
+  <path class="cp-gather" d="M350 396 L508.1 489.8 L508.1 489.8" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <path d="M530 396 L530 485 L530 485" stroke="#443438" stroke-width="2.5" fill="none" marker-end="url(#ah-quiet)"/>
+  <path class="cp-approve" d="M530 396 L530 485 L530 485" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <path d="M710 396 L551.9 489.8 L551.9 489.8" stroke="#443438" stroke-width="2.5" fill="none" marker-end="url(#ah-quiet)"/>
+  <path class="cp-publish" d="M710 396 L551.9 489.8 L551.9 489.8" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <path d="M890 396 L567.6 494.9 L567.6 494.9" stroke="#443438" stroke-width="2.5" fill="none" marker-end="url(#ah-quiet)"/>
+  <path class="cp-verify" d="M890 396 L567.6 494.9 L567.6 494.9" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <text x="530" y="644" text-anchor="middle" font-size="22" fill="#F3EDEE">one checkpoint per phase</text>
+  <text x="620" y="558" font-size="22" fill="#B9AAAE">A restart resumes the current phase.</text>
+</svg>

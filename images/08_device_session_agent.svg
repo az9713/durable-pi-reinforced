@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 652" width="1200" height="652" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Device, session, agent</title>
+  <desc id="desc">A device runs one dpi-backend, each session on it has one harness and one agent.sqlite, and each agent is Main, a fork or a subagent; the command just tui attach mac-mini:api-refactor:fork names one agent by device, session and agent.</desc>
+  <style>
+    .a { animation-duration: 13s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .ln { animation-timing-function: linear; }
+    .x { transform-box: fill-box; transform-origin: center; }
+    @keyframes dev { 0%, 1% { opacity: 0; transform: translateY(8px) } 5%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes lv0 { 0%, 2% { opacity: 0 } 6%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes c_da { 0%, 6% { stroke-dashoffset: 1; stroke: #B9AAAE } 11%, 53% { stroke-dashoffset: 0; stroke: #B9AAAE } 55%, 96% { stroke-dashoffset: 0; stroke: #FF5252 } 100% { stroke-dashoffset: 1; stroke: #B9AAAE } }
+    @keyframes c_dn { 0%, 6% { stroke-dashoffset: 1 } 11%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 1 } }
+    @keyframes h_da { 0%, 10.5% { opacity: 0; fill: #B9AAAE } 11.5%, 53% { opacity: 1; fill: #B9AAAE } 55%, 96% { opacity: 1; fill: #FF5252 } 100% { opacity: 0; fill: #B9AAAE } }
+    @keyframes h_dn { 0%, 10.5% { opacity: 0 } 11.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes s0 { 0%, 10% { opacity: 0; transform: translateY(8px) } 14%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes s1 { 0%, 11% { opacity: 0; transform: translateY(8px) } 15%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes lv1 { 0%, 11.5% { opacity: 0 } 15.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes c_sm0 { 0%, 15% { stroke-dashoffset: 1; stroke: #B9AAAE } 18.5%, 59% { stroke-dashoffset: 0; stroke: #B9AAAE } 61%, 96% { stroke-dashoffset: 0; stroke: #FF5252 } 100% { stroke-dashoffset: 1; stroke: #B9AAAE } }
+    @keyframes c_sm1 { 0%, 15% { stroke-dashoffset: 1 } 18.5%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 1 } }
+    @keyframes h_sm0 { 0%, 18% { opacity: 0; fill: #B9AAAE } 19%, 59% { opacity: 1; fill: #B9AAAE } 61%, 96% { opacity: 1; fill: #FF5252 } 100% { opacity: 0; fill: #B9AAAE } }
+    @keyframes h_sm1 { 0%, 18% { opacity: 0 } 19%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes m0 { 0%, 18% { opacity: 0; transform: translateY(8px) } 22%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes m1 { 0%, 18.5% { opacity: 0; transform: translateY(8px) } 22.5%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes lv2 { 0%, 19% { opacity: 0 } 23%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes c_fk { 0%, 23% { stroke-dashoffset: 1 } 27%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 1 } }
+    @keyframes h_fk { 0%, 26.5% { opacity: 0 } 27.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes c_sub { 0%, 23% { opacity: 0 } 27%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes k0 { 0%, 26% { opacity: 0; transform: translateY(8px) } 30%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes k1 { 0%, 27% { opacity: 0; transform: translateY(8px) } 31%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes strip { 0%, 31.5% { opacity: 0; transform: translateY(10px) } 34.5%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes t0 { 0%, 35% { opacity: 0 } 35.8%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t1 { 0%, 36.2% { opacity: 0 } 37%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t2 { 0%, 37.4% { opacity: 0 } 38.2%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t3 { 0%, 38.8% { opacity: 0 } 39.6%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t4 { 0%, 40% { opacity: 0 } 40.8%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t5 { 0%, 41.2% { opacity: 0 } 42%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t6 { 0%, 42.6% { opacity: 0 } 43.4%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes t7 { 0%, 43.8% { opacity: 0 } 44.6%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes seg0 { 0%, 47% { fill: #F3EDEE } 49%, 96% { fill: #FF5252 } 100% { fill: #F3EDEE } }
+    @keyframes ul0 { 0%, 47% { opacity: 0; stroke-dashoffset: 1 } 47.3% { opacity: 1; stroke-dashoffset: 1 } 49%, 96% { opacity: 1; stroke-dashoffset: 0 } 100% { opacity: 0; stroke-dashoffset: 0 } }
+    @keyframes an0 { 0%, 47.5% { opacity: 0 } 49.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes seg1 { 0%, 53% { fill: #F3EDEE } 55%, 96% { fill: #FF5252 } 100% { fill: #F3EDEE } }
+    @keyframes ul1 { 0%, 53% { opacity: 0; stroke-dashoffset: 1 } 53.3% { opacity: 1; stroke-dashoffset: 1 } 55%, 96% { opacity: 1; stroke-dashoffset: 0 } 100% { opacity: 0; stroke-dashoffset: 0 } }
+    @keyframes an1 { 0%, 53.5% { opacity: 0 } 55.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes seg2 { 0%, 59% { fill: #F3EDEE } 61%, 96% { fill: #FF5252 } 100% { fill: #F3EDEE } }
+    @keyframes ul2 { 0%, 59% { opacity: 0; stroke-dashoffset: 1 } 59.3% { opacity: 1; stroke-dashoffset: 1 } 61%, 96% { opacity: 1; stroke-dashoffset: 0 } 100% { opacity: 0; stroke-dashoffset: 0 } }
+    @keyframes an2 { 0%, 59.5% { opacity: 0 } 61.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes dev_hl { 0%, 47% { stroke: #443438 } 49%, 96% { stroke: #FF5252 } 100% { stroke: #443438 } }
+    @keyframes s0_hl { 0%, 53% { stroke: #443438 } 55%, 96% { stroke: #FF5252 } 100% { stroke: #443438 } }
+    @keyframes fork_hl { 0%, 59% { opacity: 0 } 61%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M 36 12 H53 M 36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-folder" viewBox="0 0 52 40">
+      <path d="M 3 8 A4 4 0 0 1 7 4 H19 L24 10 H45 A4 4 0 0 1 49 14 V33 A4 4 0 0 1 45 37 H7 A4 4 0 0 1 3 33 Z" fill="#21191B" stroke="#FF5252" stroke-width="2.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M 3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M 3 24 A21 7 0 0 0 45 24 M 3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M 0 0H3V2H2V1H0Z"/>
+        <path d="M 0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M 3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-terminal" viewBox="0 0 72 52">
+      <rect x="2" y="2" width="68" height="48" rx="6" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <path d="M 14 18 L24 26 L14 34" fill="none" stroke="#FF5252" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 30 36 H50" stroke="#F3EDEE" stroke-width="3.2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+  <rect width="1200" height="652" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Device, session, agent</text>
+  <g class="a" style="animation-name: lv0"><text x="48" y="131" font-size="22" font-weight="600" fill="#B9AAAE">device:</text><text x="48" y="157" font-size="20" fill="#B9AAAE">one dpi-backend</text></g>
+  <g class="a" style="animation-name: lv1"><text x="48" y="261" font-size="22" font-weight="600" fill="#B9AAAE">session:</text><text x="48" y="287" font-size="20" fill="#B9AAAE">one harness, one agent.sqlite</text></g>
+  <g class="a" style="animation-name: lv2"><text x="48" y="414" font-size="22" font-weight="600" fill="#B9AAAE">agent:</text><text x="48" y="440" font-size="20" fill="#B9AAAE">Main, a fork or a subagent</text></g>
+  <rect class="a" style="animation-name: fork_hl" x="477" y="436" width="150" height="76" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="a ln" style="animation-name: c_dn" d="M 779 172 V200 H951 V223" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#B9AAAE" stroke-width="2.5" stroke-linejoin="round"/>
+  <path class="a ln" style="animation-name: c_da" d="M 779 172 V200 H607 V223" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-width="2.5" stroke-linejoin="round"/>
+  <path class="a" style="animation-name: h_dn" d="M 944.5 220 L951 231 L957.5 220 Z" fill="#B9AAAE"/>
+  <path class="a" style="animation-name: h_da" d="M 600.5 220 L607 231 L613.5 220 Z" fill="#FF5252"/>
+  <path class="a ln" style="animation-name: c_sm0" d="M 607 300 V327" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="a ln" style="animation-name: c_sm1" d="M 951 300 V327" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="a" style="animation-name: h_sm0" d="M 600.5 324 L607 335 L613.5 324 Z" fill="#FF5252"/>
+  <path class="a" style="animation-name: h_sm1" d="M 944.5 324 L951 335 L957.5 324 Z" fill="#B9AAAE"/>
+  <g class="a" style="animation-name: c_sub"><path d="M 607 420 H690 V439" fill="none" stroke="#B9AAAE" stroke-width="2.5" stroke-dasharray="7 6"/><path d="M 683.5 436 L690 447 L696.5 436 Z" fill="#B9AAAE"/></g>
+  <path class="a ln" style="animation-name: c_fk" d="M 607 392 V420 H515 V439" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-width="2.5" stroke-linejoin="round"/>
+  <path class="a" style="animation-name: h_fk" d="M 508.5 436 L515 447 L521.5 436 Z" fill="#FF5252"/>
+  <g class="a" style="animation-name: dev"><rect class="a" style="animation-name: dev_hl" x="663" y="100" width="232" height="72" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2.5"/><use href="#g-server" x="685" y="116" width="58" height="40"/><text x="759" y="145" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">mac-mini</text></g>
+  <g class="a" style="animation-name: s0"><rect class="a" style="animation-name: s0_hl" x="462" y="232" width="290" height="68" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2.5"/><use href="#g-folder" x="478" y="249" width="44" height="34"/><text x="534" y="274" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#F3EDEE">api-refactor</text><use href="#g-db" x="706" y="247" width="30" height="38"/></g>
+  <g class="a" style="animation-name: s1"><rect x="792" y="232" width="318" height="68" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/><use href="#g-folder" x="808" y="249" width="44" height="34"/><text x="864" y="274" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#F3EDEE">nightly-report</text><use href="#g-db" x="1064" y="247" width="30" height="38"/></g>
+  <g class="a" style="animation-name: m0"><use href="#g-pi" x="579" y="336" width="56" height="56"/><text x="649" y="372" font-size="24" fill="#F3EDEE">Main</text></g>
+  <g class="a" style="animation-name: m1"><use href="#g-pi" x="923" y="336" width="56" height="56"/><text x="993" y="372" font-size="24" fill="#F3EDEE">Main</text></g>
+  <g class="a" style="animation-name: k0"><use href="#g-pi" x="489" y="448" width="52" height="52"/><text x="555" y="482" font-size="24" fill="#F3EDEE">fork</text></g>
+  <g class="a" style="animation-name: k1"><use href="#g-pi" x="664" y="448" width="52" height="52"/><text x="730" y="482" font-size="24" fill="#F3EDEE">subagent</text></g>
+  <g class="a" style="animation-name: strip">
+    <rect x="48" y="530" width="1104" height="96" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <use href="#g-terminal" x="72" y="552" width="58" height="42"/>
+    <text class="a" style="animation-name: t0" x="152" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE" textLength="57.6" lengthAdjust="spacing">just</text>
+    <text class="a" style="animation-name: t1" x="224" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE" textLength="43.2" lengthAdjust="spacing">tui</text>
+    <text class="a" style="animation-name: t2" x="281.6" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE" textLength="86.4" lengthAdjust="spacing">attach</text>
+    <g class="a" style="animation-name: t3"><text class="a" style="animation-name: seg0" x="382.4" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252" textLength="115.2" lengthAdjust="spacing">mac-mini</text></g>
+    <text class="a" style="animation-name: t4" x="497.6" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#B9AAAE">:</text>
+    <g class="a" style="animation-name: t5"><text class="a" style="animation-name: seg1" x="512" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252" textLength="172.8" lengthAdjust="spacing">api-refactor</text></g>
+    <text class="a" style="animation-name: t6" x="684.8" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#B9AAAE">:</text>
+    <g class="a" style="animation-name: t7"><text class="a" style="animation-name: seg2" x="699.2" y="568" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252" textLength="57.6" lengthAdjust="spacing">fork</text></g>
+    <path class="a" style="animation-name: ul0" d="M 383.4 578 H496.6" pathLength="1" stroke-dasharray="1 1" stroke="#FF5252" stroke-width="2"/>
+    <g class="a" style="animation-name: an0"><text x="440" y="604" text-anchor="middle" font-size="20" fill="#B9AAAE">device</text></g>
+    <path class="a" style="animation-name: ul1" d="M 513 578 H683.8" pathLength="1" stroke-dasharray="1 1" stroke="#FF5252" stroke-width="2"/>
+    <g class="a" style="animation-name: an1"><text x="504.8" y="604" text-anchor="middle" font-size="20" fill="#B9AAAE">:</text><text x="598.4" y="604" text-anchor="middle" font-size="20" fill="#B9AAAE">session</text></g>
+    <path class="a" style="animation-name: ul2" d="M 700.2 578 H755.8" pathLength="1" stroke-dasharray="1 1" stroke="#FF5252" stroke-width="2"/>
+    <g class="a" style="animation-name: an2"><text x="692" y="604" text-anchor="middle" font-size="20" fill="#B9AAAE">:</text><text x="728" y="604" text-anchor="middle" font-size="20" fill="#B9AAAE">agent</text></g>
+  </g>
+</svg>

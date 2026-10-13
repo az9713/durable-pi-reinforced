@@ -1,0 +1,62 @@
+# dpi-network.example.yaml → copy to dpi-network.yaml (gitignored) and add your own machines.
+#
+#   cp dpi-network.example.yaml dpi-network.yaml
+#
+# Every device runs apps/dpi-backend. Clients (the web hub, dpi-tui, curl) connect with a URL and a
+# bearer token. No code or recipe names a machine: `just net <verb> <id>` looks the id up here and
+# runs the driver for its `kind`.
+#
+#   just net up <id>        provision → deploy → env → service → (expose) → register, idempotent
+#   just net status         probe every device
+#   just net logs <id> | just net restart <id> | just net down <id> | just net deploy <id>
+#   just net destroy <id>   exe-dev only; refuses any VM not named in this file
+#
+# Kinds
+#   local    this machine; `just backend run` runs it in a terminal, or set `service: launchd|systemd`
+#   ssh      any host reachable with `ssh <ssh>`; nvm + rsync + launchd (macOS) or systemd (Linux)
+#   exe-dev  an exe.dev VM: the ssh driver at <vm>.exe.xyz plus VM create and HTTPS proxy exposure
+#   url      connect only (someone else runs the backend); `just net register <id> --token <t>`
+#
+# Tokens never live here. Each device generates its own in <home_dir>/backend.env, and
+# `just net register <id>` copies it into ~/.dpi/network.sqlite on this machine.
+
+# Each device's <home_dir>/backend.env is written from this file and nothing else:
+#   DPI_TOKEN        generated on the first `just net up`, kept after (new one: just net rotate <id>)
+#   DPI_DEVICE_NAME  the device id
+#   DPI_PORT         port
+#   DPI_HOST         host (default 127.0.0.1 for kind local, 0.0.0.0 otherwise)
+#   DPI_START_DIRS   start_dirs, colon-separated
+#   <NAME>=<value>   for each name in env_keys, with its value read from this checkout's .env
+#   <NAME>=<value>   for each entry in env (defaults.env merged with the device's env)
+
+defaults:
+  port: 4780                       # dpi-backend port on every device
+  node: 24                         # Node major installed with nvm on ssh / exe-dev devices
+  code_dir: ~/dpi                  # where apps/dpi-backend + apps/dpi-sdk are synced (ssh / exe-dev)
+  home_dir: ~/.dpi                 # backend.env, data and logs; deploys never touch it
+  start_dirs: ["~/dpi-work"]       # where new sessions start (created if missing); any existing folder works as a cwd
+  env_keys: [OPENROUTER_API_KEY]   # secrets: copied by name from .env, never written here
+  # env:                           # plain settings, written as-is
+  #   DPI_PROVIDER: faux           # the free deterministic model, for tests
+
+devices:
+  local:
+    name: Laptop
+    kind: local
+
+  # A Mac or Linux box you can reach with passwordless ssh.
+  # mac-mini:
+  #   name: Mac mini
+  #   kind: ssh
+  #   ssh: me@my-mac-mini.local
+  #   service: launchd               # systemd on Linux (needs passwordless sudo)
+  #   url: http://my-mac-mini.local:4780
+  #   start_dirs: ["~/dpi-work"]
+
+  # An exe.dev VM (https://exe.dev). `just net up` creates it if missing and exposes it over HTTPS.
+  # vm-1:
+  #   name: exe.dev VM
+  #   kind: exe-dev
+  #   vm: my-dpi-vm-1                # VM name, also the public host: https://my-dpi-vm-1.exe.xyz
+  #   create: { cpu: 2, memory: 4GB, disk: 20GB }
+  #   start_dirs: ["~/work"]

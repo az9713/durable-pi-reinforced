@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Durability Fix Plan</title>
+<style>
+:root{
+  --bg:#0f172a; --card:#1e293b; --card2:#162033; --text:#e2e8f0; --text2:#cbd5e1; --muted:#94a3b8;
+  --orange:#fb923c; --teal:#2dd4bf; --border:#334155; --border2:#1e293b; --red:#f87171;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text2);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--teal)} a:hover{color:var(--orange)}
+code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace;font-size:.88em}
+code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:0 .3em;color:var(--text)}
+pre{background:#0b1222;border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow-x:auto;color:var(--text);margin:8px 0}
+pre code{background:none;border:0;padding:0}
+h1,h2,h3{color:var(--text);line-height:1.25}
+h1{font-size:2rem;margin:.2em 0 .3em}
+h2{font-size:1.4rem;margin:2.2em 0 .6em;padding-top:.6em;border-top:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.4em 0 .4em;color:var(--orange)}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;margin:0 auto}
+nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:24px 16px;border-right:1px solid var(--border2);font-size:.88rem}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:3px 6px;border-radius:4px}
+nav.toc a:hover{background:var(--card);color:var(--text)}
+nav.toc .sub{padding-left:18px;font-size:.84rem}
+nav.toc .brand{color:var(--text);font-weight:700;margin-bottom:10px;display:block}
+main{padding:24px 40px 80px;min-width:0}
+.lead{font-size:1.1rem;color:var(--text)}
+.muted{color:var(--muted)}
+.callout{border:1px solid var(--teal);background:var(--card2);padding:10px 16px;border-radius:8px;margin:14px 0}
+.callout.warn{border-color:var(--orange)}
+.callout.danger{border-color:var(--red)}
+.callout b.label{color:var(--text)}
+.tbl{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--border);padding:7px 10px;vertical-align:top;text-align:left}
+th{background:var(--card);color:var(--text)}
+tr:nth-child(even) td{background:#121c30}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:0 .45em;margin:0 .15em;vertical-align:1px;white-space:nowrap}
+.t-doc{background:#134e4a;color:#99f6e4}
+.t-inf{background:#713f12;color:#fde68a}
+.t-unv{background:#7f1d1d;color:#fecaca}
+.fix{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:12px 0}
+.fix dl{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 14px;margin:0}
+.fix dt{color:var(--muted);font-size:.85rem;font-weight:700}
+.fix dd{margin:0;min-width:0}
+.fix dd p{margin:.2em 0 .5em}
+.fix dd ul,.fix dd ol{margin:.2em 0 .5em;padding-left:1.2em}
+.now{color:var(--orange);font-weight:700}
+.later{color:var(--teal);font-weight:700}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border2);padding:16px}
+  main{padding:16px 16px 60px}
+  .fix dl{grid-template-columns:1fr}
+  h1{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <span class="brand">Durability fix plan</span>
+  <a href="#intro">Read this first</a>
+  <a href="#map">The 11 changes at a glance</a>
+  <a href="#corrections">Corrections to the earlier answer</a>
+  <a href="#yes">Group A: buildable in the repo</a>
+  <a class="sub" href="#c1">C1 Verify replay policy</a>
+  <a class="sub" href="#c2">C2 Effect ledger</a>
+  <a class="sub" href="#c3">C3 Job step receipts</a>
+  <a class="sub" href="#c4">C4 Retry Jev errors</a>
+  <a class="sub" href="#c5">C5 Report stuck follow-ups</a>
+  <a class="sub" href="#c6">C6 Survive model catalog gaps</a>
+  <a class="sub" href="#c7">C7 Stale lock after reboot</a>
+  <a href="#part">Group B: buildable in part</a>
+  <a class="sub" href="#c8">C8 Make guard gaps visible</a>
+  <a class="sub" href="#c9">C9 Backup of idle sessions</a>
+  <a class="sub" href="#c10">C10 Restart on Windows</a>
+  <a class="sub" href="#c11">C11 Report blocked tasks</a>
+  <a href="#order">Build order</a>
+  <a href="#questions">Open questions</a>
+  <a href="implemented-changes.html">Changes as built</a>
+  <a href="index.html#gaps">Back to the explainer, section 14</a>
+</nav>
+
+<main>
+<h1>Durability fix plan</h1>
+<section id="intro">
+<div class="callout warn"><b class="label">Built 2026-10-12.</b> What exists now, with current line numbers: <a href="implemented-changes.html">changes as built</a>. Written as a plan from the code in this checkout, then built with these decisions: C5 reports only, C9 uses option A with the folder in <code>DPI_BACKUP_DIR</code>, C10 is a README row only, and the changes live in this copy. <code>npm test</code> passes 18 of 18 in WSL2 (Node 22.22.1), run from a copy of <code>apps/dpi-backend</code> and <code>apps/dpi-sdk</code> on the Linux disk (<code>~/dpi-test</code>), with the 8 new cases in <code>tests/crash.test.ts</code>. Two facts are now confirmed from the installed pi-durable 1.0.3 source. (1) The built-in <code>bash</code> defines no <code>replay</code> value, so it is <code>unsafe</code> (<code>dist/tools/bash.js</code>, <code>dist/harness/tool.js:63</code>, <code>:73</code>). (2) After a SIGKILL of the backend, the <code>bash</code> child process keeps running and finishes its command. Nothing reports that effect. Not tested at run time: C3 (no job step has an effect to count), C4 (the demo has no tests), C6 (needs OpenRouter).</div>
+<p class="lead">This page explains 11 changes that close or narrow the durability gaps listed in <a href="index.html#gaps">section 14 of the explainer</a>. Seven changes can be built fully in this repo. Four can be built in part. For each change, the page gives what it is, why it is necessary, what breaks if you do not build it, which files and lines change, and what the change is.</p>
+<p>The gap ids (G1-1, G2-1 and so on) are the rows of section 14: Group 1 = claims not verified, Group 2 = guarantees that stop at a boundary, Group 3 = state survives but nothing resumes it.</p>
+<p class="muted">Short file names: <code>store.ts</code>, <code>jobs.ts</code>, <code>extensions.ts</code>, <code>addons.ts</code>, <code>routes.ts</code>, <code>faux.ts</code>, <code>main.ts</code> = <code>apps/dpi-backend/src/</code>; <code>helpers.ts</code>, <code>recovery.test.ts</code> = <code>apps/dpi-backend/tests/</code>; <code>watcher.ts</code>, <code>watch-store.ts</code>, <code>config.ts</code> (demo) = <code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/</code>; <code>drivers.ts</code> = <code>apps/dpi-sdk/src/node/</code>; <code>spec.md</code>, <code>readme.md</code>, <code>announcement.md</code> = <code>ai_docs/durable_pi/</code>.</p>
+<p class="muted">Tags: <span class="tag t-doc">pd-doc</span> from the pi-durable docs, not its source code (the source is not in the checkout). <span class="tag t-inf">inferred</span> follows from the code but was not run. <span class="tag t-unv">unverified</span> not confirmed by code or docs.</p>
+<p>Each "What breaks" entry has two parts. <span class="now">Now</span> is what breaks with the code as it is today. <span class="later">Later</span> is what breaks when you add the thing named.</p>
+</section>
+
+<section id="map">
+<h2>The 11 changes at a glance</h2>
+<div class="tbl"><table>
+<tr><th>#</th><th>Change</th><th>Gap</th><th>Buildable</th><th>Files changed</th><th>Breaks now if not built?</th></tr>
+<tr><td><a href="#c1">C1</a></td><td>Verify the replay policy, then a crash-test harness</td><td>G1-1</td><td>Yes</td><td>new <code>tests/crash.test.ts</code></td><td>No visible break. Risk: later changes rest on an unverified fact.</td></tr>
+<tr><td><a href="#c2">C2</a></td><td>Effect ledger for outside calls</td><td>G2-1</td><td>Yes</td><td><code>extensions.ts</code></td><td>No. No current tool makes a real outside call.</td></tr>
+<tr><td><a href="#c3">C3</a></td><td>Receipts for job steps</td><td>G2-3</td><td>Yes</td><td><code>jobs.ts</code></td><td>No. Today's job commands only read.</td></tr>
+<tr><td><a href="#c4">C4</a></td><td>Retry Jev rows marked <code>error</code></td><td>G2-4</td><td>Yes</td><td><code>watcher.ts</code>, <code>watch-store.ts</code></td><td>Yes, in the demo, during any Jev outage.</td></tr>
+<tr><td><a href="#c5">C5</a></td><td>Report stuck queued follow-ups</td><td>G3-2</td><td>Yes</td><td><code>store.ts</code>, <code>routes.ts</code></td><td>Yes, after any failed run.</td></tr>
+<tr><td><a href="#c6">C6</a></td><td>Start even when the model catalog has gaps</td><td>G3-3</td><td>Yes</td><td><code>store.ts</code></td><td>Yes, after a pi-ai upgrade or a slow model list.</td></tr>
+<tr><td><a href="#c7">C7</a></td><td>Detect a stale lock after a reboot</td><td>G3-4</td><td>Yes</td><td><code>store.ts</code></td><td>Yes, rarely: when a reboot reuses the PID.</td></tr>
+<tr><td><a href="#c8">C8</a></td><td>Make the Jev guard's gaps visible</td><td>G2-2</td><td>In part</td><td><code>addons.ts</code></td><td>No data breaks. Unjudged bash calls leave no record.</td></tr>
+<tr><td><a href="#c9">C9</a></td><td>Backup of idle sessions to another disk</td><td>G2-6</td><td>In part</td><td><code>store.ts</code>, <code>routes.ts</code></td><td>Yes, on disk loss or a deleted data folder.</td></tr>
+<tr><td><a href="#c10">C10</a></td><td>Automatic restart on Windows (WSL2)</td><td>G2-7</td><td>In part</td><td><code>apps/dpi-backend/README.md</code> (docs only)</td><td>Yes, on this machine: no restart after a crash or reboot.</td></tr>
+<tr><td><a href="#c11">C11</a></td><td>Report blocked tasks</td><td>G3-1</td><td>In part</td><td>same code as C5</td><td>No, unless you rename or re-version a job.</td></tr>
+</table></div>
+<p>C5 and C11 share one new method (<code>Store.stuck()</code>) and one new route. They are listed separately because they close different gaps.</p>
+</section>
+
+<section id="corrections">
+<h2>Corrections to the earlier answer</h2>
+<p>Reading the code for this plan changed three statements from the previous chat answer.</p>
+<ol>
+<li><b>G1-1 can be checked without installing and searching the package.</b> The agent detail route already reports every tool's replay policy, including <code>bash</code> (see <a href="#c1">C1</a>). Installing the package is still a valid second check.</li>
+<li><b>G2-3 does not break anything today.</b> The three example jobs run only read commands, and their subagent step is already deduplicated (see <a href="#c3">C3</a>).</li>
+<li><b>"Backup on archive" does not protect against disk loss.</b> <code>archive()</code> renames the session folder into <code>archive/</code> in the same data folder (<code>store.ts:465-492</code>). Ignore that earlier suggestion. <a href="#c9">C9</a> gives the real options.</li>
+</ol>
+</section>
+
+<!-- ============================================================ GROUP A -->
+<section id="yes">
+<h2>Group A: buildable in the repo (7)</h2>
+
+<h3 id="c1">C1. Verify the replay policy, then add a crash-test harness (G1-1)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd>
+<p>Two parts.</p>
+<ol>
+<li><b>A one-request check.</b> Ask a running backend for an agent's detail. The response lists every tool with its <code>replay</code> value, including the built-in <code>bash</code>, <code>read</code>, <code>write</code> and <code>edit</code>. The web Tools tab shows the same list (<code>README.md:159</code>).</li>
+<li><b>A crash-test file.</b> A new test file kills the backend with SIGKILL while a tool runs, restarts it, and checks what happened to the tool and its side effect. It uses the free faux model, so it costs no model spend.</li>
+</ol></dd>
+<dt>Why it is needed</dt><dd>
+<p>The README says a <code>bash</code> call cut off by a restart comes back as "interrupted" (<code>README.md:58</code>). That is true only if the built-in <code>bash</code> tool is <code>unsafe</code>. Its definition is in pi-durable, and the package is not in this checkout. C2, C3 and any tool you add depend on this fact.</p>
+<p>Part 1 alone is not enough. The route computes <code>t.replay ?? "unsafe"</code> (<code>store.ts:712</code>). If the library stores the policy somewhere other than the <code>replay</code> field, the route reports <code>unsafe</code> even when the real behavior differs <span class="tag t-inf">inferred</span>. Part 2 tests the behavior, not the label.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> nothing visible. The risk is in the decisions: if <code>bash</code> is actually <code>safe</code>, a cut-off <code>bash</code> call with a side effect (<code>git push</code>, a deploy script) runs again after a restart, and the docs say it does not.</p>
+<p><span class="later">Later:</span> each pi-durable upgrade can change tool policies without notice (<code>readme.md:7</code>). Without this test, an upgrade that changes them goes unnoticed.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li>Read only, for part 1: <code>store.ts:688-694</code> (<code>toolsOf</code> collects every tool of the agent's selected extensions; <code>CodingTools</code> is selected at <code>store.ts:526</code>) and <code>store.ts:709-716</code> (the <code>tools</code> list with <code>replay</code>). Route: <code>GET /v1/sessions/:s/agents/:a</code> (<code>apps/dpi-backend/API.md:34</code>).</li>
+<li>New file: <code>apps/dpi-backend/tests/crash.test.ts</code>. The test script <code>tsx --test tests/*.test.ts</code> (<code>apps/dpi-backend/package.json:10</code>) picks it up, so <code>just check</code> runs it <span class="tag t-inf">inferred</span>.</li>
+<li>Reuses: <code>helpers.ts</code> (<code>bootServer</code>, <code>tempStore</code>, <code>until</code>, <code>faux</code>), the pattern of <code>recovery.test.ts:8-31</code>, and the faux model's scripted prompts: <code>!&lt;command&gt;</code> makes one <code>bash</code> call (<code>faux.ts:44-47</code>); <code>page: &lt;text&gt;</code> calls <code>ping_on_call_engineer</code> (<code>faux.ts:71</code>); <code>job: &lt;id&gt;</code> starts a job (<code>faux.ts:58-64</code>).</li>
+<li>No product code changes.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<p>Five test cases, each run with a kill delay chosen at random between 50 ms and 3000 ms, so that repeated runs hit different points:</p>
+<ol>
+<li><b>Policy label.</b> Read the agent detail. Record the <code>replay</code> value of <code>bash</code>, <code>read</code>, <code>write</code>, <code>edit</code>.</li>
+<li><b>bash cut off.</b> Send <code>!echo start &gt;&gt; runs.txt; sleep 5; echo end &gt;&gt; runs.txt</code>. Kill during the sleep. Restart. If <code>bash</code> is <code>unsafe</code>: expect an <code>interrupted</code> tool result and exactly one <code>start</code> line. If <code>safe</code>: expect two <code>start</code> lines. Also record whether an <code>end</code> line appears: the shell child process may survive the backend's SIGKILL and finish on its own <span class="tag t-unv">unverified</span>. That would be an outside effect that nobody reports.</li>
+<li><b>Unsafe repo tool cut off.</b> Send <code>page: test</code>. Kill during the 1.5 s pause (<code>extensions.ts:375</code>). Expect <code>interrupted</code> and <code>Pager.paged</code> still false.</li>
+<li><b>Safe repo tool cut off.</b> Kill during an <code>update_state</code> call. Expect the App State change applied once (the receipt at <code>extensions.ts:146-157</code>).</li>
+<li><b>Subagent job step cut off.</b> Start <code>release-check</code>, kill during the Gather phase. Expect one admitted subagent prompt (<code>requestId: job:${task.id}:${spec.id}</code>, <code>jobs.ts:512</code>).</li>
+</ol>
+<p>Run it in WSL2: the cases need <code>bash</code>. Node 22.22.1 is enough (<code>engines</code> is <code>&gt;=22.19.0</code>). Run it from the Linux disk, not <code>/mnt/c</code>: from <code>/mnt/c</code> the server does not start inside the 20 s limit of <code>bootServer</code> (<code>helpers.ts:69-76</code>).</p><p><b>As built.</b> The file has 8 cases: the 5 above, plus <code>stuck()</code> and <code>backup()</code> on an idle session (C5, C9), a lock from another boot (C7), and <code>once()</code> with a stub API (C2). The cases kill at an observed point (the <code>start</code> line, a live tool task, a subagent id), not after a random delay, so the asserts do not depend on luck. Case 4 can miss the <code>update_state</code> call and kill after it ends; its assert (one increment) holds in both cases. The faux model has a new prompt, <code>state: &lt;operation&gt; &lt;path&gt;[ &lt;value json&gt;]</code>, for case 4.</p></dd>
+</dl></div>
+
+<h3 id="c2">C2. Effect ledger for tools that call outside services (G2-1)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>A small helper that wraps one outside call in a receipt. The receipt records "done, with this result". The call carries an idempotency key built from the task id. With the helper, a tool that calls an outside service can be declared <code>replay: "safe"</code>: a rerun after a crash either returns the stored result or repeats the call with the same key, which the service ignores as a duplicate.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>pi-durable makes only the admission of a submission exactly-once (<code>README.md:332</code>). For a tool with an outside effect, it offers two choices, and both have a cost (<code>spec.md:1853-1864</code>) <span class="tag t-doc">pd-doc</span>:</p>
+<ul>
+<li><code>unsafe</code>: a crash mid-call returns <code>interrupted</code>, and the effect may or may not have happened. The model must guess, and it may call again.</li>
+<li><code>safe</code> with no key: the call runs again, so the effect can happen twice.</li>
+</ul>
+<p>The library's own guidance is to pass an idempotency key such as <code>`payment-${task.id}`</code> (<code>announcement.md:459-464</code>). The repo already uses this pattern twice, without a shared helper.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> nothing. No current <code>dpi-backend</code> tool makes a real outside call. <code>ping_on_call_engineer</code> only simulates a page (<code>extensions.ts:374-383</code>). <code>update_state</code> and <code>run_durable_job</code> already use a receipt. In the demo, the deploy is already keyed by its task id.</p>
+<p><span class="later">Later:</span> the first tool you add that posts to Slack, sends an email, charges a card or starts a deploy. As <code>unsafe</code>, every crash during the call leaves the model to guess whether to call again. As <code>safe</code> without a key, every crash during the call can repeat the effect.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>extensions.ts:31-36</code>: the <code>Receipt</code> document (<code>scope: "task"</code>, fields <code>applied</code> and <code>result</code>). The helper goes next to it.</li>
+<li><code>extensions.ts:146-157</code> (<code>update_state</code>) and <code>extensions.ts:223-237</code> (<code>run_durable_job</code>): the two existing copies of the pattern. Changing them to use the helper is optional.</li>
+<li><code>extensions.ts:357-393</code> (<code>ping_on_call_engineer</code>): do <b>not</b> change. It is <code>unsafe</code> on purpose, to demonstrate the <code>interrupted</code> result.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<p>As built (<code>extensions.ts</code>, exported <code>once</code>). No tool uses it yet:</p>
+<pre><code>// Run one outside effect at most once per tool task. `key` goes to the service as its idempotency key.
+export async function once(api, ctx, sessionId: string, effect: (key: string) =&gt; Promise&lt;string&gt;) {
+  const key = `${sessionId}:${api.taskId}`;
+  const done = await api.commit(async (tx) =&gt; { const r = await tx.doc(Receipt, api.taskId); return r.applied ? r.result : undefined; }, ctx);
+  if (done !== undefined) return done;          // a rerun after the effect was recorded
+  const result = await effect(key);             // a rerun before this line repeats the call with the same key
+  await api.commit(async (tx) =&gt; { const r = await tx.doc(Receipt, api.taskId); if (!r.applied) Object.assign(r, { applied: true, result }); }, ctx);
+  return result;
+}</code></pre>
+<p><b>Limit.</b> A crash between the outside call and the receipt commit means the call runs again with the same key. This is safe only if the service accepts an idempotency key, or lets you ask "did key X happen?" before you call. A service with neither keeps a gap that no code here can close.</p></dd>
+</dl></div>
+
+<h3 id="c3">C3. Receipts for job steps (G2-3)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>When a durable job phase resumes after a crash, it runs from the start of the phase again. This change stores each finished step's value. On a resume, a step that already finished returns its stored value instead of running its shell command again.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>Resumption is per phase and iteration, not per step. On resume, <code>runPhase</code> deletes the steps of the interrupted iteration (<code>jobs.ts:681-682</code>) and calls the phase handler again (<code>jobs.ts:698-700</code>). Only App State writes are deduplicated, by key (<code>jobs.ts:439</code>, <code>462-468</code>), and the subagent prompt by <code>requestId</code> (<code>jobs.ts:512</code>).</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> nothing. All three example jobs run only read commands: <code>git rev-parse</code>, <code>git status</code>, <code>ls</code>, <code>find</code>, <code>cksum</code> (<code>jobs.ts:177-320</code>). A resume repeats them and costs only time.</p>
+<p><span class="later">Later:</span> the first job phase that runs a command with an effect (<code>git commit</code>, <code>npm publish</code>, <code>curl -X POST</code>). A crash after that command and before the phase's next checkpoint runs the command again.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>jobs.ts:421-438</code>: <code>step()</code> in <code>phaseApi</code>. Step ids are <code>`${spec.id}:${cp.iteration}:${counter++}`</code> (line 422).</li>
+<li><code>jobs.ts:676-692</code>: the resume branch of <code>runPhase</code>, which deletes the interrupted iteration's steps.</li>
+<li>New: a task-scoped document (the same kind as <code>Receipt</code>, <code>extensions.ts:31-36</code>) that holds <code>{ [stepId]: value }</code>.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<ol>
+<li>In <code>step()</code>, before <code>fn()</code>: read the step-values document. If it has this step id, return the stored value and record the step as done, with the detail "from before the restart".</li>
+<li>In the commit that records the step as done (lines 427-429): also write the value to the document. Then a step is either fully recorded or not recorded.</li>
+<li>In the resume branch (lines 681-682): keep the steps that have a stored value. Delete only the others.</li>
+</ol>
+<p><b>As built, two differences.</b> (1) A skipped step is not written again: its kept record already says done, with its first detail. (2) The "Resumed from the last checkpoint" note used <code>p.note()</code>, which took step number 0 and moved every later step id by one, so stored values would match the wrong steps. The note is now written in the resume commit with the fixed id <code>&lt;phase&gt;:&lt;iteration&gt;:resumed</code>. The document kind is <code>demo.job-step-values</code>. No crash test covers C3: no job step has an effect to count.</p>
+<p><b>Limits.</b> (1) Step ids depend on call order. A handler whose steps depend on time or outside input can call them in a different order on a resume, and the stored values then match the wrong steps. Today's handlers call steps in a fixed order. (2) A crash during the command itself (between the "running" and "done" records) still runs it again. Only a command with its own key, as in C2, avoids that. (3) Calls to <code>p.shell()</code> outside <code>p.step()</code> are not covered. Today every <code>shell()</code> call is inside a <code>step()</code> (<code>jobs.ts:274-278</code>, <code>290-302</code>).</p></dd>
+</dl></div>
+
+<h3 id="c4">C4. Retry Jev rows marked <code>error</code> (G2-4, demo)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>The proactive demo sends each log row to Jev. If the call fails, the row is stored as <code>error</code> and never sent again. This change sends <code>error</code> rows again, at most once per minute per row, until the row is older than the backlog window.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>On a failure, <code>judge()</code> records <code>status: "error"</code> and returns (<code>watcher.ts:155-157</code>). <code>poll()</code> fetches only rows with no verdict row at all (<code>watch-store.ts:82-86</code>: <code>v.log_id IS NULL</code>). The watcher therefore never sees an <code>error</code> row again. Only rows that were in flight at a restart are judged again, because they have no verdict row (<code>watcher.ts:92</code>).</p>
+<p>Two existing facts keep the change small. <code>saveVerdict</code> uses <code>INSERT OR REPLACE</code> (<code>watch-store.ts:99</code>), so a successful retry overwrites the <code>error</code> row without a schema change. The backlog window (<code>--backlog</code>, default 300 s, <code>config.ts:32</code>) already limits how long a row is worth judging, so it also limits the retries.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> during any Jev outage, every row in that period stays unjudged. Incident detection counts verdicts by log time in a 120 s window, so failures that happen during the outage never count toward the threshold of 3. The demo recovers only because the bug keeps producing new failing rows <span class="tag t-inf">inferred</span>.</p>
+<p><span class="later">Later:</span> on a real log stream, a short burst of real errors during a Jev outage is never reported.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>watch-store.ts</code>: a new method next to <code>unjudgedAfter</code> (lines 82-89). The <code>verdicts</code> table (lines 62-76) already has <code>status</code>, <code>log_ts</code> and <code>judged_at</code>.</li>
+<li><code>watcher.ts:101-112</code>: <code>poll()</code> also queues the retry rows.</li>
+<li><code>watcher.ts:68-73</code>: a new set of row ids that are queued or in flight, so a row is not queued twice. <code>poll()</code> runs every 300 ms (line 93).</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<pre><code>-- watch-store.ts: error rows judged more than 60 s ago, still inside the backlog window
+SELECT &lt;log columns&gt; FROM lg.logs l JOIN verdicts v ON v.log_id = l.id
+WHERE v.status = 'error' AND v.judged_at &lt; :now_minus_60s AND v.log_ts &gt; :now_minus_backlog
+ORDER BY l.id LIMIT 50</code></pre>
+<p>With a 60 s interval and the default 300 s backlog, a row is retried at most about 4 times, at about $0.00003 per call. A retried row whose log time is older than the 120 s incident window is judged, but it does not count toward a new incident. That matches the current rule that the window uses log time.</p></dd>
+</dl></div>
+
+<h3 id="c5">C5. Report follow-ups stuck after a failed run (G3-2)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>A read-only check that lists queued follow-up messages in a conversation with no work running. The person then withdraws them with the existing route, or sends a new message. The check does not resend anything by itself (see <a href="#questions">open questions</a>).</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>"Failure and task abort leave the inbox alone. Queued follow-ups wait in <code>pi.inbox</code>, and their <code>wait()</code> does not settle, until the next submission's boundary places them or the host withdraws them" (<code>spec.md:4559-4564</code>) <span class="tag t-doc">pd-doc</span>. Nothing in the backend looks for this state today.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> after a run fails (for example a model API error or no credit left), a follow-up that the person queued stays in the queue strip. A program that waits on that submission through the SDK waits with no error and no time limit. With no person watching, the message never runs.</p>
+<p><span class="later">Later:</span> any unattended agent that receives queued input, such as a proactive watcher sending follow-ups, stops responding after one failed run.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>store.ts:885-887</code>: <code>inspect()</code> already returns <code>h.inspect(ctx)</code>: every live task with its state, and every queued or placed submission (<code>spec.md:506-526</code>).</li>
+<li>New: <code>Store.stuck(h)</code> next to <code>inspect()</code>. <a href="#c11">C11</a> uses the same method.</li>
+<li><code>routes.ts:94</code>: next to <code>/sessions/:s/inspect</code>, a new <code>GET /sessions/:s/stuck</code>.</li>
+<li>Existing action, unchanged: withdraw, <code>routes.ts:151-152</code> → <code>store.ts:845-847</code> (<code>h.abortSubmission</code>).</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<pre><code>// store.ts, next to inspect(). Reads only.
+async stuck(h: Harness) {
+  const { tasks, submissions } = await h.inspect(ctx);
+  const busy = new Set(tasks.filter((t) =&gt; t.state.kind !== "blocked").map((t) =&gt; t.record.conversationId));
+  return {
+    blocked: tasks.filter((t) =&gt; t.state.kind === "blocked").map((t) =&gt; ({ taskId: t.record.id, reason: t.state.reason })),   // C11
+    queued: submissions.filter((s) =&gt; s.status === "queued" &amp;&amp; !busy.has(s.conversationId)).map((s) =&gt; ({ submissionId: s.id, conversationId: s.conversationId })),
+  };
+}</code></pre>
+<p>The check runs only when the route is called. It adds no timer. The field <code>record.conversationId</code> is the one <code>Store.tasks()</code> already reads (<code>store.ts:874</code>). A background job owned by the conversation counts as "busy" in this sketch. Whether queued follow-ups wait for such a job is not clear from the docs <span class="tag t-unv">unverified</span>, so C1's harness should add a case for it.</p></dd>
+</dl></div>
+
+<h3 id="c6">C6. Start even when the model catalog has gaps (G3-3)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>Today the backend refuses to start if any of the 29 curated models is missing from pi-ai's OpenRouter catalog, or if the live model list does not load in 10 s. This change makes both cases a logged warning. The backend starts with the models that exist, and it fails only if none exist.</p></dd>
+<dt>Why it is needed</dt><dd>
+<ul>
+<li><code>store.ts:184-185</code>: the constructor throws <code>OpenRouter catalog missing &lt;id&gt;</code> for the first missing model.</li>
+<li><code>store.ts:282</code>: <code>getAvailable(..., { signal: AbortSignal.timeout(10000) })</code> throws on a timeout or an error. <code>Store.open</code> catches it, closes the store and throws again (<code>store.ts:229-231</code>), so <code>main.ts:12</code> fails.</li>
+<li>The service file has <code>Restart=always</code> and <code>RestartSec=2</code> (<code>apps/dpi-backend/deploy/dpi-backend.service:14-15</code>). systemd starts the backend again every 2 s, and each attempt fails the same way. Whether systemd's default start limit stops the loop depends on how fast each attempt fails <span class="tag t-inf">inferred</span>.</li>
+</ul>
+<p>Neither throw leaves a stale lock. The line-185 throw happens before the first lock is taken (line 192). After the line-282 throw, <code>close()</code> removes the locks (<code>store.ts:1174-1188</code>).</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> a pi-ai upgrade that drops or renames one curated model id, or a model list that takes more than 10 s to load at boot, stops the whole device. Every session on it pauses. The data is safe on disk, but nothing resumes until someone edits <code>apps/dpi-backend/src/model-catalog.ts</code> or the network recovers.</p>
+<p><span class="later">Later:</span> the same, on every device, after each pi-ai upgrade.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>store.ts:181-190</code>: constructor, OpenRouter branch.</li>
+<li><code>store.ts:270-300</code>: <code>loadModels()</code>.</li>
+<li><code>store.ts:302-312</code>: <code>routedModel()</code>. It already sends a stored model that is not curated to <code>defaultModelId</code>.</li>
+<li><code>apps/dpi-backend/src/model-catalog.ts:4</code> (<code>curatedModels</code>), <code>:180</code> (<code>defaultModelId = "anthropic/claude-sonnet-5.5"</code>).</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<ol>
+<li>Constructor: replace the throw with a filter. Keep the curated models that exist in the catalog as a field (<code>present</code>). Log each missing id with <code>console.error</code>. If <code>defaultModelId</code> is missing, use the first model in <code>present</code>. Throw only if <code>present</code> is empty.</li>
+<li><code>routedModel()</code> and <code>validateModel()</code>: check against <code>present</code> instead of <code>curatedModels</code>, so a session whose model disappeared moves to the default model at open (the existing loop at <code>store.ts:545-551</code> applies it).</li>
+<li><code>loadModels()</code>: wrap <code>getAvailable</code> in try/catch. On an error, log it and build the list from the catalog read in the constructor. That catalog is read with no timeout. Whether it needs the network is <span class="tag t-unv">unverified</span>. Whether its entries have the same <code>contextWindow</code>, <code>reasoning</code> and <code>cost</code> fields is <span class="tag t-inf">inferred</span> from the shared model type.</li>
+</ol></dd>
+</dl></div>
+
+<h3 id="c7">C7. Detect a stale lock after a reboot (G3-4)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>Each database has a lock file that holds the owner's process id (PID). After a crash, a new start removes the lock only if that PID is dead. This change also writes a boot identifier into the lock. A lock written during an earlier boot is always stale, even if its PID now belongs to another process.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p><code>lockFile()</code> writes <code>String(process.pid)</code> (<code>store.ts:105</code>). On <code>EEXIST</code> it sends signal 0 to that PID (lines 110-117). If any live process has that PID, startup fails with <code>Database already owned by process N</code> (line 118). After a reboot, PIDs are reused, so a lock left by a crash before the reboot can name a live, unrelated process.</p>
+<p>pi-durable has no lock between processes (<code>readme.md:547</code>) <span class="tag t-doc">pd-doc</span>. This lock file is the only protection against two processes on one database, so the change must never make a live lock look stale.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> after a power loss or a crash followed by a reboot, the backend can refuse to start. All sessions stay paused until a person deletes the <code>*.sqlite.lock</code> file named in the error. The risk is higher with automatic restart (C10), because nobody is watching. Each start uses 3 kinds of lock: <code>catalog.sqlite.lock</code>, <code>app-state.sqlite.lock</code>, and one per session (lines 192, 214, 499).</p>
+<p><span class="later">Later:</span> the same, with more sessions and more lock files.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>store.ts:103-127</code>: <code>lockFile()</code>. Three places change: <code>take()</code> (line 105), the stale check (lines 110-120), and the <code>unlock</code> closure (lines 122-126).</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<ol>
+<li><code>take()</code> writes <code>`${process.pid} ${bootId}`</code>.</li>
+<li>Get <code>bootId</code> from a source that does not depend on the wall clock: on Linux and WSL2, the file <code>/proc/sys/kernel/random/boot_id</code>; on macOS, <code>sysctl -n kern.boottime</code> <span class="tag t-unv">unverified</span> as clock-independent. If neither works, write the PID only, as today.</li>
+<li>Stale check: if the file has a boot id and it is different from the current one, the lock is stale. Remove it and take it. Otherwise use today's PID check. A file with a PID only (the old format) uses today's PID check.</li>
+<li><code>unlock</code>: compare the file with the exact string that <code>take()</code> wrote, not with <code>String(process.pid)</code>. If this step is missed, a clean shutdown never deletes the lock, and every start after it depends on the stale check.</li>
+</ol>
+<p><b>Do not</b> compute the boot time as <code>Date.now() - os.uptime() * 1000</code>. A wall-clock change larger than the tolerance would make a live lock look stale, and two processes could then open one database.</p>
+<p><b>Limit.</b> A PID reused in the same boot (a crash, then an unrelated process gets that PID before the backend restarts) still blocks startup. Closing that case requires a check of the process command line (<code>/proc/&lt;pid&gt;/cmdline</code> on Linux, <code>ps -o command= -p &lt;pid&gt;</code> on macOS).</p></dd>
+</dl></div>
+</section>
+
+<!-- ============================================================ GROUP B -->
+<section id="part">
+<h2>Group B: buildable in part (4)</h2>
+
+<h3 id="c8">C8. Make the Jev guard's gaps visible (G2-2)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>One log line each time the Jev damage-control guard lets a <code>bash</code> command run without a verdict, plus a written rule for future hooks. This change does not make the guard stronger. It makes its gaps visible in <code>backend.log</code>.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>Three library behaviors limit any <code>beforeTool</code> guard <span class="tag t-doc">pd-doc</span>:</p>
+<ul>
+<li>A hook runs outside the commit line and can run twice after a crash (<code>spec.md:2545-2546</code>). The Jev guard already handles this with a memo (<code>addons.ts:122-125</code>).</li>
+<li>When a <code>safe</code> tool runs again after a crash, <code>beforeTool</code> is skipped. The rerun uses the conversation's current working directory, which can differ from the first attempt (<code>spec.md:2917-2925</code>, <code>4661-4663</code>).</li>
+<li>When Jev fails, the guard returns with no verdict and the command runs (<code>addons.ts:126-128</code>, "Fails open"). Nothing records that this happened.</li>
+</ul></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> no data breaks. During a Jev outage (no key, a timeout, an error), every <code>bash</code> command runs unjudged and leaves no trace that the guard was skipped. The guard is off by default.</p>
+<p><span class="later">Later:</span> a new hook that asks a person or an API and does not use a memo asks twice after a crash.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>addons.ts:126-128</code>: the <code>catch</code> branch of the Jev guard.</li>
+<li><code>addons.ts:1-6</code>: the file header, for the rule about hooks.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<ol>
+<li>In the <code>catch</code> branch: <code>console.error("[jev-damage-control] unjudged, ran anyway:", command, error message)</code>. <code>backend.log</code> receives standard error (<code>dpi-backend.service:18-19</code>).</li>
+<li>In the header: "A hook that asks a person or an outside API must store the answer with <code>api.memo</code>, as the Jev guard does."</li>
+</ol>
+<p><b>Why not store the fail-open result in the memo.</b> A memo disappears when the task ends (<code>spec.md:1866-1869</code>) <span class="tag t-doc">pd-doc</span>, so it is not a lasting record. Storing the fail-open result would also stop a second attempt to ask Jev if the hook runs again after a crash.</p>
+<p><b>What stays open.</b> The skipped <code>beforeTool</code> on a rerun and the current working directory on a rerun are library behavior. A check that must run on every execution must be inside the tool itself, and the built-in <code>bash</code> is a library tool. Whether the repo can replace it with its own <code>bash</code> wrapper is <span class="tag t-unv">unverified</span>.</p></dd>
+</dl></div>
+
+<h3 id="c9">C9. Backup of idle sessions to another disk (G2-6)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>A route that copies a session's database to a backup folder while the session is idle. You point that folder to another disk or a synced folder. A scheduler you choose (cron in WSL2) calls the route.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>Each session is one <code>agent.sqlite</code> file on one disk. The code read for this plan has no copy, snapshot or replication step. <code>archive()</code> only renames the session folder into <code>archive/</code> in the same data folder (<code>store.ts:465-492</code>).</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> disk failure loses every session, all App State and the catalog. Also, an agent runs <code>bash</code> as the same user that owns <code>~/.dpi</code>, so one wrong command from the agent can delete its own database <span class="tag t-inf">inferred</span>. The Jev guard is off by default and fails open.</p>
+<p><span class="later">Later:</span> more sessions and longer histories at risk on one disk.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li><code>store.ts:464-492</code>: <code>archive()</code>. The new <code>backup()</code> reuses its close sequence (lines 472-478) without the abort at lines 468-471.</li>
+<li><code>store.ts:494-565</code>: <code>openAgent()</code>, to reopen after the copy, then <code>harness.resume()</code>.</li>
+<li><code>routes.ts</code>: a new <code>POST /sessions/:s/backup</code>, next to the other session routes (around lines 81-94).</li>
+<li>Uses <code>Store.stuck()</code> / <code>inspect()</code> from <a href="#c5">C5</a> to check that the session is idle.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<p><b>Option A (inside the documented contract).</b></p>
+<ol>
+<li>Call <code>h.inspect(ctx)</code>. If any task is live or any submission is queued, return "busy, try later".</li>
+<li>Close the harness and remove its lock, as <code>archive()</code> does. "Close writes no outcomes, so the work resumes on the next open" (<code>spec.md:927-945</code>) <span class="tag t-doc">pd-doc</span>.</li>
+<li>Copy <code>agent.sqlite</code> and any <code>agent.sqlite-wal</code> and <code>agent.sqlite-shm</code> files to <code>&lt;backup dir&gt;/&lt;session id&gt;-&lt;time&gt;/</code>.</li>
+<li>Call <code>openAgent(row)</code>, then <code>harness.resume()</code>.</li>
+</ol>
+<p>A message that arrives during the copy waits until the reopen. The copy takes about as long as copying the file.</p>
+<p><b>Option B (outside the documented contract).</b> Open a second <code>node:sqlite</code> connection to the same file in the same process and use SQLite's online backup. The session does not close. <code>readme.md:547</code> covers a second process, not a second connection in the same process. Whether this is safe is <span class="tag t-unv">unverified</span>.</p>
+<p><b>What stays open.</b> <code>app-state.sqlite</code> is one pi-durable harness shared by every session (<code>apps/dpi-backend/src/shared-state.ts:36-37</code>). Closing it for a copy stops every agent's <code>update_state</code> for that time. <code>catalog.sqlite</code> is a plain SQLite file that the repo owns (<code>store.ts:193</code>), so <code>VACUUM INTO '&lt;path&gt;'</code> on that connection copies it without a close. The off-disk destination and the schedule are your decision (<a href="#questions">open questions</a>).</p></dd>
+</dl></div>
+
+<h3 id="c10">C10. Automatic restart on Windows through WSL2 (G2-7)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>A way to restart the backend automatically on this Windows 11 machine, with the service file the repo already has. The backend runs as a systemd service inside WSL2. A Windows Task Scheduler entry starts WSL2 when you log on.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>The repo's restart layer is systemd (<code>Restart=always</code>, <code>dpi-backend.service:14</code>) or launchd (<code>KeepAlive</code>, <code>dpi-backend.plist:21</code>). There is no native Windows equivalent. The installer already supports a device of kind <code>local</code> with <code>service: systemd</code>: it fills <code>deploy/dpi-backend.service</code> and installs it with <code>sudo -n systemctl enable</code> and <code>restart</code> (<code>drivers.ts:152-198</code>, local path at line 156). WSL2 runs systemd when it is turned on in <code>/etc/wsl.conf</code>.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> on this machine, a crash or a reboot leaves every session paused until you run <code>just backend run</code> by hand. Nothing is lost. The proactive demo stops watching logs during that time.</p>
+<p><span class="later">Later:</span> C6 and C7 matter less without automatic restart, because a person is present at each start. With C10, they matter more.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li>No code changes.</li>
+<li><code>apps/dpi-backend/README.md:54</code>: the service table. Add a Windows row.</li>
+<li>Reused as they are: <code>apps/dpi-backend/deploy/dpi-backend.service</code>, <code>drivers.ts:152-198</code>.</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<ol>
+<li>In WSL2, add to <code>/etc/wsl.conf</code>: <code>[boot]</code> and <code>systemd=true</code>. Then run <code>wsl --shutdown</code> from Windows.</li>
+<li>In <code>dpi-network.yaml</code>, set the WSL2 device to kind <code>local</code> with <code>service: systemd</code>. Run <code>just net up &lt;id&gt;</code> from inside WSL2. This needs <code>sudo -n</code> (<code>apps/dpi-backend/README.md:54</code>).</li>
+<li>In Windows, create a Task Scheduler task that runs at log on and starts the WSL2 distribution, for example <code>schtasks /Create /TN "dpi-backend WSL" /SC ONLOGON /TR "wsl.exe -d Ubuntu --exec /bin/true"</code> <span class="tag t-unv">unverified</span>.</li>
+<li>Document steps 1–3 in the README row.</li>
+</ol>
+<p><b>What stays open.</b> Whether WSL2 keeps the VM running while only a systemd service runs, or shuts it down when idle, is <span class="tag t-unv">unverified</span>. A log-on trigger needs a log-on. A restart with nobody logged on needs a different trigger, also <span class="tag t-unv">unverified</span>. Test both after setup: reboot the machine, log on, and check <code>systemctl status dpi-backend</code> in WSL2.</p></dd>
+</dl></div>
+
+<h3 id="c11">C11. Report blocked tasks (G3-1)</h3>
+<div class="fix"><dl>
+<dt>What it is</dt><dd><p>The same <code>Store.stuck()</code> check as C5 also lists tasks that pi-durable cannot run because their definition is missing, too old, or failed to migrate. A person then puts the definition back, or ends the task with the existing abort route.</p></dd>
+<dt>Why it is needed</dt><dd>
+<p>A task whose definition is missing stays <code>pending</code> or <code>waiting</code> and is blocked with <code>missing_task</code>, <code>task_too_old</code> or <code>migration_failed</code>. It stays live and is never ended automatically (<code>spec.md:611-623</code>, <code>1997-2000</code>) <span class="tag t-doc">pd-doc</span>. In this repo, job tasks are named <code>demo.job.&lt;id&gt;</code> with <code>version: 1</code> (<code>jobs.ts:719-723</code>), and approvals are <code>demo.job-approval</code> (<code>jobs.ts:376-378</code>). Renaming a job id in <code>JOB_DEFS</code> (<code>jobs.ts:64</code>), or changing <code>version</code> without <code>migrate</code>, while a run is live, blocks that run.</p></dd>
+<dt>What breaks if not built</dt><dd>
+<p><span class="now">Now:</span> nothing, unless you edit the job definitions. No code in <code>apps/</code> calls <code>waitForIdle</code>, so the "wait until idle hangs" case from the docs does not occur in this repo today.</p>
+<p><span class="later">Later:</span> you rename or re-version a job while a run waits for approval (<code>release-check</code> waits for a person with no time limit). The run blocks. If <code>run_durable_job</code> started it with <code>wait: true</code>, the tool call that owns it (<code>extensions.ts:231</code>) waits forever. The conversation's run then never ends, and follow-ups queue behind it <span class="tag t-inf">inferred</span>.</p></dd>
+<dt>Files and sections</dt><dd>
+<ul>
+<li>The <code>blocked</code> line of <code>Store.stuck()</code> in <a href="#c5">C5</a>. There is no extra code.</li>
+<li>Existing action, unchanged: <code>POST /sessions/:s/tasks/:taskId/abort</code> (<code>routes.ts:91-92</code> → <code>store.ts:879-883</code>).</li>
+</ul></dd>
+<dt>The change</dt><dd>
+<p>Only the report. To fix a blocked task, use one of two actions:</p>
+<ol>
+<li><b>Put the definition back</b> (or add <code>migrate</code>). The task unblocks by itself, because a blocked task "is reconsidered whenever the registry changes" (<code>spec.md:2000</code>).</li>
+<li><b>Abort it.</b> A blocked task cannot run its abort handler, so it ends <code>orphaned</code>, not <code>aborted</code>. "External effects the task started may remain uncleaned" (<code>spec.md:2004-2013</code>) <span class="tag t-doc">pd-doc</span>.</li>
+</ol>
+<p><b>What stays open.</b> The library decides when a task is blocked. The repo can only report it and choose one of these two actions. The lasting rule: keep old task definitions until no live task uses them.</p></dd>
+</dl></div>
+</section>
+
+<section id="order">
+<h2>Build order</h2>
+<div class="tbl"><table>
+<tr><th>Step</th><th>Changes</th><th>Why in this order</th></tr>
+<tr><td>1</td><td>C1, then C6, C7, C4</td><td>C1 confirms the replay fact that C2 and C3 depend on, and it is the test for every later change. C6, C7 and C4 are each a few lines in one or two files.</td></tr>
+<tr><td>2</td><td>C2, C3</td><td>Both change how effects run. Add a C1 case for each.</td></tr>
+<tr><td>3</td><td>C5 + C11 (one method), C8</td><td>Read-only reports and one log line.</td></tr>
+<tr><td>4</td><td>C9, C10</td><td>Each needs a decision from you first (<a href="#questions">open questions</a>) and a test on this machine.</td></tr>
+</table></div>
+<p>C6, C5 and C7 all change <code>store.ts</code> (lines 103-127, 181-312, 885-887). Build them as separate, small changes so that each one can be checked alone. Each change makes your copy differ more from the upstream repo. When upstream or pi-durable changes, you must merge your changes again.</p>
+</section>
+
+<section id="questions">
+<h2>Open questions (decided 2026-10-12: 1 report only, 2 option A, 3 README only, 4 own copy)</h2>
+<ol>
+<li><b>C5: report only, or resend automatically?</b> This plan reports stuck follow-ups and leaves the action to a person. Automatic resend costs model spend, and it can send an old message into a context that has changed since.</li>
+<li><b>C9: where and how often?</b> Which disk or synced folder holds the backups, and how often should cron call the backup route? Option A (close, copy, reopen) or option B (second connection, unverified)?</li>
+<li><b>C10: is WSL2 with systemd the way you want to run the backend on Windows?</b> The alternative is to run it on another Linux or macOS machine with the existing service files.</li>
+<li><b>Fork or upstream?</b> Do these changes live in your own copy of the repo, or do you intend to offer them to the repo's owner? This decides how much you care about the merge cost in <a href="#order">Build order</a>.</li>
+</ol>
+</section>
+
+</main>
+</div>
+</body>
+</html>

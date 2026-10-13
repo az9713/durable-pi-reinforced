@@ -1,0 +1,20 @@
+[
+  {
+    "dir": "01-initial",
+    "message": "chore: checkout-api service skeleton",
+    "author": "Priya Raman <priya@lumen.market>",
+    "hoursAgo": 290
+  },
+  {
+    "dir": "02-regional-tax",
+    "message": "feat(pricing): regional tax rates",
+    "author": "Marcus Lee <marcus@lumen.market>",
+    "hoursAgo": 140
+  },
+  {
+    "dir": "03-loyalty",
+    "message": "feat(pricing): apply loyalty tier discounts at checkout",
+    "author": "Jordan Kim <jordan@lumen.market>",
+    "hoursAgo": 2
+  }
+]

@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t04 d04" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="t04">Judge every row. Wake one agent.</title>
+  <desc id="d04">Jev, a cheap classifier model, labels every production log row normal, suspicious or incident at two rows per second; code counts the verdicts, and three incidents or eight suspicious rows with one fingerprint within 120 seconds wake a durable incident agent that checks off detection through ready for review and then waits for deploy approval.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M 0 0H3V2H2V1H0Z"/>
+        <path d="M 0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M 3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-check-o" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M 9.5 16.5 L14 21 L22.5 11.5" fill="none" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <marker id="ah-muted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M 0 0 L10 5 L0 10 Z" fill="#B9AAAE"/>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M 0 0 L10 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+  </defs>
+  <style>
+    /* One 15 s loop: rows arrive and get verdicts, incident rows fill the counter, the third fires the agent,
+       stages check off, then the finished diagram holds. Un-animated, every element shows its final state. */
+    .a { animation-duration: 15s; animation-iteration-count: infinite; animation-timing-function: ease; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+    .rw0 { animation-name: rw0 }
+    @keyframes rw0 { 0%, 4% { opacity: 0; transform: translateY(10px) } 5.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd0 { animation-name: vd0 }
+    @keyframes vd0 { 0%, 6% { opacity: 0 } 7%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw1 { animation-name: rw1 }
+    @keyframes rw1 { 0%, 7.33% { opacity: 0; transform: translateY(10px) } 8.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd1 { animation-name: vd1 }
+    @keyframes vd1 { 0%, 9.33% { opacity: 0 } 10.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .hl1 { animation-name: hl1 }
+    @keyframes hl1 { 0%, 9.33% { opacity: 0 } 10.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw2 { animation-name: rw2 }
+    @keyframes rw2 { 0%, 10.67% { opacity: 0; transform: translateY(10px) } 12%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd2 { animation-name: vd2 }
+    @keyframes vd2 { 0%, 12.67% { opacity: 0 } 13.67%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw3 { animation-name: rw3 }
+    @keyframes rw3 { 0%, 14% { opacity: 0; transform: translateY(10px) } 15.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd3 { animation-name: vd3 }
+    @keyframes vd3 { 0%, 16% { opacity: 0 } 17%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw4 { animation-name: rw4 }
+    @keyframes rw4 { 0%, 17.33% { opacity: 0; transform: translateY(10px) } 18.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd4 { animation-name: vd4 }
+    @keyframes vd4 { 0%, 19.33% { opacity: 0 } 20.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .hl4 { animation-name: hl4 }
+    @keyframes hl4 { 0%, 19.33% { opacity: 0 } 20.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .tx4 { animation-name: tx4 }
+    @keyframes tx4 { 0%, 19.33% { fill: #B9AAAE } 20.33%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    .rw5 { animation-name: rw5 }
+    @keyframes rw5 { 0%, 20.67% { opacity: 0; transform: translateY(10px) } 22%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd5 { animation-name: vd5 }
+    @keyframes vd5 { 0%, 22.67% { opacity: 0 } 23.67%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw6 { animation-name: rw6 }
+    @keyframes rw6 { 0%, 24% { opacity: 0; transform: translateY(10px) } 25.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd6 { animation-name: vd6 }
+    @keyframes vd6 { 0%, 26% { opacity: 0 } 27%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .hl6 { animation-name: hl6 }
+    @keyframes hl6 { 0%, 26% { opacity: 0 } 27%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .tx6 { animation-name: tx6 }
+    @keyframes tx6 { 0%, 26% { fill: #B9AAAE } 27%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    .rw7 { animation-name: rw7 }
+    @keyframes rw7 { 0%, 27.33% { opacity: 0; transform: translateY(10px) } 28.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd7 { animation-name: vd7 }
+    @keyframes vd7 { 0%, 29.33% { opacity: 0 } 30.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rw8 { animation-name: rw8 }
+    @keyframes rw8 { 0%, 30.67% { opacity: 0; transform: translateY(10px) } 32%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd8 { animation-name: vd8 }
+    @keyframes vd8 { 0%, 32.67% { opacity: 0 } 33.67%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .hl8 { animation-name: hl8 }
+    @keyframes hl8 { 0%, 32.67% { opacity: 0 } 33.67%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .tx8 { animation-name: tx8 }
+    @keyframes tx8 { 0%, 32.67% { fill: #B9AAAE } 33.67%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    .rw9 { animation-name: rw9 }
+    @keyframes rw9 { 0%, 34% { opacity: 0; transform: translateY(10px) } 35.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(10px) } }
+    .vd9 { animation-name: vd9 }
+    @keyframes vd9 { 0%, 36% { opacity: 0 } 37%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .mid { animation-name: mid }
+    @keyframes mid { 0%, 34.67% { stroke: #443438 } 36%, 96% { stroke: #FF5252 } 100% { stroke: #443438 } }
+    .bx1 { animation-name: bx1 }
+    @keyframes bx1 { 0%, 20.33% { fill: #2C2225; stroke: #6B5A5E } 21.67%, 96% { fill: #FF5252; stroke: #FF5252 } 100% { fill: #2C2225; stroke: #6B5A5E } }
+    .dg1 { animation-name: dg1 }
+    @keyframes dg1 { 0%, 20.33% { fill: #B9AAAE } 21.67%, 96% { fill: #141011 } 100% { fill: #B9AAAE } }
+    .bx2 { animation-name: bx2 }
+    @keyframes bx2 { 0%, 27% { fill: #2C2225; stroke: #6B5A5E } 28.33%, 96% { fill: #FF5252; stroke: #FF5252 } 100% { fill: #2C2225; stroke: #6B5A5E } }
+    .dg2 { animation-name: dg2 }
+    @keyframes dg2 { 0%, 27% { fill: #B9AAAE } 28.33%, 96% { fill: #141011 } 100% { fill: #B9AAAE } }
+    .bx3 { animation-name: bx3 }
+    @keyframes bx3 { 0%, 33.67% { fill: #2C2225; stroke: #6B5A5E } 35%, 96% { fill: #FF5252; stroke: #FF5252 } 100% { fill: #2C2225; stroke: #6B5A5E } }
+    .dg3 { animation-name: dg3 }
+    @keyframes dg3 { 0%, 33.67% { fill: #B9AAAE } 35%, 96% { fill: #141011 } 100% { fill: #B9AAAE } }
+    .fire { animation-name: fire }
+    @keyframes fire { 0%, 35.33% { opacity: 0; transform: translateX(-14px) } 37.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-14px) } }
+    .rp { animation-name: rp }
+    @keyframes rp { 0%, 37.33% { stroke: #443438 } 39.33%, 96% { stroke: #FF5252 } 100% { stroke: #443438 } }
+    .ag { animation-name: ag }
+    @keyframes ag { 0%, 37.33% { opacity: .3 } 39.33%, 96% { opacity: 1 } 100% { opacity: .3 } }
+    .ck0 { animation-name: ck0 }
+    @keyframes ck0 { 0%, 41.33% { opacity: 0; transform: scale(.4) } 43%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .lb0 { animation-name: lb0 }
+    @keyframes lb0 { 0%, 41.33% { fill: #6B5A5E } 43%, 96% { fill: #F3EDEE } 100% { fill: #6B5A5E } }
+    .ck1 { animation-name: ck1 }
+    @keyframes ck1 { 0%, 44.67% { opacity: 0; transform: scale(.4) } 46.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .lb1 { animation-name: lb1 }
+    @keyframes lb1 { 0%, 44.67% { fill: #6B5A5E } 46.33%, 96% { fill: #F3EDEE } 100% { fill: #6B5A5E } }
+    .ck2 { animation-name: ck2 }
+    @keyframes ck2 { 0%, 48% { opacity: 0; transform: scale(.4) } 49.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .lb2 { animation-name: lb2 }
+    @keyframes lb2 { 0%, 48% { fill: #6B5A5E } 49.67%, 96% { fill: #F3EDEE } 100% { fill: #6B5A5E } }
+    .ck3 { animation-name: ck3 }
+    @keyframes ck3 { 0%, 51.33% { opacity: 0; transform: scale(.4) } 53%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .lb3 { animation-name: lb3 }
+    @keyframes lb3 { 0%, 51.33% { fill: #6B5A5E } 53%, 96% { fill: #F3EDEE } 100% { fill: #6B5A5E } }
+    .ck4 { animation-name: ck4 }
+    @keyframes ck4 { 0%, 54.67% { opacity: 0; transform: scale(.4) } 56.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .lb4 { animation-name: lb4 }
+    @keyframes lb4 { 0%, 54.67% { fill: #6B5A5E } 56.33%, 96% { fill: #F3EDEE } 100% { fill: #6B5A5E } }
+    .lb5 { animation-name: lb5 }
+    @keyframes lb5 { 0%, 58% { fill: #6B5A5E } 60%, 96% { fill: #B9AAAE } 100% { fill: #6B5A5E } }
+    .aw { animation-name: aw }
+    @keyframes aw { 0%, 58% { opacity: 0; transform: translateY(8px) } 60%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(8px) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="660" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Judge every row. Wake one agent.</text>
+
+  <!-- Jev judges every row -->
+  <rect x="48" y="104" width="474" height="516" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="68" y="142" font-size="20" font-weight="600" letter-spacing="1" fill="#F3EDEE">JEV JUDGES</text>
+  <text x="499" y="142" font-size="20" letter-spacing="1" fill="#B9AAAE" text-anchor="end">2 ROWS PER SECOND</text>
+  <g class="a rw0">
+    <text x="68" y="190" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/checkout</text>
+    <text class="a vd0" x="363" y="189" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <g class="a rw1">
+    <rect class="a hl1" x="57" y="203" width="456" height="30" rx="6" fill="none" stroke="#9B3839" stroke-width="2"/>
+    <text x="68" y="226" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/orders 4210ms</text>
+    <text class="a vd1" x="363" y="225" font-size="20" font-weight="600" letter-spacing="1" fill="#E0787B">SUSPICIOUS</text>
+  </g>
+  <g class="a rw2">
+    <text x="68" y="262" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/products</text>
+    <text class="a vd2" x="363" y="261" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <g class="a rw3">
+    <text x="68" y="298" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">402 /v1/checkout</text>
+    <text class="a vd3" x="363" y="297" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <g class="a rw4">
+    <g class="a hl4">
+      <rect x="56" y="310" width="458" height="32" rx="6" fill="#3A1D20"/>
+      <rect x="56" y="310" width="4" height="32" rx="2" fill="#FF5252"/>
+    </g>
+    <text class="a tx4" x="68" y="334" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#FF5252">500 /v1/checkout</text>
+    <g class="a vd4">
+      <text x="363" y="333" font-size="20" font-weight="600" letter-spacing="1" fill="#FF5252">INCIDENT</text>
+      <circle cx="487" cy="326" r="12" fill="#FF5252"/>
+      <text x="487" y="333" font-size="20" font-weight="700" fill="#141011" text-anchor="middle">1</text>
+    </g>
+  </g>
+  <g class="a rw5">
+    <text x="68" y="370" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/checkout</text>
+    <text class="a vd5" x="363" y="369" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <g class="a rw6">
+    <g class="a hl6">
+      <rect x="56" y="382" width="458" height="32" rx="6" fill="#3A1D20"/>
+      <rect x="56" y="382" width="4" height="32" rx="2" fill="#FF5252"/>
+    </g>
+    <text class="a tx6" x="68" y="406" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#FF5252">500 /v1/checkout</text>
+    <g class="a vd6">
+      <text x="363" y="405" font-size="20" font-weight="600" letter-spacing="1" fill="#FF5252">INCIDENT</text>
+      <circle cx="487" cy="398" r="12" fill="#FF5252"/>
+      <text x="487" y="405" font-size="20" font-weight="700" fill="#141011" text-anchor="middle">2</text>
+    </g>
+  </g>
+  <g class="a rw7">
+    <text x="68" y="442" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/cart</text>
+    <text class="a vd7" x="363" y="441" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <g class="a rw8">
+    <g class="a hl8">
+      <rect x="56" y="454" width="458" height="32" rx="6" fill="#3A1D20"/>
+      <rect x="56" y="454" width="4" height="32" rx="2" fill="#FF5252"/>
+    </g>
+    <text class="a tx8" x="68" y="478" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#FF5252">500 /v1/checkout</text>
+    <g class="a vd8">
+      <text x="363" y="477" font-size="20" font-weight="600" letter-spacing="1" fill="#FF5252">INCIDENT</text>
+      <circle cx="487" cy="470" r="12" fill="#FF5252"/>
+      <text x="487" y="477" font-size="20" font-weight="700" fill="#141011" text-anchor="middle">3</text>
+    </g>
+  </g>
+  <g class="a rw9">
+    <text x="68" y="514" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">200 /v1/checkout</text>
+    <text class="a vd9" x="363" y="513" font-size="20" letter-spacing="1" fill="#B9AAAE">NORMAL</text>
+  </g>
+  <text x="68" y="570" font-size="24" font-weight="600" letter-spacing="1" fill="#F3EDEE">$0.00003 PER ROW</text>
+  <text x="68" y="598" font-size="20" letter-spacing="1" fill="#B9AAAE">ONE CALL EACH</text>
+
+  <path d="M 528 362 H554" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#ah-muted)"/>
+
+  <!-- Code counts incident verdicts -->
+  <rect class="a mid" x="565" y="242" width="232" height="240" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+  <text x="681" y="282" font-size="20" font-weight="600" letter-spacing="1" fill="#B9AAAE" text-anchor="middle">CODE COUNTS</text>
+  <rect class="a bx1" x="589" y="304" width="52" height="52" rx="10" fill="#FF5252" stroke="#FF5252" stroke-width="2"/>
+  <text class="a dg1" x="615" y="339" font-size="24" font-weight="700" fill="#141011" text-anchor="middle">1</text>
+  <rect class="a bx2" x="655" y="304" width="52" height="52" rx="10" fill="#FF5252" stroke="#FF5252" stroke-width="2"/>
+  <text class="a dg2" x="681" y="339" font-size="24" font-weight="700" fill="#141011" text-anchor="middle">2</text>
+  <rect class="a bx3" x="721" y="304" width="52" height="52" rx="10" fill="#FF5252" stroke="#FF5252" stroke-width="2"/>
+  <text class="a dg3" x="747" y="339" font-size="24" font-weight="700" fill="#141011" text-anchor="middle">3</text>
+  <text x="681" y="398" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE" text-anchor="middle">3 INCIDENTS</text>
+  <text x="681" y="430" font-size="20" letter-spacing="1" fill="#B9AAAE" text-anchor="middle">ONE FINGERPRINT</text>
+  <text x="681" y="458" font-size="20" letter-spacing="1" fill="#B9AAAE" text-anchor="middle">WITHIN 120 s</text>
+
+  <path class="a fire" d="M 803 362 H829" stroke="#FF5252" stroke-width="2.5" marker-end="url(#ah-red)"/>
+
+  <!-- The incident agent wakes and works -->
+  <rect class="a rp" x="840" y="104" width="312" height="516" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+  <g class="a ag">
+    <use href="#g-pi" x="860" y="128" width="54" height="54"/>
+    <text x="932" y="149" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE">INCIDENT AGENT</text>
+    <text x="932" y="177" font-size="20" letter-spacing="1" fill="#B9AAAE">SONNET 5.5</text>
+    <circle cx="874" cy="232" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <use class="a ck0 pop" href="#g-check-o" x="860" y="218" width="28" height="28"/>
+    <text class="a lb0" x="900" y="239" font-size="20" font-weight="500" letter-spacing="1" fill="#F3EDEE">DETECTED</text>
+    <circle cx="874" cy="278" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <use class="a ck1 pop" href="#g-check-o" x="860" y="264" width="28" height="28"/>
+    <text class="a lb1" x="900" y="285" font-size="20" font-weight="500" letter-spacing="1" fill="#F3EDEE">INVESTIGATING</text>
+    <circle cx="874" cy="324" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <use class="a ck2 pop" href="#g-check-o" x="860" y="310" width="28" height="28"/>
+    <text class="a lb2" x="900" y="331" font-size="20" font-weight="500" letter-spacing="1" fill="#F3EDEE">ROOT CAUSE FOUND</text>
+    <circle cx="874" cy="370" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <use class="a ck3 pop" href="#g-check-o" x="860" y="356" width="28" height="28"/>
+    <text class="a lb3" x="900" y="377" font-size="20" font-weight="500" letter-spacing="1" fill="#F3EDEE">FIXING</text>
+    <circle cx="874" cy="416" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <use class="a ck4 pop" href="#g-check-o" x="860" y="402" width="28" height="28"/>
+    <text class="a lb4" x="900" y="423" font-size="20" font-weight="500" letter-spacing="1" fill="#F3EDEE">READY FOR REVIEW</text>
+    <circle cx="874" cy="462" r="11.8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <text class="a lb5" x="900" y="469" font-size="20" font-weight="500" letter-spacing="1" fill="#B9AAAE">DEPLOYED</text>
+    <text class="a aw" x="900" y="499" font-size="20" font-weight="600" letter-spacing="1" fill="#FF5252">AWAITING APPROVAL</text>
+    <text x="860" y="570" font-size="24" font-weight="600" letter-spacing="1" fill="#FF5252">$0.09 PER INCIDENT</text>
+    <text x="860" y="598" font-size="20" letter-spacing="1" fill="#B9AAAE">THROUGH DEPLOY</text>
+  </g>
+</svg>

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">SQLite on every device</title>
+  <desc id="desc">Every device runs dpi-backend with its own SQLite files: a catalog, shared app state and one agent.sqlite per session, while the hub keeps only a network.sqlite of device URLs and tokens.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M3 24 A21 7 0 0 0 45 24 M3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-laptop" viewBox="0 0 64 44">
+      <rect x="9" y="3" width="46" height="30" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="15" y="9" width="34" height="18" rx="2" fill="#141011"/>
+      <path d="M2 37 H62 L58 42 H6 Z" fill="#F3EDEE"/>
+    </symbol>
+    <symbol id="g-key" viewBox="0 0 48 24">
+      <circle cx="11" cy="12" r="8" fill="none" stroke="#FF5252" stroke-width="2.8"/>
+      <path d="M19 12 H45 M36 12 V19 M42 12 V17" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round"/>
+    </symbol>
+    <marker id="head-red" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+  </defs>
+  <style>
+    .loop, .a { animation-duration: 12s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .loop { animation-name: loop; }
+    .dev { animation-name: dev; }
+    .cat { animation-name: cat; }
+    .app { animation-name: app; }
+    .col { animation-name: col; }
+    .row1 { animation-name: row1; }
+    .row2 { animation-name: row2; }
+    .row3 { animation-name: row3; }
+    .arr1 { animation-name: arr1; }
+    .arr2 { animation-name: arr2; }
+    .arr3 { animation-name: arr3; }
+    .head1 { animation-name: head1; }
+    .head2 { animation-name: head2; }
+    .head3 { animation-name: head3; }
+    .lid1 { opacity: 0; animation-name: lid1; }
+    .lid2 { opacity: 0; animation-name: lid2; }
+    .lid3 { opacity: 0; animation-name: lid3; }
+    .hub { animation-name: hub; }
+    .key1 { animation-name: key1; }
+    .key2 { animation-name: key2; }
+    .key3 { animation-name: key3; }
+    @keyframes loop { 0%, 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
+    @keyframes dev { 0%, 1% { opacity: 0 } 5%, 100% { opacity: 1 } }
+    @keyframes cat { 0%, 5% { opacity: 0 } 8%, 100% { opacity: 1 } }
+    @keyframes app { 0%, 8% { opacity: 0 } 11%, 100% { opacity: 1 } }
+    @keyframes col { 0%, 11% { opacity: 0 } 14%, 100% { opacity: 1 } }
+    @keyframes row1 { 0%, 14% { opacity: 0 } 17%, 100% { opacity: 1 } }
+    @keyframes arr1 { 0%, 17% { stroke-dashoffset: 203 } 21%, 100% { stroke-dashoffset: 0 } }
+    @keyframes head1 { 0%, 20.5% { opacity: 0 } 21.5%, 100% { opacity: 1 } }
+    @keyframes lid1 { 0%, 21% { opacity: 0 } 22.5% { opacity: .85 } 25%, 100% { opacity: 0 } }
+    @keyframes row2 { 0%, 21% { opacity: 0 } 24%, 100% { opacity: 1 } }
+    @keyframes arr2 { 0%, 24% { stroke-dashoffset: 203 } 28%, 100% { stroke-dashoffset: 0 } }
+    @keyframes head2 { 0%, 27.5% { opacity: 0 } 28.5%, 100% { opacity: 1 } }
+    @keyframes lid2 { 0%, 28% { opacity: 0 } 29.5% { opacity: .85 } 32%, 100% { opacity: 0 } }
+    @keyframes row3 { 0%, 28% { opacity: 0 } 31%, 100% { opacity: 1 } }
+    @keyframes arr3 { 0%, 31% { stroke-dashoffset: 203 } 35%, 100% { stroke-dashoffset: 0 } }
+    @keyframes head3 { 0%, 34.5% { opacity: 0 } 35.5%, 100% { opacity: 1 } }
+    @keyframes lid3 { 0%, 35% { opacity: 0 } 36.5% { opacity: .85 } 39%, 100% { opacity: 0 } }
+    @keyframes hub { 0%, 41% { opacity: 0 } 45%, 100% { opacity: 1 } }
+    @keyframes key1 { 0%, 48% { opacity: .2 } 50%, 100% { opacity: 1 } }
+    @keyframes key2 { 0%, 51.5% { opacity: .2 } 53.5%, 100% { opacity: 1 } }
+    @keyframes key3 { 0%, 55% { opacity: .2 } 57%, 100% { opacity: 1 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="600" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">SQLite on every device</text>
+
+  <g class="loop">
+    <!-- a device: dpi-backend and its SQLite files -->
+    <g class="a dev">
+      <rect x="48" y="100" width="788" height="422" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+      <use href="#g-server" x="80" y="122" width="64" height="44"/>
+      <text class="mono" x="162" y="152" font-size="24" fill="#F3EDEE">dpi-backend</text>
+      <text x="340" y="152" font-size="20" fill="#B9AAAE">on every device</text>
+      <path d="M428 192 V498" stroke="#443438" stroke-width="2"/>
+    </g>
+    <g class="a cat">
+      <use href="#g-db" x="80" y="240" width="48" height="60"/>
+      <text class="mono" x="144" y="252" font-size="22" fill="#F3EDEE">catalog.sqlite</text>
+      <text x="144" y="278" font-size="20" fill="#B9AAAE">sessions, names,</text>
+      <text x="144" y="302" font-size="20" fill="#B9AAAE">idempotency keys</text>
+    </g>
+    <g class="a app">
+      <use href="#g-db" x="80" y="392" width="48" height="60"/>
+      <text class="mono" x="144" y="415" font-size="22" fill="#F3EDEE">app-state.sqlite</text>
+      <text x="144" y="441" font-size="20" fill="#B9AAAE">shared App State</text>
+    </g>
+    <g class="a col">
+      <text class="mono" x="452" y="212" font-size="22" fill="#F3EDEE">sessions/&lt;id&gt;/agent.sqlite</text>
+      <text x="452" y="240" font-size="20" fill="#B9AAAE">one harness per session</text>
+    </g>
+
+    <g class="a row1">
+      <rect x="452" y="258" width="352" height="72" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <use href="#g-pi" x="468" y="268" width="52" height="52"/>
+      <use href="#g-db" x="736" y="266" width="44" height="55"/>
+    </g>
+    <path class="a arr1" d="M528 294 H729" stroke-dasharray="203 203" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a head1" d="M528 294 H729" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <ellipse class="a lid1" cx="758" cy="275.2" rx="19.3" ry="6.4" fill="#FF5252"/>
+
+    <g class="a row2">
+      <rect x="452" y="342" width="352" height="72" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <use href="#g-pi" x="468" y="352" width="52" height="52"/>
+      <use href="#g-db" x="736" y="350" width="44" height="55"/>
+    </g>
+    <path class="a arr2" d="M528 378 H729" stroke-dasharray="203 203" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a head2" d="M528 378 H729" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <ellipse class="a lid2" cx="758" cy="359.2" rx="19.3" ry="6.4" fill="#FF5252"/>
+
+    <g class="a row3">
+      <rect x="452" y="426" width="352" height="72" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <use href="#g-pi" x="468" y="436" width="52" height="52"/>
+      <use href="#g-db" x="736" y="434" width="44" height="55"/>
+    </g>
+    <path class="a arr3" d="M528 462 H729" stroke-dasharray="203 203" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a head3" d="M528 462 H729" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <ellipse class="a lid3" cx="758" cy="443.2" rx="19.3" ry="6.4" fill="#FF5252"/>
+
+    <!-- the hub: only how to reach each device -->
+    <g class="a hub">
+      <rect x="860" y="166" width="292" height="290" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+      <use href="#g-laptop" x="884" y="186" width="64" height="44"/>
+      <text x="962" y="216" font-size="24" fill="#F3EDEE">hub</text>
+      <use href="#g-db" x="978" y="302" width="56" height="70"/>
+      <text class="mono" x="1006" y="404" font-size="22" fill="#F3EDEE" text-anchor="middle">network.sqlite</text>
+      <text x="1006" y="432" font-size="20" fill="#B9AAAE" text-anchor="middle">device URLs and tokens</text>
+      <use class="a key1" href="#g-key" x="930" y="258" width="40" height="20"/>
+      <use class="a key2" href="#g-key" x="986" y="258" width="40" height="20"/>
+      <use class="a key3" href="#g-key" x="1042" y="258" width="40" height="20"/>
+    </g>
+  </g>
+
+  <text x="48" y="566" font-size="22" fill="#B9AAAE">Each device owns its agents and their data. The hub only stores how to reach them.</text>
+</svg>

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Restart mid-tool. Keep going.</title>
+  <desc id="desc">The device restarts while a bash call is running; the agent resumes from its SQLite checkpoint, records bash as interrupted, and carries on with the next tool call.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M3 24 A21 7 0 0 0 45 24 M3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-check" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="14" fill="#FF5252"/>
+      <path d="M9 16.5 L14 21.5 L23.5 11" fill="none" stroke="#141011" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-check-o" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M9.5 16.5 L14 21 L22.5 11.5" fill="none" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-cross" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M11 11 L21 21 M21 11 L11 21" stroke="#FF5252" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <marker id="head-red" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+    <marker id="head-muted" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#B9AAAE"/>
+    </marker>
+  </defs>
+  <style>
+    .loop, .a { animation-duration: 14s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+    .grow { transform-box: fill-box; transform-origin: 0 50%; }
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .loop { animation-name: loop; }
+    .dev { animation-name: dev; }
+    .rst-txt { opacity: 0; animation-name: rst-txt; }
+    .arr-w-vis { animation-name: arr-w-vis; }
+    .arr-w { animation-name: arr-w; }
+    .arr-w-h { animation-name: arr-w-h; }
+    .arr-r { animation-name: arr-r; }
+    .arr-r-h { animation-name: arr-r-h; }
+    .lid { opacity: 0; animation-name: lid; }
+    .c-read { animation-name: c-read; }
+    .k-read { animation-name: k-read; }
+    .c-write { animation-name: c-write; }
+    .k-write { animation-name: k-write; }
+    .c-bash { animation-name: c-bash; }
+    .bash-solid { opacity: 0; animation-name: bash-solid; }
+    .bash-prog { opacity: 0; animation-name: bash-prog; }
+    .k-bash { animation-name: k-bash; }
+    .t-int { animation-name: t-int; }
+    .c-rst { animation-name: c-rst; }
+    .card { animation-name: card; }
+    .c-edit { animation-name: c-edit; }
+    .edit-prog { opacity: 0; animation-name: edit-prog; }
+    .k-edit { animation-name: k-edit; }
+    .t-res { animation-name: t-res; }
+    @keyframes loop { 0%, 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
+    @keyframes dev { 0%, 31% { opacity: 1 } 32.5%, 41% { opacity: .2 } 42.5%, 100% { opacity: 1 } }
+    @keyframes rst-txt { 0%, 32.5% { opacity: 0 } 33.5%, 40.5% { opacity: 1 } 41.5%, 100% { opacity: 0 } }
+    @keyframes arr-w-vis { 0%, 31% { opacity: 1 } 32%, 41.5% { opacity: 0 } 43%, 100% { opacity: 1 } }
+    @keyframes arr-w { 0%, 9% { stroke-dashoffset: 522 } 12%, 100% { stroke-dashoffset: 0 } }
+    @keyframes arr-w-h { 0%, 11.5% { opacity: 0 } 12.5%, 100% { opacity: 1 } }
+    @keyframes arr-r { 0%, 43% { stroke-dashoffset: 522 } 46.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes arr-r-h { 0%, 46% { opacity: 0 } 47%, 100% { opacity: 1 } }
+    @keyframes lid { 0%, 12% { opacity: 0 } 13% { opacity: .85 } 14.5%, 19.5% { opacity: 0 } 20.5% { opacity: .85 } 22%, 61.5% { opacity: 0 } 62.5% { opacity: .85 } 64%, 100% { opacity: 0 } }
+    @keyframes c-read { 0%, 4% { opacity: 0 } 6%, 100% { opacity: 1 } }
+    @keyframes k-read { 0%, 9% { opacity: 0; transform: scale(.4) } 10.5%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes c-write { 0%, 13% { opacity: 0 } 15%, 100% { opacity: 1 } }
+    @keyframes k-write { 0%, 18% { opacity: 0; transform: scale(.4) } 19.5%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes c-bash { 0%, 21% { opacity: 0 } 23%, 100% { opacity: 1 } }
+    @keyframes bash-solid { 0%, 21% { opacity: 0 } 23%, 47% { opacity: 1 } 49%, 100% { opacity: 0 } }
+    @keyframes bash-prog { 0%, 23% { opacity: 0; transform: scaleX(0) } 24% { opacity: 1 } 31% { opacity: 1; transform: scaleX(.62) } 33%, 100% { opacity: 0; transform: scaleX(.62) } }
+    @keyframes k-bash { 0%, 48% { opacity: 0; transform: scale(.4) } 50%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes t-int { 0%, 49% { opacity: 0 } 51%, 100% { opacity: 1 } }
+    @keyframes c-rst { 0%, 31.5% { opacity: 0 } 33.5%, 100% { opacity: 1 } }
+    @keyframes card { 0%, 51% { opacity: 0 } 53.5%, 100% { opacity: 1 } }
+    @keyframes c-edit { 0%, 54% { opacity: 0 } 56%, 100% { opacity: 1 } }
+    @keyframes edit-prog { 0%, 56% { opacity: 0; transform: scaleX(0) } 56.5% { opacity: 1 } 60% { opacity: 1; transform: scaleX(1) } 61.5%, 100% { opacity: 0; transform: scaleX(1) } }
+    @keyframes k-edit { 0%, 60% { opacity: 0; transform: scale(.4) } 62%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes t-res { 0%, 61% { opacity: 0 } 63%, 100% { opacity: 1 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="520" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Restart mid-tool. Keep going.</text>
+
+  <!-- device panel -->
+  <rect x="48" y="100" width="1104" height="192" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <use href="#g-db" x="972" y="154" width="56" height="70"/>
+  <text x="1000" y="254" font-size="22" fill="#F3EDEE" text-anchor="middle">checkpoint</text>
+
+  <g class="loop">
+    <g class="a dev">
+      <use href="#g-server" x="80" y="165.25" width="72" height="49.5"/>
+      <text class="mono" x="172" y="198" font-size="24" fill="#F3EDEE">mac-mini</text>
+      <use href="#g-pi" x="360" y="150" width="80" height="80"/>
+    </g>
+    <g class="a arr-w-vis">
+      <path class="a arr-w" d="M446 178 H965.5" stroke-dasharray="522 522" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+      <path class="a arr-w-h" d="M446 178 H965.5" fill="none" stroke="none" marker-end="url(#head-muted)"/>
+    </g>
+    <text class="a rst-txt" x="708" y="198" font-size="22" fill="#B9AAAE" text-anchor="middle">restarting…</text>
+    <path class="a arr-r" d="M969.5 202 H450" stroke-dasharray="522 522" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a arr-r-h" d="M969.5 202 H450" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <ellipse class="a lid" cx="1000" cy="165.7" rx="24.5" ry="8.2" fill="#FF5252"/>
+
+    <!-- tool calls, left to right -->
+    <g class="a c-read">
+      <rect x="48" y="324" width="128" height="56" rx="10" fill="#21191B" stroke="#443438" stroke-width="2"/>
+      <text class="mono" x="104" y="360" font-size="22" fill="#B9AAAE">read</text>
+    </g>
+    <g class="a k-read pop"><use href="#g-check-o" x="64" y="338" width="28" height="28"/></g>
+
+    <g class="a c-write">
+      <rect x="190" y="324" width="140" height="56" rx="10" fill="#21191B" stroke="#443438" stroke-width="2"/>
+      <text class="mono" x="246" y="360" font-size="22" fill="#B9AAAE">write</text>
+    </g>
+    <g class="a k-write pop"><use href="#g-check-o" x="206" y="338" width="28" height="28"/></g>
+
+    <g class="a c-bash">
+      <rect x="344" y="324" width="305" height="56" rx="10" fill="#2A1A1D" stroke="#FF5252" stroke-width="2" stroke-dasharray="8 6"/>
+      <rect class="a bash-prog grow" x="346" y="326" width="301" height="52" rx="8" fill="#6E2A31"/>
+      <rect class="a bash-solid" x="344" y="324" width="305" height="56" rx="10" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <text class="mono" x="364" y="360" font-size="22" fill="#F3EDEE">bash</text>
+    </g>
+    <text class="a t-int" x="589" y="360" font-size="22" fill="#FF5252" text-anchor="end">interrupted</text>
+    <g class="a k-bash pop"><use href="#g-cross" x="601" y="336" width="32" height="32"/></g>
+
+    <g class="a c-rst">
+      <rect x="663" y="324" width="170" height="56" rx="10" fill="none" stroke="#6B5A5E" stroke-width="2" stroke-dasharray="8 6"/>
+      <g fill="none" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round">
+        <path d="M708.07 344.93 A10 10 0 1 1 693.93 344.93"/>
+        <path d="M701 340 V350"/>
+      </g>
+      <text x="723" y="360" font-size="22" fill="#B9AAAE">restart</text>
+    </g>
+
+    <g class="a c-edit">
+      <rect x="847" y="324" width="305" height="56" rx="10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <rect class="a edit-prog grow" x="849" y="326" width="301" height="52" rx="8" fill="#6E2A31"/>
+      <text class="mono" x="867" y="360" font-size="22" fill="#F3EDEE">edit</text>
+    </g>
+    <text class="a t-res" x="1092" y="360" font-size="22" fill="#F3EDEE" text-anchor="end">resumed</text>
+    <g class="a k-edit pop"><use href="#g-check" x="1104" y="336" width="32" height="32"/></g>
+
+    <!-- what the agent gets back for the interrupted call -->
+    <g class="a card">
+      <path d="M372 382 V406" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+      <rect x="344" y="412" width="726" height="52" rx="10" fill="#21191B" stroke="#443438" stroke-width="2"/>
+      <text class="mono" x="364" y="445" font-size="22" fill="#F3EDEE">Tool bash was interrupted and may have partially run</text>
+    </g>
+  </g>
+</svg>

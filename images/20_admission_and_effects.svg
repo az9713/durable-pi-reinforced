@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" width="1200" height="690" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Admission and effects are separate</title>
+  <desc id="desc">A retried requestId is deduplicated into one submission, but a crash after an external API call can leave the effect done without a saved result, so recovery reruns replay-safe tools, returns an interrupted result for unsafe ones, and leaves external idempotency to you.</desc>
+  <defs>
+    <marker id="head-red" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+    <marker id="head-muted" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#B9AAAE"/>
+    </marker>
+  </defs>
+  <style>
+    .loop, .a { animation-duration: 14s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .loop { animation-name: loop; }
+    .req1 { animation-name: req1; }
+    .p1 { animation-name: p1; }
+    .p1-h { animation-name: p1-h; }
+    .sub { animation-name: sub; }
+    .req2 { animation-name: req2; }
+    .p2 { animation-name: p2; }
+    .dot { animation-name: dot; }
+    .dedup { animation-name: dedup; }
+    .note { animation-name: note; }
+    .intent { animation-name: intent; }
+    .p3 { animation-name: p3; }
+    .p3-h { animation-name: p3-h; }
+    .api { animation-name: api; }
+    .p4 { animation-name: p4; }
+    .crash { animation-name: crash; }
+    .maybe { animation-name: maybe; }
+    .p5 { animation-name: p5; }
+    .ret { animation-name: ret; }
+    .ret-h { animation-name: ret-h; }
+    .why1 { animation-name: why1; }
+    .why2 { animation-name: why2; }
+    .why3 { animation-name: why3; }
+    .saved { animation-name: saved; }
+    @keyframes loop { 0%, 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
+    @keyframes req1 { 0%, 2% { opacity: 0 } 5%, 100% { opacity: 1 } }
+    @keyframes p1 { 0%, 5% { stroke-dashoffset: 396 } 10%, 100% { stroke-dashoffset: 0 } }
+    @keyframes p1-h { 0%, 9.5% { opacity: 0 } 10.5%, 100% { opacity: 1 } }
+    @keyframes sub { 0%, 10% { opacity: 0; transform: scale(.9) } 13% { opacity: 1; transform: scale(1) } 24.5% { transform: scale(1) } 25.5% { transform: scale(1.05) } 27%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes req2 { 0%, 16% { opacity: 0 } 19%, 100% { opacity: 1 } }
+    @keyframes p2 { 0%, 19% { stroke-dashoffset: 300 } 24%, 100% { stroke-dashoffset: 0 } }
+    @keyframes dot { 0%, 23.5% { opacity: 0 } 24.5%, 100% { opacity: 1 } }
+    @keyframes dedup { 0%, 24.5% { opacity: 0 } 27%, 100% { opacity: 1 } }
+    @keyframes note { 0%, 27.5% { opacity: 0 } 30.5%, 100% { opacity: 1 } }
+    @keyframes intent { 0%, 33% { opacity: 0 } 36%, 100% { opacity: 1 } }
+    @keyframes p3 { 0%, 36% { stroke-dashoffset: 62 } 38.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes p3-h { 0%, 38% { opacity: 0 } 39%, 100% { opacity: 1 } }
+    @keyframes api { 0%, 38.5% { opacity: 0 } 41.5%, 100% { opacity: 1 } }
+    @keyframes p4 { 0%, 42% { stroke-dashoffset: 142 } 44.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes crash { 0%, 44.5% { opacity: 0; transform: scale(1.8) } 45.5% { opacity: 1; transform: scale(1) } 46.2% { opacity: .25 } 46.9% { opacity: 1 } 47.6% { opacity: .25 } 48.3%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes maybe { 0%, 47% { opacity: 0 } 49.5%, 100% { opacity: 1 } }
+    @keyframes p5 { 0%, 41% { opacity: 0 } 43%, 100% { opacity: 1 } }
+    @keyframes ret { 0%, 50% { stroke-dashoffset: 818 } 56%, 100% { stroke-dashoffset: 0 } }
+    @keyframes ret-h { 0%, 55.5% { opacity: 0 } 56.5%, 100% { opacity: 1 } }
+    @keyframes why1 { 0%, 51% { opacity: 0 } 53%, 100% { opacity: 1 } }
+    @keyframes why2 { 0%, 52.5% { opacity: 0 } 54.5%, 100% { opacity: 1 } }
+    @keyframes why3 { 0%, 54% { opacity: 0 } 56%, 100% { opacity: 1 } }
+    @keyframes saved { 0%, 41% { opacity: 0 } 43%, 56% { opacity: .3 } 58.5%, 100% { opacity: 1 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="690" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Admission and effects are separate</text>
+
+  <!-- panels -->
+  <rect x="48" y="100" width="1104" height="192" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="72" y="134" font-size="20" letter-spacing="1" fill="#B9AAAE">ADMISSION</text>
+  <rect x="48" y="316" width="1104" height="296" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="72" y="350" font-size="20" letter-spacing="1" fill="#B9AAAE">EXTERNAL EFFECTS</text>
+
+  <g class="loop">
+    <!-- admission: one requestId, one submission -->
+    <g class="a req1">
+      <rect x="72" y="156" width="222" height="48" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <text class="mono" x="92" y="188" font-size="22" fill="#F3EDEE">requestId r-42</text>
+    </g>
+    <path class="a p1" d="M298 180 H692" stroke-dasharray="396 396" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a p1-h" d="M298 180 H692" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <g class="a sub pop">
+      <rect x="700" y="152" width="280" height="56" rx="10" fill="#2A1A1D" stroke="#FF5252" stroke-width="2.5"/>
+      <text x="840" y="188" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE" text-anchor="middle">ONE SUBMISSION</text>
+    </g>
+
+    <g class="a req2">
+      <rect x="72" y="220" width="301" height="48" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <text class="mono" x="92" y="252" font-size="22" fill="#F3EDEE">requestId r-42</text>
+      <rect x="291" y="229" width="68" height="30" rx="15" fill="none" stroke="#6B5A5E" stroke-width="1.5"/>
+      <text x="325" y="250" font-size="20" fill="#B9AAAE" text-anchor="middle">retry</text>
+    </g>
+    <path class="a p2" d="M377 244 H610 A10 10 0 0 0 620 234 V185" stroke-dasharray="300 300" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+    <circle class="a dot" cx="620" cy="180" r="5" fill="#FF5252"/>
+    <text class="a dedup" x="596" y="230" font-size="20" fill="#B9AAAE" text-anchor="end">deduplicated</text>
+    <text class="a note" x="840" y="240" font-size="20" fill="#B9AAAE" text-anchor="middle">Each requestId is admitted once.</text>
+
+    <!-- external effects: the call can land, the result can be lost -->
+    <g class="a intent">
+      <rect x="72" y="404" width="200" height="56" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <text x="172" y="440" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE" text-anchor="middle">TOOL INTENT</text>
+    </g>
+    <path class="a p3" d="M280 432 H340" stroke-dasharray="62 62" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+    <path class="a p3-h" d="M280 432 H340" fill="none" stroke="none" marker-end="url(#head-muted)"/>
+    <g class="a api">
+      <rect x="348" y="404" width="224" height="56" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+      <text x="460" y="440" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE" text-anchor="middle">EXTERNAL API</text>
+    </g>
+    <path class="a p4" d="M580 432 H720" stroke-dasharray="142 142" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+    <g class="a crash pop" fill="none" stroke="#FF5252" stroke-width="3.5" stroke-linecap="round">
+      <path d="M727 446 L739 418"/>
+      <path d="M741 446 L753 418"/>
+    </g>
+    <text class="a maybe" x="740" y="384" font-size="20" letter-spacing="1" fill="#B9AAAE" text-anchor="middle">EFFECT MAY HAVE HAPPENED</text>
+    <path class="a p5" d="M768 432 H904" fill="none" stroke="#B9AAAE" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#head-muted)"/>
+    <g class="a saved">
+      <rect x="912" y="404" width="216" height="56" rx="10" fill="#2A1A1D" stroke="#FF5252" stroke-width="2.5"/>
+      <text x="1020" y="440" font-size="22" font-weight="600" letter-spacing="1" fill="#F3EDEE" text-anchor="middle">RESULT SAVED</text>
+    </g>
+
+    <!-- recovery path -->
+    <path class="a ret" d="M440 464 V578 A10 10 0 0 0 450 588 H1010 A10 10 0 0 0 1020 578 V468" stroke-dasharray="818 818" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a ret-h" d="M1020 478 V468" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <g font-size="22" fill="#B9AAAE">
+      <text class="a why1" x="464" y="500">Replay-safe tools rerun.</text>
+      <text class="a why2" x="464" y="530">Unsafe tools return an interrupted result.</text>
+      <text class="a why3" x="464" y="560">Add your own idempotency key.</text>
+    </g>
+  </g>
+
+  <text x="48" y="656" font-size="22" fill="#B9AAAE">Durable means checkpointed, not exactly-once.</text>
+</svg>

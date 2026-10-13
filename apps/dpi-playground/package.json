@@ -1,0 +1,35 @@
+{
+  "name": "dpi-playground",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "tsx apps/dpi-playground-hub/src/main.ts --dev",
+    "start": "tsx apps/dpi-playground-hub/src/main.ts",
+    "build": "vue-tsc --noEmit -p apps/dpi-playground-fe/tsconfig.json && tsc --noEmit -p apps/dpi-playground-hub/tsconfig.json && vite build --config apps/dpi-playground-fe/vite.config.ts",
+    "lint": "oxlint apps tests",
+    "fmt": "oxfmt apps tests",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.0",
+    "express": "^5.1.0",
+    "lucide-vue-next": "^0.468.0",
+    "marked": "^17.0.0",
+    "vue": "3.5.43"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-vue": "latest",
+    "oxfmt": "0.72.0",
+    "oxlint": "1.87.0",
+    "tsx": "latest",
+    "typescript": "5.9.3",
+    "vite": "8.3.2",
+    "vue-tsc": "latest"
+  }
+}

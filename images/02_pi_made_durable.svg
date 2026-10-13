@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 528" width="1200" height="528" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Pi, made durable</title>
+  <desc id="desc">Pi keeps its history but loses the run when the process exits; Durable Pi commits history, queues, app state and task checkpoints to SQLite at every step, so the checkpointed run completes.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-dpi" viewBox="0 0 9 5">
+      <g fill="#FFFFFF" transform="translate(.5 .5)">
+        <path d="M0 0H1V4H0Z"/>
+        <path d="M1 0H2V1H3V2H2V1H1Z"/>
+        <path d="M2 2H3V3H2V4H1V3H2Z"/>
+        <g transform="translate(4)">
+          <path d="M0 0H3V2H2V1H0Z"/>
+          <path d="M0 1H1V2H2V3H1V4H0Z"/>
+          <path d="M3 2H4V4H3Z"/>
+        </g>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M3 24 A21 7 0 0 0 45 24 M3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-check" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="14" fill="#FF5252"/>
+      <path d="M9 16.5 L14 21.5 L23.5 11" fill="none" stroke="#141011" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-cross" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M11 11 L21 21 M21 11 L11 21" stroke="#FF5252" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <marker id="head-red" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+    <marker id="head-muted" viewBox="0 0 12 10" refX="8" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#B9AAAE"/>
+    </marker>
+  </defs>
+  <style>
+    .loop, .a { animation-duration: 12s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+    .loop { animation-name: loop; }
+    .l-tile { animation-name: l-tile; }
+    .l-db { animation-name: l-db; }
+    .l-arr { animation-name: l-arr; }
+    .l-arr-h { animation-name: l-arr-h; }
+    .l-box { animation-name: l-box; }
+    .l-run { opacity: 0; animation-name: l-run; }
+    .l-b1 { animation-name: l-b1; }
+    .l-b2 { animation-name: l-b2; }
+    .l-b3 { animation-name: l-b3; }
+    .l-cross { animation-name: l-cross; }
+    .l-lost { animation-name: l-lost; }
+    .r-tile { animation-name: r-tile; }
+    .r-dbs { animation-name: r-dbs; }
+    .r-bus { animation-name: r-bus; }
+    .r-drops { animation-name: r-drops; }
+    .r-rise1 { animation-name: r-rise1; }
+    .r-rise2 { animation-name: r-rise2; }
+    .r-rise-h { animation-name: r-rise-h; }
+    .r-arr { animation-name: r-arr; }
+    .r-arr-h { animation-name: r-arr-h; }
+    .r-strip { animation-name: r-strip; }
+    .r-b1 { animation-name: r-b1; }
+    .r-b2 { animation-name: r-b2; }
+    .r-b3 { animation-name: r-b3; }
+    .r-b4 { animation-name: r-b4; }
+    .r-b5 { animation-name: r-b5; }
+    .lid { opacity: 0; animation-name: lid; }
+    .r-check { animation-name: r-check; }
+    @keyframes loop { 0%, 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
+    @keyframes l-tile { 0%, 2% { opacity: 0 } 5%, 22.5% { opacity: 1 } 24%, 27% { opacity: .3 } 29%, 100% { opacity: 1 } }
+    @keyframes l-db { 0%, 5% { opacity: 0 } 8%, 100% { opacity: 1 } }
+    @keyframes l-arr { 0%, 8% { stroke-dashoffset: 50 } 11.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes l-arr-h { 0%, 11% { opacity: 0 } 12%, 100% { opacity: 1 } }
+    @keyframes l-box { 0%, 12% { opacity: 0 } 14%, 100% { opacity: 1 } }
+    @keyframes l-run { 0%, 12% { opacity: 0 } 14%, 22.5% { opacity: 1 } 24.5%, 100% { opacity: 0 } }
+    @keyframes l-b1 { 0%, 15% { opacity: 0 } 16%, 100% { opacity: 1 } }
+    @keyframes l-b2 { 0%, 17.5% { opacity: 0 } 18.5%, 100% { opacity: 1 } }
+    @keyframes l-b3 { 0%, 20% { opacity: 0 } 21%, 100% { opacity: 1 } }
+    @keyframes l-cross { 0%, 24.5% { opacity: 0; transform: scale(.4) } 26.5%, 100% { opacity: 1; transform: scale(1) } }
+    @keyframes l-lost { 0%, 26.5% { opacity: 0 } 29%, 100% { opacity: 1 } }
+    @keyframes r-tile { 0%, 31% { opacity: 0 } 34%, 100% { opacity: 1 } }
+    @keyframes r-dbs { 0%, 37% { opacity: 0 } 40%, 100% { opacity: 1 } }
+    @keyframes r-bus { 0%, 40% { stroke-dashoffset: 407 } 43.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes r-drops { 0%, 40% { opacity: 0 } 42%, 100% { opacity: 1 } }
+    @keyframes r-rise1 { 0%, 43.5% { stroke-dashoffset: 22 } 45.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes r-rise2 { 0%, 43.5% { stroke-dashoffset: 36 } 45.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes r-rise-h { 0%, 45% { opacity: 0 } 46%, 100% { opacity: 1 } }
+    @keyframes r-arr { 0%, 33% { stroke-dashoffset: 220 } 36.5%, 100% { stroke-dashoffset: 0 } }
+    @keyframes r-arr-h { 0%, 36% { opacity: 0 } 37%, 100% { opacity: 1 } }
+    @keyframes r-strip { 0%, 35% { opacity: 0 } 38%, 100% { opacity: 1 } }
+    @keyframes r-b1 { 0%, 48% { opacity: 0 } 49%, 100% { opacity: 1 } }
+    @keyframes r-b2 { 0%, 50.5% { opacity: 0 } 51.5%, 100% { opacity: 1 } }
+    @keyframes r-b3 { 0%, 53% { opacity: 0 } 54%, 100% { opacity: 1 } }
+    @keyframes r-b4 { 0%, 55.5% { opacity: 0 } 56.5%, 100% { opacity: 1 } }
+    @keyframes r-b5 { 0%, 58% { opacity: 0 } 59%, 100% { opacity: 1 } }
+    @keyframes lid { 0%, 49% { opacity: 0 } 50% { opacity: .85 } 51.5% { opacity: 0 } 52.5% { opacity: .85 } 54% { opacity: 0 } 55% { opacity: .85 } 56.5% { opacity: 0 } 57.5% { opacity: .85 } 59% { opacity: 0 } 60% { opacity: .85 } 61.5%, 100% { opacity: 0 } }
+    @keyframes r-check { 0%, 61% { opacity: 0; transform: scale(.3) } 63%, 100% { opacity: 1; transform: scale(1) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="528" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Pi, made durable</text>
+
+  <!-- panels -->
+  <rect x="48" y="100" width="440" height="340" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <rect x="512" y="100" width="640" height="340" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="80" y="144" font-size="24" font-weight="600" fill="#F3EDEE">Pi</text>
+  <use href="#g-dpi" x="541.4" y="120.6" width="46.8" height="26"/>
+  <text x="600" y="144" font-size="24" font-weight="600" fill="#F3EDEE">Durable Pi</text>
+
+  <g class="loop">
+    <!-- Pi: history survives, the run does not -->
+    <use class="a l-tile" href="#g-pi" x="80" y="172" width="80" height="80"/>
+    <g class="a l-db">
+      <use href="#g-db" x="92" y="310" width="56" height="70"/>
+      <text x="120" y="410" font-size="22" fill="#F3EDEE" text-anchor="middle">history</text>
+    </g>
+    <path class="a l-arr" d="M120 308 V260" stroke-dasharray="50 50" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a l-arr-h" d="M120 308 V260" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <g class="a l-box">
+      <path d="M168 212 H212" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+      <rect x="220" y="186" width="236" height="52" rx="10" fill="none" stroke="#B9AAAE" stroke-width="2" stroke-dasharray="8 6"/>
+    </g>
+    <g class="a l-run">
+      <rect x="220" y="186" width="236" height="52" rx="10" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#3A2C30">
+        <rect x="257" y="202" width="26" height="20" rx="3"/>
+        <rect x="291" y="202" width="26" height="20" rx="3"/>
+        <rect x="325" y="202" width="26" height="20" rx="3"/>
+        <rect x="359" y="202" width="26" height="20" rx="3"/>
+        <rect x="393" y="202" width="26" height="20" rx="3"/>
+      </g>
+      <g fill="#FF5252">
+        <rect class="a l-b1" x="257" y="202" width="26" height="20" rx="3"/>
+        <rect class="a l-b2" x="291" y="202" width="26" height="20" rx="3"/>
+        <rect class="a l-b3" x="325" y="202" width="26" height="20" rx="3"/>
+      </g>
+    </g>
+    <g class="a l-cross pop"><use href="#g-cross" x="321" y="195" width="34" height="34"/></g>
+    <text class="a l-lost" x="338" y="272" font-size="20" fill="#B9AAAE" text-anchor="middle">run state lost on exit</text>
+
+    <!-- Durable Pi: every step commits to SQLite -->
+    <use class="a r-tile" href="#g-pi" x="544" y="172" width="80" height="80"/>
+    <path class="a r-drops" d="M584 280 V308 M719 280 V308 M854 280 V308 M989 280 V308" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <g class="a r-dbs">
+      <use href="#g-db" x="556" y="310" width="56" height="70"/>
+      <use href="#g-db" x="691" y="310" width="56" height="70"/>
+      <use href="#g-db" x="826" y="310" width="56" height="70"/>
+      <use href="#g-db" x="961" y="310" width="56" height="70"/>
+      <g font-size="22" fill="#F3EDEE" text-anchor="middle">
+        <text x="584" y="410">history</text>
+        <text x="719" y="410">queues</text>
+        <text x="854" y="410">app state</text>
+        <text x="989" y="410">tasks</text>
+      </g>
+    </g>
+    <g class="a lid" fill="#FF5252">
+      <ellipse cx="584" cy="321.7" rx="24.5" ry="8.2"/>
+      <ellipse cx="719" cy="321.7" rx="24.5" ry="8.2"/>
+      <ellipse cx="854" cy="321.7" rx="24.5" ry="8.2"/>
+      <ellipse cx="989" cy="321.7" rx="24.5" ry="8.2"/>
+    </g>
+    <path class="a r-bus" d="M584 280 H989" stroke-dasharray="407 407" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a r-rise1" d="M584 280 V260" stroke-dasharray="22 22" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a r-rise2" d="M989 280 V246" stroke-dasharray="36 36" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <g class="a r-rise-h">
+      <path d="M584 280 V260" fill="none" stroke="none" marker-end="url(#head-red)"/>
+      <path d="M989 280 V246" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    </g>
+    <path class="a r-arr" d="M632 212 H850" stroke-dasharray="220 220" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    <path class="a r-arr-h" d="M632 212 H850" fill="none" stroke="none" marker-end="url(#head-red)"/>
+    <g class="a r-strip">
+      <text x="989" y="172" font-size="22" fill="#F3EDEE" text-anchor="middle">checkpointed run</text>
+      <rect x="858" y="186" width="262" height="52" rx="10" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M876 199 V225" stroke="#F3EDEE" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M877 199 L893 204.5 L877 210 Z" fill="#F3EDEE"/>
+      <g fill="#3A2C30">
+        <rect x="904" y="202" width="26" height="20" rx="3"/>
+        <rect x="938" y="202" width="26" height="20" rx="3"/>
+        <rect x="972" y="202" width="26" height="20" rx="3"/>
+        <rect x="1006" y="202" width="26" height="20" rx="3"/>
+        <rect x="1040" y="202" width="26" height="20" rx="3"/>
+      </g>
+    </g>
+    <g fill="#FF5252">
+      <rect class="a r-b1" x="904" y="202" width="26" height="20" rx="3"/>
+      <rect class="a r-b2" x="938" y="202" width="26" height="20" rx="3"/>
+      <rect class="a r-b3" x="972" y="202" width="26" height="20" rx="3"/>
+      <rect class="a r-b4" x="1006" y="202" width="26" height="20" rx="3"/>
+      <rect class="a r-b5" x="1040" y="202" width="26" height="20" rx="3"/>
+    </g>
+    <g class="a r-check pop"><use href="#g-check" x="1078" y="197" width="30" height="30"/></g>
+  </g>
+
+  <text x="48" y="490" font-size="22" fill="#B9AAAE">History, queues, app state and task checkpoints commit to SQLite before anything is shown.</text>
+</svg>

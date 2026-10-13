@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 534" width="1200" height="534" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">One API, every client</title>
+  <desc id="desc">The web UI, dpi-tui and curl send requests through one /v1 API, checked with a bearer token, to the same agent on any device; the agent writes to agent.sqlite and the answer streams back to every client, and curl gets it in one request.</desc>
+  <style>
+    .a { animation-duration: 13s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .ln { animation-timing-function: linear; }
+    .x { transform-box: fill-box; transform-origin: center; }
+    @keyframes cd0 { 0%, 0.5% { opacity: 0; transform: translateX(-16px) } 3.5%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes cn0 { 0%, 1.5% { opacity: 0 } 4.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes cd1 { 0%, 1.5% { opacity: 0; transform: translateX(-16px) } 4.5%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes cn1 { 0%, 2.5% { opacity: 0 } 5.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes cd2 { 0%, 2.5% { opacity: 0; transform: translateX(-16px) } 5.5%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes cn2 { 0%, 3.5% { opacity: 0 } 6.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes row1 { 0%, 7% { opacity: 0 } 9%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes rq0 { 0%, 9% { opacity: 0; transform: translateX(0px) } 9.6% { opacity: 1; transform: translateX(0px) } 15.2% { opacity: 1; transform: translateX(75.6px) } 16%, 100% { opacity: 0; transform: translateX(84px) } }
+    @keyframes rq1 { 0%, 9.6% { opacity: 0; transform: translateX(0px) } 10.2% { opacity: 1; transform: translateX(0px) } 15.8% { opacity: 1; transform: translateX(75.6px) } 16.6%, 100% { opacity: 0; transform: translateX(84px) } }
+    @keyframes rq2 { 0%, 10.2% { opacity: 0; transform: translateX(0px) } 10.8% { opacity: 1; transform: translateX(0px) } 16.4% { opacity: 1; transform: translateX(75.6px) } 17.2%, 100% { opacity: 0; transform: translateX(84px) } }
+    @keyframes key { 0%, 16.5% { opacity: .3 } 18.5%, 96% { opacity: 1 } 100% { opacity: .3 } }
+    @keyframes kring { 0%, 16.8% { opacity: 0; transform: scale(.92) } 18.5% { opacity: 1; transform: scale(1) } 23%, 100% { opacity: 0; transform: scale(1.12) } }
+    @keyframes fw { 0%, 20% { opacity: 0; transform: translateX(0px) } 21% { opacity: 1; transform: translateX(0px) } 27.5% { opacity: 1; transform: translateX(82.8px) } 29%, 100% { opacity: 0; transform: translateX(90px) } }
+    @keyframes pring { 0%, 28.5% { opacity: 0; transform: scale(.94) } 30% { opacity: 1; transform: scale(1) } 35%, 100% { opacity: 0; transform: scale(1.1) } }
+    @keyframes write { 0%, 31% { stroke-dashoffset: 1 } 35%, 100% { stroke-dashoffset: 0 } }
+    @keyframes head { 0%, 34% { opacity: 0 } 35.5%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes dbk { 0%, 34.5% { opacity: 0 } 36% { opacity: 1 } 41%, 100% { opacity: 0 } }
+    @keyframes bk { 0%, 38% { opacity: 0; transform: translateX(0px) } 39% { opacity: 1; transform: translateX(0px) } 45% { opacity: 1; transform: translateX(-82.8px) } 46.5%, 100% { opacity: 0; transform: translateX(-90px) } }
+    @keyframes rs0 { 0%, 46% { opacity: 0; transform: translateX(0px) } 46.8% { opacity: 1; transform: translateX(-8.4px) } 52.4% { opacity: 1; transform: translateX(-79.8px) } 53%, 100% { opacity: 0; transform: translateX(-84px) } }
+    @keyframes rs1 { 0%, 46.5% { opacity: 0; transform: translateX(0px) } 47.3% { opacity: 1; transform: translateX(-8.4px) } 52.9% { opacity: 1; transform: translateX(-79.8px) } 53.5%, 100% { opacity: 0; transform: translateX(-84px) } }
+    @keyframes rs2 { 0%, 47% { opacity: 0; transform: translateX(0px) } 47.8% { opacity: 1; transform: translateX(-8.4px) } 53.4% { opacity: 1; transform: translateX(-79.8px) } 54%, 100% { opacity: 0; transform: translateX(-84px) } }
+    @keyframes row2 { 0%, 53.5% { opacity: 0; transform: translateX(-10px) } 56%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @keyframes done { 0%, 54.5% { opacity: 0; transform: translateX(-10px) } 57%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-browser" viewBox="0 0 72 52">
+      <rect x="2" y="2" width="68" height="48" rx="6" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <path d="M 2 14 H70" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="10" cy="8" r="2" fill="#FF5252"/><circle cx="17" cy="8" r="2" fill="#B9AAAE"/><circle cx="24" cy="8" r="2" fill="#B9AAAE"/>
+      <path d="M 12 26 H44 M 12 34 H58 M 12 42 H36" stroke="#B9AAAE" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-terminal" viewBox="0 0 72 52">
+      <rect x="2" y="2" width="68" height="48" rx="6" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <path d="M 14 18 L24 26 L14 34" fill="none" stroke="#FF5252" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 30 36 H50" stroke="#F3EDEE" stroke-width="3.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-check-o" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M 9.5 16.5 L14 21 L22.5 11.5" fill="none" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-key" viewBox="0 0 48 24">
+      <circle cx="11" cy="12" r="8" fill="none" stroke="#FF5252" stroke-width="2.8"/>
+      <path d="M 19 12 H45 M 36 12 V19 M 42 12 V17" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M 36 12 H53 M 36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M 0 0H3V2H2V1H0Z"/>
+        <path d="M 0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M 3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M 3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M 3 24 A21 7 0 0 0 45 24 M 3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="chip-req" viewBox="0 0 28 28"><rect width="28" height="28" rx="7" fill="#FF5252"/><path d="M 11 8.5 L17 14 L11 19.5" fill="none" stroke="#141011" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="chip-res" viewBox="0 0 28 28"><rect width="28" height="28" rx="7" fill="#FF5252"/><path d="M 8 9 H20 M 8 14 H20 M 8 19 H15" fill="none" stroke="#141011" stroke-width="2.8" stroke-linecap="round"/></symbol>
+  </defs>
+  <rect width="1200" height="534" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">One API, every client</text>
+  <path class="a" style="animation-name: cn0" d="M 502 156 H608" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="a" style="animation-name: cn1" d="M 502 276 H608" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="a" style="animation-name: cn2" d="M 502 396 H608" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path d="M 776 276 H852" stroke="#B9AAAE" stroke-width="2.5"/>
+  <g class="a" style="animation-name: cd0">
+    <rect x="48" y="106" width="454" height="100" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <use href="#g-browser" x="68" y="130" width="72" height="52"/>
+    <text x="160" y="164" font-size="24" fill="#F3EDEE">web UI</text>
+    <g class="a" style="animation-name: row1" fill="none" stroke-linecap="round"><path d="M 310 138 L316 144 L310 150" stroke="#B9AAAE" stroke-width="2.5" stroke-linejoin="round"/><path d="M 332 144 H410 M 424 144 H460" stroke="#6B5A5E" stroke-width="7"/></g><g class="a" style="animation-name: row2" fill="none" stroke-linecap="round"><path d="M 309 164 H319 M 309 169 H319 M 309 174 H316" stroke="#FF5252" stroke-width="2.2"/><path d="M 332 169 H386 M 400 169 H450 M 464 169 H476" stroke="#FF5252" stroke-width="7"/></g>
+  </g>
+  <g class="a" style="animation-name: cd1">
+    <rect x="48" y="226" width="454" height="100" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <use href="#g-terminal" x="68" y="250" width="72" height="52"/>
+    <text x="160" y="284" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">dpi-tui</text>
+    <g class="a" style="animation-name: row1" fill="none" stroke-linecap="round"><path d="M 310 258 L316 264 L310 270" stroke="#B9AAAE" stroke-width="2.5" stroke-linejoin="round"/><path d="M 332 264 H410 M 424 264 H460" stroke="#6B5A5E" stroke-width="7"/></g><g class="a" style="animation-name: row2" fill="none" stroke-linecap="round"><path d="M 309 284 H319 M 309 289 H319 M 309 294 H316" stroke="#FF5252" stroke-width="2.2"/><path d="M 332 289 H386 M 400 289 H450 M 464 289 H476" stroke="#FF5252" stroke-width="7"/></g>
+  </g>
+  <g class="a" style="animation-name: cd2">
+    <rect x="48" y="346" width="454" height="100" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <text x="68" y="386" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#F3EDEE"><tspan fill="#FF5252">curl</tspan> POST …/messages</text>
+    <g class="a" style="animation-name: done"><use href="#g-check-o" x="68" y="404" width="22" height="22"/><text x="98" y="422" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#F3EDEE">done<tspan fill="#B9AAAE"> · the answer in one request</tspan></text></g>
+  </g>
+  <rect x="608" y="106" width="168" height="340" rx="22" fill="#21191B" stroke="#FF5252" stroke-width="2.5"/>
+  <text x="692" y="160" text-anchor="middle" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="32" font-weight="700" fill="#FF5252">/v1</text>
+  <g class="a" style="animation-name: key"><use href="#g-key" x="656" y="258" width="72" height="36"/></g>
+  <rect class="a x" style="animation-name: kring" x="642" y="249" width="100" height="54" rx="14" fill="none" stroke="#FF5252" stroke-width="2" opacity="0"/>
+  <text x="692" y="324" text-anchor="middle" font-size="20" fill="#B9AAAE">Bearer token</text>
+  <rect x="828" y="122" width="324" height="256" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <use href="#g-server" x="848" y="142" width="58" height="40"/>
+  <text x="920" y="166" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">dpi-backend</text>
+  <text x="920" y="192" font-size="20" fill="#B9AAAE">any device</text>
+  <use href="#g-pi" x="852" y="226" width="100" height="100"/>
+  <rect class="a x" style="animation-name: pring" x="844" y="218" width="116" height="116" rx="22" fill="none" stroke="#FF5252" stroke-width="2" opacity="0"/>
+  <path class="a" style="animation-name: write" d="M 962 276 H1018" pathLength="1" stroke-dasharray="1 1" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="a" style="animation-name: head" d="M 1018 270 L1029 276 L1018 282 Z" fill="#FF5252"/>
+  <use href="#g-db" x="1036" y="241" width="56" height="70"/>
+  <rect class="a" style="animation-name: dbk" x="1028" y="233" width="72" height="86" rx="14" fill="none" stroke="#FF5252" stroke-width="2" opacity="0"/>
+  <text x="1064" y="340" text-anchor="middle" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#B9AAAE">agent.sqlite</text>
+  <use class="a" style="animation-name: rq0" href="#chip-req" x="506" y="142" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: rq1" href="#chip-req" x="506" y="262" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: rq2" href="#chip-req" x="506" y="382" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: fw" href="#chip-req" x="732" y="262" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: bk" href="#chip-res" x="822" y="262" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: rs0" href="#chip-res" x="590" y="142" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: rs1" href="#chip-res" x="590" y="262" width="28" height="28" opacity="0"/>
+  <use class="a" style="animation-name: rs2" href="#chip-res" x="590" y="382" width="28" height="28" opacity="0"/>
+  <text x="600" y="498" text-anchor="middle" font-size="22" fill="#B9AAAE">REST for commands. SSE for live state. Several clients can watch and steer one agent.</text>
+</svg>

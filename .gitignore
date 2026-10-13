@@ -1,0 +1,35 @@
+# secrets and this machine's device list (template: dpi-network.example.yaml)
+dpi-network.yaml
+.env
+.env.*
+!.env.example
+**/backend.env
+
+# dependencies and builds
+node_modules/
+**/dist/
+.venv/
+__pycache__/
+
+# runtime data (agent databases never belong in git)
+**/.durable-pi/
+**/.data/
+**/workspace/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.lock
+!package-lock.json
+!uv.lock
+
+# agent scratch space for the e2e scenario (tests/e2e-network.mjs)
+/e2e/
+
+# local artifacts
+test-results/
+tmp/
+*.log
+.DS_Store
+
+# local design-tool state (holds absolute local paths)
+docs/.impeccable/

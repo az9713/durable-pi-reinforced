@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Should every agent be durable?</title>
+  <desc id="desc">A table matches work requirements to agents: short, supervised work in one terminal suits Pi, while surviving restarts, waiting hours for a human, serving many clients and starting on its own call for Durable Pi, which still leaves the host, storage and effect recovery to choose.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-dpi" viewBox="0 0 9 5">
+      <g fill="#FFFFFF" transform="translate(.5 .5)">
+        <path d="M0 0H1V4H0Z"/>
+        <path d="M1 0H2V1H3V2H2V1H1Z"/>
+        <path d="M2 2H3V3H2V4H1V3H2Z"/>
+        <g transform="translate(4)">
+          <path d="M0 0H3V2H2V1H0Z"/>
+          <path d="M0 1H1V2H2V3H1V4H0Z"/>
+          <path d="M3 2H4V4H3Z"/>
+        </g>
+      </g>
+    </symbol>
+  </defs>
+  <style>
+    .an { animation-duration: 12s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(.4, 0, .2, 1); }
+    .draw { stroke-dasharray: 1 2; }
+
+    /* rows reveal one at a time, then their check draws in (ring, then tick) */
+    .row0 { animation-name: row0; } .ring0 { animation-name: ring0; } .tick0 { animation-name: tick0; }
+    .row1 { animation-name: row1; } .ring1 { animation-name: ring1; } .tick1 { animation-name: tick1; }
+    .row2 { animation-name: row2; } .ring2 { animation-name: ring2; } .tick2 { animation-name: tick2; }
+    .row3 { animation-name: row3; } .ring3 { animation-name: ring3; } .tick3 { animation-name: tick3; }
+    .row4 { animation-name: row4; } .ring4 { animation-name: ring4; } .tick4 { animation-name: tick4; }
+    @keyframes row0 { 0%, 5% { opacity: 0; transform: translateY(10px) } 8%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes ring0 { 0%, 8% { stroke-dashoffset: 1; opacity: 0 } 8.5% { opacity: 1 } 11%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes tick0 { 0%, 10% { stroke-dashoffset: 1; opacity: 0 } 10.5% { opacity: 1 } 13%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes row1 { 0%, 14% { opacity: 0; transform: translateY(10px) } 17%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes ring1 { 0%, 17% { stroke-dashoffset: 1; opacity: 0 } 17.5% { opacity: 1 } 20%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes tick1 { 0%, 19% { stroke-dashoffset: 1; opacity: 0 } 19.5% { opacity: 1 } 22%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes row2 { 0%, 23% { opacity: 0; transform: translateY(10px) } 26%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes ring2 { 0%, 26% { stroke-dashoffset: 1; opacity: 0 } 26.5% { opacity: 1 } 29%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes tick2 { 0%, 28% { stroke-dashoffset: 1; opacity: 0 } 28.5% { opacity: 1 } 31%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes row3 { 0%, 32% { opacity: 0; transform: translateY(10px) } 35%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes ring3 { 0%, 35% { stroke-dashoffset: 1; opacity: 0 } 35.5% { opacity: 1 } 38%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes tick3 { 0%, 37% { stroke-dashoffset: 1; opacity: 0 } 37.5% { opacity: 1 } 40%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes row4 { 0%, 41% { opacity: 0; transform: translateY(10px) } 44%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes ring4 { 0%, 44% { stroke-dashoffset: 1; opacity: 0 } 44.5% { opacity: 1 } 47%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+    @keyframes tick4 { 0%, 46% { stroke-dashoffset: 1; opacity: 0 } 46.5% { opacity: 1 } 49%, 100% { stroke-dashoffset: 0; opacity: 1 } }
+
+    /* the remaining choices close the table */
+    .footer { animation-name: footer; }
+    @keyframes footer { 0%, 52% { opacity: 0; transform: translateY(10px) } 57%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="660" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Should every agent be durable?</text>
+
+  <!-- table -->
+  <rect x="48" y="112" width="1104" height="426" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <use href="#g-pi" x="732" y="132" width="56" height="56"/>
+  <use href="#g-dpi" x="964" y="140" width="72" height="40"/>
+  <g font-size="20" letter-spacing="1">
+    <text x="88" y="220" fill="#B9AAAE">WORK REQUIREMENT</text>
+    <text x="760" y="220" font-weight="600" text-anchor="middle" fill="#F3EDEE">PI</text>
+    <text x="1000" y="220" font-weight="600" text-anchor="middle" fill="#F3EDEE">DURABLE PI</text>
+  </g>
+
+  <g font-size="24" fill="#F3EDEE">
+    <g class="an row0">
+      <rect x="64" y="238" width="1072" height="56" rx="8" fill="#141011"/>
+      <text x="88" y="274">Short, supervised, one terminal</text>
+      <g transform="translate(742 248) scale(1.125)" fill="none" stroke="#FF5252">
+        <path class="an draw ring0" pathLength="1" d="M16 2.5A13.5 13.5 0 1 1 16 29.5A13.5 13.5 0 1 1 16 2.5" stroke-width="2.5"/>
+        <path class="an draw tick0" pathLength="1" d="M9.5 16.5L14 21L22.5 11.5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g class="an row1">
+      <text x="88" y="330">Survives a crash or restart</text>
+      <g transform="translate(982 304) scale(1.125)" fill="none" stroke="#FF5252">
+        <path class="an draw ring1" pathLength="1" d="M16 2.5A13.5 13.5 0 1 1 16 29.5A13.5 13.5 0 1 1 16 2.5" stroke-width="2.5"/>
+        <path class="an draw tick1" pathLength="1" d="M9.5 16.5L14 21L22.5 11.5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g class="an row2">
+      <rect x="64" y="350" width="1072" height="56" rx="8" fill="#141011"/>
+      <text x="88" y="386">Waits hours for a human</text>
+      <g transform="translate(982 360) scale(1.125)" fill="none" stroke="#FF5252">
+        <path class="an draw ring2" pathLength="1" d="M16 2.5A13.5 13.5 0 1 1 16 29.5A13.5 13.5 0 1 1 16 2.5" stroke-width="2.5"/>
+        <path class="an draw tick2" pathLength="1" d="M9.5 16.5L14 21L22.5 11.5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g class="an row3">
+      <text x="88" y="442">Many clients, one agent</text>
+      <g transform="translate(982 416) scale(1.125)" fill="none" stroke="#FF5252">
+        <path class="an draw ring3" pathLength="1" d="M16 2.5A13.5 13.5 0 1 1 16 29.5A13.5 13.5 0 1 1 16 2.5" stroke-width="2.5"/>
+        <path class="an draw tick3" pathLength="1" d="M9.5 16.5L14 21L22.5 11.5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <g class="an row4">
+      <rect x="64" y="462" width="1072" height="56" rx="8" fill="#141011"/>
+      <text x="88" y="498">Starts before you sit down</text>
+      <g transform="translate(982 472) scale(1.125)" fill="none" stroke="#FF5252">
+        <path class="an draw ring4" pathLength="1" d="M16 2.5A13.5 13.5 0 1 1 16 29.5A13.5 13.5 0 1 1 16 2.5" stroke-width="2.5"/>
+        <path class="an draw tick4" pathLength="1" d="M9.5 16.5L14 21L22.5 11.5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- what durable still leaves open -->
+  <g class="an footer">
+    <rect x="48" y="558" width="1104" height="64" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <text x="88" y="598" font-size="22" fill="#B9AAAE">Durable still leaves you to choose: <tspan font-weight="600" fill="#F3EDEE">host · storage · effect recovery</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Durable Pi Explained</title>
+<style>
+:root{
+  --bg:#0f172a; --card:#1e293b; --card2:#162033; --text:#e2e8f0; --text2:#cbd5e1; --muted:#94a3b8;
+  --orange:#fb923c; --teal:#2dd4bf; --border:#334155; --border2:#1e293b; --red:#f87171; --yellow:#facc15;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text2);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--teal)} a:hover{color:var(--orange)}
+code,pre,kbd{font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace;font-size:.88em}
+code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:0 .3em;color:var(--text)}
+pre{background:#0b1222;border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow-x:auto;color:var(--text)}
+pre code{background:none;border:0;padding:0}
+kbd{background:var(--card);border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:0 .35em;color:var(--text)}
+h1,h2,h3,h4{color:var(--text);line-height:1.25}
+h1{font-size:2rem;margin:.2em 0 .3em}
+h2{font-size:1.5rem;margin:2.4em 0 .6em;padding-top:.6em;border-top:1px solid var(--border)}
+h3{font-size:1.15rem;margin:1.8em 0 .5em;color:var(--orange)}
+h4{font-size:1rem;margin:1.3em 0 .4em}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:0;max-width:1320px;margin:0 auto}
+nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:24px 16px;border-right:1px solid var(--border2);font-size:.88rem}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:3px 6px;border-radius:4px}
+nav.toc a:hover{background:var(--card);color:var(--text)}
+nav.toc .sub{padding-left:18px;font-size:.84rem}
+nav.toc .brand{color:var(--text);font-weight:700;margin-bottom:10px;display:block}
+main{padding:24px 40px 80px;min-width:0}
+.lead{font-size:1.12rem;color:var(--text)}
+.muted{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:14px 0}
+.callout{border:1px solid var(--teal);background:var(--card2);padding:10px 16px;border-radius:8px;margin:14px 0}
+.callout.warn{border-color:var(--orange)}
+.callout.danger{border-color:var(--red)}
+.callout b.label{color:var(--text)}
+.tbl{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--border);padding:7px 10px;vertical-align:top;text-align:left}
+th{background:var(--card);color:var(--text)}
+tr:nth-child(even) td{background:#121c30}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:0 .45em;margin:0 .15em;vertical-align:1px;white-space:nowrap}
+.t-doc{background:#134e4a;color:#99f6e4}
+.t-inf{background:#713f12;color:#fde68a}
+.t-unv{background:#7f1d1d;color:#fecaca}
+.t-vid{background:#312e81;color:#c7d2fe}
+figure{margin:18px 0;text-align:center}
+figure img{max-width:100%;height:auto;background:#f8fafc;border-radius:8px;border:1px solid var(--border)}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:6px}
+.uu{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:12px 0}
+.uu h4{margin:.1em 0 .5em;color:var(--text)}
+.uu dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 12px;margin:0}
+.uu dt{color:var(--muted);font-size:.85rem;font-weight:700}
+.uu dd{margin:0}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.layers .card{margin:0}
+.layers .card h3{margin-top:0;font-size:1rem;color:var(--teal)}
+ol.steps li{margin:.35em 0}
+.flow{font-family:ui-monospace,Consolas,monospace;font-size:.85rem;background:#0b1222;border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre;color:var(--text)}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border2);padding:16px}
+  main{padding:16px 16px 60px}
+  .uu dl{grid-template-columns:1fr}
+  h1{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <span class="brand">Durable Pi: the explainer</span>
+  <a href="#start">0. Read this first</a>
+  <a href="#what">1. What this repo does</a>
+  <a href="#layers">2. The four parts: Pi, pi-durable, this repo, Jev</a>
+  <a href="#glossary">3. Words you need</a>
+  <a href="#why">4. Why is it "durable"?</a>
+  <a href="#how">5. How pi-durable implements durability</a>
+  <a class="sub" href="#how-summary">Executive summary</a>
+  <a class="sub" href="#how-line">5.1 One commit line</a>
+  <a class="sub" href="#how-tasks">5.2 Tasks and checkpoints</a>
+  <a class="sub" href="#how-replay">5.3 Replay policy</a>
+  <a class="sub" href="#how-memo">5.4 Memos</a>
+  <a class="sub" href="#how-recover">5.5 Recovery on reopen</a>
+  <a class="sub" href="#how-storage">5.6 Storage</a>
+  <a class="sub" href="#how-queue">5.7 Queues and admission</a>
+  <a class="sub" href="#how-docs">5.8 Documents</a>
+  <a class="sub" href="#how-compact">5.9 Compaction</a>
+  <a class="sub" href="#how-fork">5.10 Forks, subagents, waits</a>
+  <a class="sub" href="#how-ext">5.11 Extensions and hooks</a>
+  <a class="sub" href="#how-stream">5.12 Streams to clients</a>
+  <a href="#backend">6. How this repo uses it (dpi-backend)</a>
+  <a class="sub" href="#be-disk">6.1 Files on disk</a>
+  <a class="sub" href="#be-boot">6.2 Startup and locks</a>
+  <a class="sub" href="#be-send">6.3 Sending work</a>
+  <a class="sub" href="#be-tools">6.4 The 14 tools</a>
+  <a class="sub" href="#be-jobs">6.5 Durable jobs</a>
+  <a class="sub" href="#be-state">6.6 App State</a>
+  <a class="sub" href="#be-compact">6.7 Compaction numbers</a>
+  <a class="sub" href="#be-api">6.8 API, streams, auth</a>
+  <a class="sub" href="#be-walk">6.9 Walkthrough: kill mid-tool</a>
+  <a href="#pi">7. The role of Pi</a>
+  <a href="#jev">8. The role of Jev</a>
+  <a href="#demo">9. The proactive demo, step by step</a>
+  <a href="#network">10. The network: hub, SDK, TUI, devices</a>
+  <a href="#run">11. Run it (and the Windows facts)</a>
+  <a href="#uu">12. Unknown unknowns</a>
+  <a href="#tests">13. What the tests prove</a>
+  <a href="#gaps">14. Gaps for builders</a>
+  <a href="#limits">15. Limits of this document</a>
+</nav>
+
+<main>
+
+<!-- ================================================================== -->
+<section id="start">
+<h1>Durable Pi: what it does, why it is durable, how</h1>
+<p class="lead">This page explains the <code>durable-pi-main</code> codebase for a person who has not read it. It covers what the code does, what "durable" means, how durability is implemented, what Pi and Jev do, and the facts a new user would not know to ask about.</p>
+
+<div class="card">
+<p><b>Status.</b> Written 2026-10-12 from a snapshot of <a href="https://github.com/disler/durable-pi">disler/durable-pi</a>. The repo pins <code>@earendil-works/pi-durable</code>, <code>pi-ai</code> and <code>chord</code> at version <code>1.0.3</code> (<code>apps/dpi-backend/package.json:15-19</code>). pi-durable is labelled "Experimental. The API changes without notice between releases" (<code>ai_docs/durable_pi/readme.md:7</code>).</p>
+<p><b>Source markers.</b> Every claim comes from a file in the repo. Some claims cannot be checked in code. These carry a marker:</p>
+<ul>
+<li><span class="tag t-doc">pd-doc</span> The claim comes from the pi-durable docs in <code>ai_docs/durable_pi/</code>. The pi-durable source code is <b>not</b> in this checkout and <code>node_modules</code> is not installed, so the library behavior was not checked against its code.</li>
+<li><span class="tag t-inf">inferred</span> The claim is a conclusion from reading the code. No test or doc states it.</li>
+<li><span class="tag t-unv">unverified</span> The claim is likely but nobody ran it. Most Windows items carry this marker.</li>
+<li><span class="tag t-vid">video</span> The claim comes from the video transcript (<code>../transcript.txt</code>), not from the repo.</li>
+</ul>
+<p>File references use the form <code>path:line</code>. Paths are relative to <code>durable-pi-main/</code>.</p>
+</div>
+</section>
+
+<!-- ================================================================== -->
+<section id="what">
+<h2>1. What this repo does</h2>
+<p class="lead">This repo runs Pi coding agents as long-lived services on machines you own, and lets any client connect to them over HTTP. The agent survives a crash, a restart, or a closed browser, and continues from its last saved step.</p>
+
+<p>Think of a normal coding agent as a phone call: if the line drops, the conversation is gone, and you must call back and explain again. A durable agent is more like a shared document with an autosave on every keystroke. Close the window, and the document is still there, at the exact point where you stopped. This repo puts that document on a server, so many windows (a browser, a terminal, a <code>curl</code> script) can open it at the same time.</p>
+
+<p>The repo has five apps (<code>README.md:269-293</code>):</p>
+<div class="tbl"><table>
+<tr><th>App</th><th>Where it runs</th><th>What it does</th></tr>
+<tr><td><code>apps/dpi-backend</code></td><td>Every device, port 4780</td><td>The device server. It owns the agents, their SQLite files and their tools. It exposes the v1 HTTP + SSE API with a bearer token.</td></tr>
+<tr><td><code>apps/dpi-playground</code></td><td>Your laptop, <code>127.0.0.1:4781</code></td><td>The "hub" and the Vue web client. The hub stores every device URL and token, and proxies the browser to the devices.</td></tr>
+<tr><td><code>apps/dpi-tui</code></td><td>Any terminal</td><td>A terminal client with Pi's look and keys. It connects to one device directly.</td></tr>
+<tr><td><code>apps/dpi-sdk</code></td><td>Inside all of the above</td><td>The shared wire contract, HTTP client, SSE reader, state reducers, device registry and the <code>just net</code> deploy scripts.</td></tr>
+<tr><td><code>apps/proactive-dpi-demo</code></td><td>Your laptop, port 4790</td><td>A self-contained demo. A Jev classifier reads a mock production log stream, detects an incident, starts a durable agent that finds and fixes the bug, then waits for your approval to deploy.</td></tr>
+</table></div>
+
+<figure><img src="../images/01_durable_agent_network.svg" alt="Three clients reach durable agents on four devices"><figcaption>From the repo's README: clients connect to devices; the agents live on the devices.</figcaption></figure>
+
+<p>The central sentence of the README: <b>"The device owns the run. Clients only watch and steer."</b> (<code>README.md:59</code>).</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="layers">
+<h2>2. The four parts: Pi, pi-durable, this repo, Jev</h2>
+<p>Four separate things work together. People often mix them up. Keep them apart:</p>
+<div class="layers">
+<div class="card"><h3>Pi (the agent toolkit)</h3><p>A family of npm packages from Earendil (<code>earendil-works/pi</code>). <code>pi-ai</code> talks to 15+ model providers. The Pi coding agent is a terminal CLI. This repo uses <code>pi-ai</code> for model access only. It does not run the Pi CLI.</p></div>
+<div class="card"><h3>pi-durable (the durable harness)</h3><p>A library in the same family: <code>@earendil-works/pi-durable</code>. It runs the agent loop (model call, tool calls, model call…) and saves every step to storage before it shows the step. All durability lives here.</p></div>
+<div class="card"><h3>This repo (durable-pi)</h3><p>An application on top of pi-durable, written by IndyDevDan (<code>disler/durable-pi</code>). It adds a device server, an HTTP API, a hub, a web UI, a TUI, deploy scripts, extra tools, "durable jobs", and the proactive demo.</p></div>
+<div class="card"><h3>Jev (the classifier)</h3><p>A separate paid API from TypeSafe (<code>typesafe.ai</code>). It answers small, bounded questions about a JSON object ("is this log row normal, suspicious, or an incident?") in a few hundred milliseconds for about $0.00003 a call (<code>README.md:80</code>). It is not part of Pi.</p></div>
+</div>
+
+<div class="flow">  clients (browser via hub · dpi-tui · curl)
+        │  HTTP + SSE, bearer token
+        ▼
+  dpi-backend  ──────────────── this repo: routes, tools, jobs, App State, extensions
+        │  Harness.open / conversation.submit / watchEvents
+        ▼
+  pi-durable 1.0.3  ─────────── durability: tasks, checkpoints, replay, SQLite commits
+        │  model requests
+        ▼
+  pi-ai 1.0.3 → OpenRouter → Claude Sonnet 5.5, GPT, Gemini …
+
+  Jev (TypeSafe API) ←── called by: proactive demo watcher (every log row)
+                        and the jev-damage-control hook (every bash command, opt-in)</div>
+</section>
+
+<!-- ================================================================== -->
+<section id="glossary">
+<h2>3. Words you need</h2>
+<p>Several words have two meanings in this codebase. The table gives each meaning a separate entry.</p>
+<div class="tbl"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td><b>Device</b></td><td>One machine that runs one <code>dpi-backend</code>. Example: your laptop (<code>local</code>), a Mac mini over ssh, an exe.dev cloud VM.</td></tr>
+<tr><td><b>Session</b></td><td>One pi-durable <b>Harness</b> with one SQLite file (<code>sessions/&lt;uuid&gt;/agent.sqlite</code>) and one working directory on a device. In pi-durable's own docs the same thing is called a "Session" too.</td></tr>
+<tr><td><b>Agent</b> = <b>conversation</b></td><td>One conversation inside a session. The repo says "agent"; pi-durable says "conversation". Conversation id <code>1</code> is the root and is named <code>Main</code>. Other agents are forks or subagents.</td></tr>
+<tr><td><b>Address</b></td><td><code>device:session:agent</code>, for example <code>mac-mini:api-refactor:fork</code> (<code>README.md:118</code>).</td></tr>
+<tr><td><b>Entry</b></td><td>One immutable record in a conversation's history: <code>pi.user</code>, <code>pi.assistant</code>, <code>pi.system</code>, <code>pi.tool-result</code>, <code>pi.reset</code>, <code>pi.compaction</code>. Entries are never deleted.</td></tr>
+<tr><td><b>Head marker</b></td><td>The <code>head</code> field on a reset or compaction entry. The model sees only entries from the newest head onward. Older entries stay in storage.</td></tr>
+<tr><td><b>Task</b> (pi-durable)</td><td>A durable state machine that saves a checkpoint at every step. Every model call (<code>pi.generation</code>), every tool call (<code>pi.tool</code>) and every compaction (<code>pi.compaction</code>) is a task <span class="tag t-doc">pd-doc</span>.</td></tr>
+<tr><td><b>Durable job</b> (this repo)</td><td>A repo-defined workflow with named phases: <code>workspace-snapshot</code>, <code>change-watch</code>, <code>release-check</code>. Each job is implemented as one pi-durable task named <code>demo.job.&lt;id&gt;</code>. The web UI shows jobs on the "Tasks" tab, so "task" there means a job.</td></tr>
+<tr><td><b>Submission</b></td><td>One piece of input sent to a conversation. Its status is <code>queued</code>, <code>placed</code>, <code>done</code> or <code>unanswered</code>.</td></tr>
+<tr><td><b>requestId</b></td><td>A client-chosen id on a submission. The same id in the same conversation is admitted once, even if the client retries.</td></tr>
+<tr><td><b>Document</b> (doc)</td><td>A JSON value that pi-durable stores and versions, scoped to a session, a conversation or a task. Examples: <code>pi.inbox</code> (queued input), <code>pi.usage</code> (spend), <code>ops.incidents</code> (demo).</td></tr>
+<tr><td><b>App State</b></td><td>This repo's one shared JSON document per device. Every agent in every session on that device can read and change it with the <code>read_state</code> and <code>update_state</code> tools.</td></tr>
+<tr><td><b>Replay policy</b></td><td>A per-tool flag: <code>"safe"</code> (the tool may run again after a crash) or <code>"unsafe"</code> (it must not; the agent gets an "interrupted" result). Omitted means <code>unsafe</code> <span class="tag t-doc">pd-doc</span>.</td></tr>
+<tr><td><b>Memo</b></td><td>A small first-writer-wins value saved inside a task. Code uses it to remember a decision, so that a rerun after a crash does not decide again.</td></tr>
+<tr><td><b>Extension</b> / <b>hook</b></td><td>A pi-durable plug-in that adds tools, prompt sections, hooks and tasks. A hook runs at a fixed point, for example <code>beforeTool</code> (before each tool call).</td></tr>
+<tr><td><b>Fork</b></td><td>A new conversation that sees the parent's entries up to one entry, then continues on its own.</td></tr>
+<tr><td><b>Subagent</b></td><td>A conversation owned by a task (usually a tool call). The <code>subagent</code> tool and the <code>release-check</code> job create them.</td></tr>
+<tr><td><b>Steer / follow-up / reject</b></td><td>What to do with input when the agent is busy. <b>Steer</b>: insert after the current tool round. <b>Follow-up</b> (default): wait until the run ends. <b>Reject</b>: refuse with HTTP 409.</td></tr>
+<tr><td><b>Human near the loop</b></td><td>The video's phrase. The agent works alone, then stops at a durable approval point and waits (minutes or hours) for a person.</td></tr>
+<tr><td><b>Proactive agent</b></td><td>An agent started by an event (a log row, a webhook, a schedule), not by a person's prompt.</td></tr>
+<tr><td><b>Faux provider</b></td><td>A fake model built into <code>dpi-backend</code> (<code>src/faux.ts</code>). Set <code>DPI_PROVIDER=faux</code> to run without an API key or cost.</td></tr>
+</table></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="why">
+<h2>4. Why is it "durable"?</h2>
+<p class="lead">"Durable" means: everything the agent does is written to disk <em>before</em> anyone sees it, so a restart can continue at the exact step where the work stopped.</p>
+
+<h3>Why <code>/resume</code> is not enough</h3>
+<p>The normal Pi CLI already saves a session as a JSONL file and has <code>--resume</code> (<code>ai_docs/pi/sessions.md:13-34</code>). The README explains what resume does not know (<code>README.md:52</code>):</p>
+<div class="tbl"><table>
+<tr><th>Question after a crash</th><th>Plain Pi <code>/resume</code></th><th>pi-durable</th></tr>
+<tr><td>What did the conversation say?</td><td>Yes: the transcript is saved.</td><td>Yes: entries are committed.</td></tr>
+<tr><td>Which tool call was running when the process died?</td><td>No.</td><td>Yes: each tool call is a task with a checkpoint.</td></tr>
+<tr><td>Did that tool call already change something?</td><td>No.</td><td>Partly: the task knows it reached "execute". It cannot know whether the outside effect happened, so it tells the agent "interrupted".</td></tr>
+<tr><td>What input was queued behind it?</td><td>No. In plain Pi, "Abort returns queued messages to the editor" (<code>ai_docs/pi/how-pi-works.md:17</code>), so queued input lives in the client.</td><td>Yes: queued input is the <code>pi.inbox</code> document.</td></tr>
+<tr><td>What did the application believe was true?</td><td>No. Pi docs say to keep data outside a session in external storage (<code>ai_docs/pi/extensions.md:235</code>).</td><td>Yes: documents (App State, incidents, job runs) are committed in the same transaction as the entries.</td></tr>
+<tr><td>A half-streamed model reply?</td><td>Lost.</td><td>Partial output is committed every 100 ms (<code>partialIntervalMs</code>). A crash loses at most that window <span class="tag t-doc">pd-doc</span>.</td></tr>
+</table></div>
+
+<figure><img src="../images/02_pi_made_durable.svg" alt="Pi persists history only; Durable Pi commits history, queues, app state and task checkpoints"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3>What durability gives you</h3>
+<p>Once a run survives the death of its own process, it no longer needs the window that started it. That single property produces every feature the video lists (<code>README.md:249-255</code>):</p>
+<div class="tbl"><table>
+<tr><th>Feature</th><th>Why durability is the cause</th></tr>
+<tr><td>Long-running agents</td><td>Close the laptop, kill the process or restart the machine; the run resumes from its last checkpoint.</td></tr>
+<tr><td>Multi-client agents</td><td>The run lives on the device, so a browser, a TUI and <code>curl</code> are all just viewers of the same committed state.</td></tr>
+<tr><td>Multiplayer agents</td><td>Several people can watch and steer one agent, because every viewer reads the same committed state.</td></tr>
+<tr><td>Human near the loop</td><td>An approval is a durable task. It can wait hours, survive a restart, and still not run twice.</td></tr>
+<tr><td>Proactive agents</td><td>Code can start an agent from an event with no person present, because no client window is needed.</td></tr>
+</table></div>
+
+<div class="callout warn"><b class="label">Durable does not mean exactly-once.</b> pi-durable guarantees exactly-once <em>admission</em> of a submission with a <code>requestId</code>. It does not guarantee that an outside effect (a payment, a page, a deploy) happens once. If the process dies after the effect but before the result is saved, a "safe" tool runs again and an "unsafe" tool reports "interrupted". Your effect needs its own idempotency key (<code>README.md:332</code>; <code>ai_docs/durable_pi/announcement.md:153-155</code>).</div>
+</section>
+
+<!-- ================================================================== -->
+<section id="how">
+<h2>5. How pi-durable implements durability</h2>
+<p>The summary below covers the whole system. Sections 5.1–5.12 describe the library only, from its docs in <code>ai_docs/durable_pi/</code> (mainly <code>readme.md</code> and the 4,696-line <code>spec.md</code>). The library source is not in this checkout, so treat every statement here as <span class="tag t-doc">pd-doc</span>. The spec uses the development name "Pico5" (<code>ai_docs/durable_pi/sources.md:8</code>). Size: about 15,000 lines of TypeScript without tests (<code>announcement.md:66-69</code>).</p>
+
+<div class="card" id="how-summary">
+<h3 style="margin-top:0">Executive summary: how "durable" works here</h3>
+<p><b>The short version.</b> One library, pi-durable, does the durable work. It writes every step of an agent (each model call, each tool call, each piece of queued input, each document change) to a SQLite file in one atomic transaction <em>before</em> any client can see that step. When the process starts again, it reads the file and continues each unfinished step from its last saved checkpoint. A tool that was cut off runs again only if it is marked replay-safe; otherwise the agent gets an "interrupted" result and decides what to do. Everything else in the repo either keeps the process alive, prevents duplicates at the edges, or only watches.</p>
+<p><b>Three rules carry all of it:</b> (1) save, then show; (2) every step is a task with a checkpoint; (3) after a crash, rerun only what is safe to rerun, and report the rest as interrupted.</p>
+<div class="tbl"><table>
+<tr><th>Component</th><th>Role in durability</th><th>How</th></tr>
+<tr><td><b>pi-durable</b> 1.0.3</td><td><b>The core.</b> All durable behavior.</td><td>Single commit line; tasks with checkpoints; replay policy (<code>safe</code>/<code>unsafe</code>, <code>interrupted</code>); memos; <code>requestId</code> admission; durable inbox, documents, timers; recovery on <code>Harness.open</code> (<a href="#how-line">5.1</a>–<a href="#how-recover">5.5</a>) <span class="tag t-doc">pd-doc</span>.</td></tr>
+<tr><td><b>SQLite</b> (<code>node:sqlite</code>)</td><td>The disk.</td><td>One <code>agent.sqlite</code> per session, WAL mode, <code>synchronous = NORMAL</code>: survives a process crash; the newest commit can be lost on power failure (<a href="#how-storage">5.6</a>).</td></tr>
+<tr><td><b>chord</b></td><td>Support.</td><td>Stores document changes as base + deltas. Its <code>BACKGROUND_CONTEXT</code> makes sure a closed HTTP request never cancels durable work (<code>apps/dpi-backend/src/store.ts:39</code>).</td></tr>
+<tr><td><b>pi-ai</b></td><td><b>None of its own.</b></td><td>It only sends model requests. After a crash, pi-durable resends the same saved messages through it, with the pinned model and settings.</td></tr>
+<tr><td><b>Pi CLI, pi-agent-core</b></td><td><b>None.</b></td><td>Not used. Plain Pi's <code>/resume</code> restores a transcript only (<a href="#why">4</a>).</td></tr>
+<tr><td><b>dpi-backend</b> (this repo)</td><td>Host and edge guards.</td><td>
+PID lock files so one process owns each database (the library has no cross-process lock);
+opens every session at boot, then calls <code>resume()</code>;
+passes <code>requestId</code> through and adds an <code>Idempotency-Key</code> on 3 create routes;
+receipt keys so App State writes and tool reruns apply once;
+durable jobs built as pi-durable tasks with phase checkpoints (<a href="#be-boot">6.2</a>–<a href="#be-state">6.6</a>).</td></tr>
+<tr><td><b>systemd / launchd</b></td><td>Restart.</td><td>Starts <code>dpi-backend</code> again after a crash or reboot (<code>Restart=always</code>, <code>KeepAlive</code>). Without it, nothing resumes until someone runs <code>just backend run</code>. macOS needs auto-login for unattended reboots.</td></tr>
+<tr><td><b>Clients</b> (web, TUI, curl) and <b>dpi-sdk</b></td><td><b>None for state</b>; they help avoid duplicates.</td><td>They hold no agent state. They reconnect and get a fresh snapshot. The web client keeps a pending send's <code>requestId</code> in <code>sessionStorage</code>, and the TUI retries with the same id, so a retried send is admitted once.</td></tr>
+<tr><td><b>Hub</b></td><td><b>None.</b></td><td>It stores only device URLs and tokens. It can stop at any time; the agents continue.</td></tr>
+<tr><td><b>Jev</b></td><td><b>None.</b> It is a decision source, not a storage or recovery part.</td><td>Durability protects Jev's answers, not the reverse. The damage-control verdict is saved in a memo, so a restart does not ask Jev twice. In the demo, Jev verdicts are stored in a plain SQLite table (<code>watch.sqlite</code>) outside pi-durable; a failed call is marked <code>error</code> and is never asked again.</td></tr>
+<tr><td><b>Proactive demo</b> code</td><td>Effect-level duplicate guards.</td><td>The incident brief uses <code>requestId: "incident:&lt;id&gt;:brief"</code>; the deploy is a durable task, and the log stream ignores a request whose id was already deployed. This is the "own idempotency" that pi-durable requires for outside effects (<a href="#demo">9</a>).</td></tr>
+</table></div>
+</div>
+
+<h3 id="how-line">5.1 One commit line, and nothing is shown before it is stored</h3>
+<p>The core rule (<code>spec.md:45-48</code>): "A Session atomically commits immutable entries, full task records, and Chord-tracked documents. Only committed state is observable."</p>
+<ul>
+<li><b>One line.</b> Every change to a session goes through one serial queue (the "Session line"). There is no second writer, so there are no write conflicts inside a session (<code>spec.md:1551-1561</code>).</li>
+<li><b>Atomic.</b> One commit writes entries, task state and documents together, or writes nothing (<code>spec.md:67-82</code>).</li>
+<li><b>Commit, then publish.</b> A watcher sees a change only after the storage commit succeeds. "All visible progress is durable. There is no volatile publication path."</li>
+<li><b>No outside effects inside a commit.</b> Code must never wait for a model, the network or a person inside <code>commit()</code>, because that blocks the whole line (<code>spec.md:4605-4607</code>).</li>
+<li><b>A doubtful storage failure is fatal.</b> If the library cannot tell whether a commit was written, it "poisons" the session. You must reopen it (<code>spec.md:4676-4677</code>).</li>
+</ul>
+
+<h3 id="how-tasks">5.2 Tasks and checkpoints</h3>
+<p>A task is "a durable state machine that saves a checkpoint at every step" (<code>readme.md:89</code>). Each step (a "phase") returns a new checkpoint, and pi-durable commits it. On restart, the task continues from the last committed checkpoint.</p>
+<div class="tbl"><table>
+<tr><th>Item</th><th>Values</th><th>Ref</th></tr>
+<tr><td>Built-in tasks</td><td><code>pi.generation</code> (model call), <code>pi.tool</code> (tool call), <code>pi.compaction</code></td><td><code>spec.md:3261-3267</code></td></tr>
+<tr><td>Task states</td><td><code>pending</code>, <code>running</code>, <code>waiting</code>, <code>completing</code>, <code>terminal</code></td><td><code>spec.md:1610-1622</code></td></tr>
+<tr><td>Outcomes</td><td><code>completed</code>, <code>failed</code>, <code>aborted</code>, <code>orphaned</code>, <code>faulted</code></td><td><code>spec.md:1601-1606</code></td></tr>
+<tr><td>Define a custom task</td><td><code>defineTask({name, version, initial, phases, abort, migrate?, hooks?})</code></td><td><code>spec.md:1712-1725</code></td></tr>
+</table></div>
+
+<p>One answered prompt produces this sequence of entries and tasks (<code>readme.md:98-103</code>):</p>
+<div class="flow">pi.user  (your input)
+  └─ pi.generation task ── pi.system (only if the prompt or tools changed)
+                         └ pi.assistant (with tool calls)
+       └─ pi.tool task × n ── pi.tool-result × n
+  └─ pi.generation task ── pi.assistant (the answer)</div>
+
+<p><b>The "effect sandwich"</b> (<code>spec.md:1853-1864</code>) is the pattern every phase with an outside effect follows:</p>
+<ol class="steps">
+<li>Commit an <em>intent</em> checkpoint ("I am about to do X").</li>
+<li>Do the outside effect.</li>
+<li>Commit the <em>outcome</em> checkpoint.</li>
+</ol>
+<p>If the process dies between step 1 and step 3, reopening finds the task in its intent phase. "Reopening in an intent phase means the effect may have happened." That is the exact uncertainty that the replay policy in 5.3 resolves.</p>
+
+<div class="callout warn"><b class="label">A phase must make progress.</b> If a phase handler returns the same checkpoint it received, the task ends <code>faulted</code>, "because no durable progress was made" (<code>spec.md:1825-1826</code>). A handler that throws also ends <code>faulted</code>.</div>
+
+<h3 id="how-replay">5.3 Replay policy: safe, unsafe, interrupted</h3>
+<p>A tool task has two checkpoints: <code>{phase:"call"}</code> and <code>{phase:"execute", arguments, replay}</code> (<code>spec.md:3572-3574</code>).</p>
+<ol class="steps">
+<li><b>call</b>: find the tool, validate arguments, run <code>beforeTool</code> hooks, validate again, then commit the intent: the final arguments, the replay policy, and slot status <code>running</code>. Then, in the same handler, execute the tool, run <code>afterTool</code> hooks, and commit the result (<code>spec.md:3581-3590</code>).</li>
+<li><b>execute</b>: this phase "is reached only by recovery". It means the process died while the tool ran.</li>
+</ol>
+<p>In the execute phase, pi-durable decides (<code>spec.md:3591-3595</code>, <code>3062-3067</code>):</p>
+<div class="tbl"><table>
+<tr><th>Stored policy (at call time)</th><th>Current policy (after restart)</th><th>Result</th></tr>
+<tr><td><code>safe</code></td><td><code>safe</code></td><td>Run the tool again with the stored arguments.</td></tr>
+<tr><td><code>safe</code></td><td><code>unsafe</code> or tool missing</td><td>Do not run. Return an <code>interrupted</code> error result.</td></tr>
+<tr><td><code>unsafe</code></td><td>anything</td><td>Do not run. Return <code>interrupted</code>. A later <code>safe</code> never upgrades an earlier <code>unsafe</code>.</td></tr>
+</table></div>
+<p>The <code>interrupted</code> result contains the partial output that was committed before the crash. The model reads it and decides what to do next. The README example: a <code>bash</code> call cut off by a restart comes back as interrupted, "so the agent decides what happens next instead of silently repeating a side effect" (<code>README.md:58</code>).</p>
+<figure><img src="../images/03_restart_mid_tool.svg" alt="A device restarts during a bash call; the call comes back as interrupted"><figcaption>From the repo's README.</figcaption></figure>
+<p>Other tool error codes: <code>tool_unavailable</code>, <code>invalid_arguments</code>, <code>blocked</code>, <code>interrupted</code>, <code>aborted</code>, <code>tool_error</code> (<code>spec.md:3070-3074</code>).</p>
+
+<div class="callout warn"><b class="label">Three facts about a rerun.</b> (1) A rerun does <b>not</b> run <code>beforeTool</code> hooks again; it uses the stored arguments. A safety hook therefore does not re-check a replayed call. (2) The rerun builds its environment with the conversation's <em>current</em> working directory, which can differ from the first attempt (<code>spec.md:2917-2925</code>, <code>4661-4663</code>). (3) "Safe" means at-least-once. A safe tool that charges a card must pass its own idempotency key, for example <code>`payment-${task.id}`</code> (<code>announcement.md:459-464</code>).</div>
+
+<h3 id="how-memo">5.4 Memos: remember a decision across a crash</h3>
+<p>A hook runs outside the commit line, so "a crash before the consuming commit may rerun" it (<code>spec.md:2545-2546</code>). If a hook asks a person or an API for a decision, a rerun would ask again. The fix is a memo:</p>
+<ul>
+<li><code>api.memo(name)</code> reads; <code>api.memo(name, candidate)</code> writes. The first writer wins. Write and read-back are one commit (<code>spec.md:1866-1869</code>).</li>
+<li>A memo lives in the task's checkpoint envelope and is deleted when the task ends.</li>
+<li>Hooks share the task's memo namespace, so prefix the name (this repo uses <code>"jev-damage-control"</code>).</li>
+</ul>
+<p>This repo's Jev guard stores its verdict in a memo, so a restart in the middle of a bash call does not ask Jev twice (<code>apps/dpi-backend/src/addons.ts:94</code>, <code>122-126</code>).</p>
+
+<h3 id="how-recover">5.5 Recovery when a session reopens</h3>
+<p><code>Harness.open</code> does this (<code>spec.md:611-623</code>, <code>1834-1840</code>):</p>
+<ol class="steps">
+<li>Every task that was <code>running</code> becomes <code>pending</code>. It keeps its checkpoint and any abort mark.</li>
+<li>Every task that was <code>waiting</code> stays waiting.</li>
+<li>Tasks in <code>completing</code> or <code>waiting</code> are checked again for finalization.</li>
+<li>A task whose definition is missing, too old or fails migration stays <b>blocked</b> with reason <code>missing_task</code>, <code>task_too_old</code> or <code>migration_failed</code>. Open never ends it. Install the extension and it unblocks.</li>
+<li>No handler runs during open. Work starts only after <code>resume()</code>, or after a call that asks for progress: <code>submit</code>, <code>compact</code>, <code>abort</code>, <code>Submission.wait</code>, <code>waitForTask</code>, <code>waitForIdle</code> (<code>spec.md:633-642</code>).</li>
+</ol>
+<p>A model call that was streaming when the process died is handled like this (<code>spec.md:3488-3497</code>): the committed partial text becomes an <em>aborted</em> <code>pi.assistant</code> entry, then the same committed messages are sent again with the pinned model and settings. Aborted, errored and deferred assistant messages are excluded from later requests (<code>spec.md:261-287</code>).</p>
+<p><b>Close</b> (<code>spec.md:927-945</code>) stops new input, signals every running invocation, and waits for it to stop. It writes no outcomes, so the work resumes on the next open.</p>
+
+<h3 id="how-storage">5.6 Storage</h3>
+<div class="tbl"><table>
+<tr><th>Backend</th><th>Behavior</th></tr>
+<tr><td>Memory</td><td>Nothing persisted. The reference behavior for tests.</td></tr>
+<tr><td><b>SQLite</b> (used by this repo)</td><td><code>openNodeSqliteStorage(file)</code>. One database file. "WAL mode with <code>synchronous = NORMAL</code>: commits survive process crashes; the newest may be lost on power or host failure" (<code>readme.md:544</code>). One SQL transaction = one session commit. Only the working set (active transcripts, live tasks, pending submissions) is held in memory (<code>announcement.md:87-92</code>). Table names and schema are not documented: "Schema shape, WAL checkpoint cadence, and synchronous defaults are backend implementation choices" (<code>spec.md:4489-4491</code>).</td></tr>
+<tr><td>JSONL</td><td><code>main.jsonl</code> plus sidecar files. <code>fsync</code> defaults to false. Recovery removes torn lines (<code>spec.md:4502-4536</code>). Not used here.</td></tr>
+</table></div>
+<div class="callout danger"><b class="label">No cross-process lock in the library.</b> "One process owns a storage at a time; there is no cross-process locking" (<code>readme.md:547</code>). Two processes on one SQLite file is unsupported. This repo adds its own PID lock files (see <a href="#be-boot">6.2</a>).</div>
+
+<h3 id="how-queue">5.7 Queues and admission</h3>
+<ul>
+<li><code>submit({type:"input", content, requestId, whenBusy})</code>. <code>whenBusy</code> is <code>"followUp"</code> (default), <code>"steer"</code> or <code>"reject"</code>. <code>"reject"</code> throws <code>ConversationBusy</code> and writes nothing (<code>readme.md:309-326</code>).</li>
+<li><code>type:"write"</code> appends a passive entry and never starts generation.</li>
+<li>Queued input is stored in the <code>pi.inbox</code> document. Steers are placed after the current tool round (<code>postTools</code>); follow-ups at the end of the run (<code>final</code>) (<code>spec.md:2223-2226</code>).</li>
+<li>"<code>requestId</code> deduplicates within one conversation before any write" (<code>spec.md:2203-2204</code>). A retry returns the existing submission. <code>harness.submission(id)</code> finds a submission again after a restart.</li>
+<li>Do not use the model provider's tool-call id as a <code>requestId</code>; it is not unique across a session. Derive ids from <code>api.taskId</code> (<code>spec.md:2963-2964</code>).</li>
+</ul>
+
+<h3 id="how-docs">5.8 Documents</h3>
+<ul>
+<li><code>defineDoc({kind, version, scope, history, fork, initial, migrate?, checkpointWhen?})</code>. <code>scope</code> is <code>session</code>, <code>conversation</code> or <code>task</code>. <code>history</code> is <code>latest</code> or <code>rewindable</code>. <code>fork</code> is <code>asOf</code>, <code>current</code> or <code>initial</code> (<code>spec.md:949-1107</code>).</li>
+<li>Changes happen only inside <code>commit((tx) =&gt; …)</code> via <code>tx.doc(token, id)</code>. Values must be strict JSON and are copied on assignment.</li>
+<li>Storage holds a base value plus deltas (Chord <code>Op</code>s). <code>checkpointWhen</code> decides when a new base is written.</li>
+<li>Built-in documents per conversation: <code>pi.agent</code> (model, tools, settings), <code>pi.provider</code> (a session UUID for the model provider), <code>pi.live</code> (the running state), <code>pi.inbox</code> (queued input), <code>pi.usage</code> (spend) (<code>spec.md:655-670</code>).</li>
+<li>Inside the library there is no conflict detection, because the single commit line serializes writes. The <code>409 conflict</code> you see in the web UI comes from this repo's App State code (<a href="#be-state">6.6</a>).</li>
+</ul>
+
+<h3 id="how-compact">5.9 Compaction</h3>
+<p>Library defaults: <code>{enabled:true, reserveTokens:16384, keepRecentTokens:20000, backgroundTokens:32768}</code> (<code>spec.md:384-394</code>).</p>
+<ul>
+<li><b>Background</b> above <code>contextWindow − reserveTokens − backgroundTokens</code>: a separate task writes a summary while the agent keeps working.</li>
+<li><b>Blocking</b> above <code>contextWindow − reserveTokens</code>: the next model call waits for a summary.</li>
+<li><b>Overflow</b>: if the provider reports a context overflow, compact and retry once. A second overflow fails as <code>model_error</code> (<code>spec.md:3515-3524</code>).</li>
+<li>The summary is a <code>pi.compaction</code> entry with a head marker. The old entries remain in storage, and this repo's <code>search_history</code> tool can still find them.</li>
+<li>Each compaction costs one summarization model call, even when a newer summary replaces it and it ends <code>stale</code> (<code>spec.md:4565-4567</code>).</li>
+</ul>
+<p>This repo changes the thresholds; see <a href="#be-compact">6.7</a>.</p>
+
+<h3 id="how-fork">5.10 Forks, subagents, workflows, waiting</h3>
+<ul>
+<li><b>Fork</b>: the new conversation sees the parent's entries up to entry E without copying them. It gets a fresh provider session id and an empty inbox. Each document follows its <code>fork</code> policy (<code>spec.md:1499-1547</code>).</li>
+<li><b>Foreground subagent</b>: a tool creates a conversation owned by its own task id. On a replay-safe rerun, the tool first looks for its existing child with <code>tx.scanConversations({ownerTaskId})</code>, so it does not create a second child (<code>spec.md:2958-2997</code>).</li>
+<li><b>Workflows</b>: a custom task can create child tasks and commit <code>{status:"waiting", on:[ids], policy:"failFast"|"allSettled"}</code>. While waiting, it runs no code. <code>runtime.sleep(until)</code> is a timer that survives restarts (<code>readme.md:466-487</code>).</li>
+<li><b>Waiting for a person</b>: pi-durable has <b>no built-in approval primitive</b>. A task can wait only on other tasks, not on a document or an outside signal. The documented pattern is a <code>beforeTool</code> hook that asks a person and stores the answer in a memo (<code>announcement.md:406-428</code>). This repo builds approvals differently, with a child task that polls a document (<a href="#be-jobs">6.5</a>, <a href="#demo">9</a>).</li>
+</ul>
+
+<h3 id="how-ext">5.11 Extensions and hooks</h3>
+<ul>
+<li><code>defineExtension({name, tools, sections, hooks, wraps, tasks})</code>, installed with <code>registry.install()</code>. Reinstalling the same name replaces it in place. The registry lives in process memory; a conversation stores only extension <em>names</em> (<code>spec.md:2279-2461</code>). An extension must therefore be installed on every start, before <code>open</code>.</li>
+<li><code>defineTool({name, description, parameters, replay, execute, …})</code>. Default output limit: 50 KiB or 2,000 lines.</li>
+<li>Hooks: <code>beforeRequest</code>, <code>afterResponse</code>, <code>onYield</code>, <code>afterTools</code> on the generation task; <code>beforeTool</code> (rewrite args or <code>{block}</code>; a throw also blocks) and <code>afterTool</code> on the tool task; <code>beforeCompact</code> on the compaction task (<code>spec.md:2548-2620</code>).</li>
+<li>Prompt sections render on every request. A change is stored as a <code>pi.system</code> entry with only the difference, which keeps the provider's prompt cache valid. Text that changes on every render (a timestamp, for example) adds an entry every time and breaks caching (<code>spec.md:4664-4669</code>).</li>
+<li>Because tools and settings are read on every request, the tool set, model and thinking level can change mid-run. The next request uses the new values. This is the mechanism behind the "Read only" switch in the video.</li>
+</ul>
+
+<h3 id="how-stream">5.12 Streams to clients</h3>
+<ul>
+<li><code>watchEvents()</code> emits one batch of events per commit: <code>snapshot</code>, <code>message_update</code>, <code>tool_execution_*</code>, <code>compaction_start/end</code> and more. It is marked experimental (<code>spec.md:4050-4193</code>).</li>
+<li>A slow watcher keeps at most 100 pending frames or batches. After that it gets one fresh full snapshot. "Nothing is replayed" on reconnect (<code>readme.md:294-305</code>).</li>
+<li>Streams drop intermediate states by design. They are not an audit log (<code>spec.md:4630-4634</code>).</li>
+</ul>
+</section>
+
+<!-- ================================================================== -->
+<section id="backend">
+<h2>6. How this repo uses pi-durable (<code>apps/dpi-backend</code>)</h2>
+<p>The backend imports <code>Harness</code>, <code>createRegistry</code> and <code>InboxDoc</code> from <code>@earendil-works/pi-durable</code>, <code>CodingTools</code> from <code>/tools</code>, <code>NodeExecutionEnv</code> from <code>/env/node</code>, and <code>openNodeSqliteStorage</code> from <code>/storage/sqlite/node</code> (<code>src/store.ts:44-59</code>). Every durable call uses chord's <code>BACKGROUND_CONTEXT</code>, so a cancelled HTTP request never cancels durable work (<code>store.ts:39</code>).</p>
+
+<h3 id="be-disk">6.1 Files on disk</h3>
+<figure><img src="../images/19_sqlite_on_every_device.svg" alt="On every device dpi-backend keeps catalog.sqlite, app-state.sqlite and one agent.sqlite per session"><figcaption>From the repo's README.</figcaption></figure>
+<div class="tbl"><table>
+<tr><th>Path (default <code>~/.dpi</code>)</th><th>Contents</th></tr>
+<tr><td><code>backend.env</code></td><td><code>DPI_TOKEN</code> (bearer token, ≥ 32 characters), model API keys, port, host, start dirs. Mode 600.</td></tr>
+<tr><td><code>backend/catalog.sqlite</code></td><td>Plain SQLite (not pi-durable), WAL. Tables: <code>sessions</code>, <code>conversation_names</code>, <code>meta</code> (the device uid), <code>requests</code> (idempotency keys, deleted after 24 h, at startup only), <code>session_spawns</code>, <code>session_compaction</code> (<code>store.ts:194-206</code>).</td></tr>
+<tr><td><code>backend/app-state.sqlite</code></td><td>A separate pi-durable harness that holds only App State (<code>src/shared-state.ts:34-42</code>).</td></tr>
+<tr><td><code>backend/sessions/&lt;uuid&gt;/agent.sqlite</code></td><td>One pi-durable harness per session: all conversations, entries, tasks, documents.</td></tr>
+<tr><td><code>backend/archive/</code></td><td>Archived sessions, moved here by <code>DELETE /v1/sessions/:s</code>.</td></tr>
+<tr><td><code>*.sqlite.lock</code></td><td>PID lock files, one per database.</td></tr>
+</table></div>
+
+<h3 id="be-boot">6.2 Startup sequence and locks</h3>
+<ol class="steps">
+<li>Load config: flags, then env file (<code>--env-file</code>, <code>DPI_ENV_FILE</code>, or <code>$DPI_HOME/backend.env</code>). Startup fails if <code>DPI_TOKEN</code> is shorter than 32 characters (<code>src/config.ts:30-52</code>).</li>
+<li>Lock and open <code>catalog.sqlite</code>, then lock and open App State.</li>
+<li>For every catalog row, lock and <code>Harness.open</code> its <code>agent.sqlite</code>, with a registry that installs <code>CodingTools</code>, the <code>playground</code> extension and the two add-ons. A session that fails to open is reported as <code>503 unavailable</code>; the others continue (<code>store.ts:217-223</code>, <code>494-565</code>).</li>
+<li>Load the model list with <code>models.getAvailable("openrouter")</code> (10 s timeout; whether this is a network call is <span class="tag t-unv">unverified</span>). If that fails, startup fails (<code>store.ts:229-231</code>, <code>282</code>).</li>
+<li>Only then call <code>harness.resume()</code> on every session. Interrupted work restarts at this point (<code>store.ts:227</code>).</li>
+<li>Listen on <code>DPI_HOST:DPI_PORT</code> (default <code>127.0.0.1:4780</code>).</li>
+</ol>
+<p><b>Locks</b> (<code>store.ts:103-127</code>): a lock is a file holding the owner's PID, created with exclusive mode. If the file exists, the code checks whether that PID is alive (<code>process.kill(pid, 0)</code>). A dead PID means the lock is stale and is taken over. The recovery test kills the server with SIGKILL and restarts it; this path takes over the stale locks (<code>tests/recovery.test.ts:8-31</code>).</p>
+<p><b>The agent's shell environment</b> is a whitelist: <code>PATH, HOME, USER, SHELL, TMPDIR, LANG, TERM</code> (<code>store.ts:501-505</code>). <code>DPI_TOKEN</code> and <code>OPENROUTER_API_KEY</code> are not passed to <code>bash</code>. (See <a href="#uu-secrets">12</a> for why this does not fully protect them.)</p>
+
+<h3 id="be-send">6.3 Sending work</h3>
+<p><code>POST /v1/sessions/:s/agents/:a/messages</code> with <code>{content, requestId, whenBusy?, waitMs?}</code> (<code>store.ts:808-816</code>, <code>routes.ts:137-149</code>):</p>
+<ul>
+<li><code>content</code>: 1–100,000 characters. <code>requestId</code>: required, ≤ 128 characters.</li>
+<li>The backend calls <code>conversation.submit({type:"input", content, requestId, whenBusy})</code>. The same <code>requestId</code> returns the same submission id (<code>tests/api.test.ts:55-56</code>).</li>
+<li><code>whenBusy:"reject"</code> on a busy agent returns <code>409 busy</code>.</li>
+<li><code>waitMs</code> (max 300,000) turns the call into a one-shot request: the server waits for the answer and returns <code>200 {status:"done", answer:{entryId, text}}</code>, or <code>202</code> if time runs out. Without <code>waitMs</code> the response is <code>202 {status:"queued"}</code>.</li>
+</ul>
+<pre><code>curl -s "$URL/v1/sessions/oneshot/agents/main/messages" -H "Authorization: Bearer $TOKEN" \
+  -H 'content-type: application/json' \
+  -d '{"content":"How many files are in this directory? Use bash.","requestId":"oneshot-1","waitMs":120000}'
+# {"submissionId":10,"status":"done","answer":{"entryId":17,"text":"The directory is empty. ..."}}</code></pre>
+<p class="muted">Example from <code>README.md:201-205</code>.</p>
+<p>Other agent operations and their pi-durable calls: interrupt = <code>c.abort(ctx, {background})</code>; withdraw a queued input = <code>h.abortSubmission</code>; compact = <code>c.compact(instructions)</code>; reset = <code>c.reset(note)</code> (history kept); fork = <code>c.fork(entryId, {ownership:{kind:"ownerless"}})</code> (<code>store.ts:755-856</code>).</p>
+
+<h3 id="be-tools">6.4 The 14 tools</h3>
+<p>Four tools come from pi-durable's <code>CodingTools</code>: <code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code> (<code>apps/dpi-backend/API.md:53</code>). Their replay policies are set inside pi-durable, which is not in this checkout <span class="tag t-unv">unverified</span>. The README states an interrupted <code>bash</code> returns "interrupted", which implies <code>bash</code> is <code>unsafe</code>. The other ten come from the repo's <code>playground</code> extension (<code>src/extensions.ts:486-509</code>):</p>
+<div class="tbl"><table>
+<tr><th>Tool</th><th>Writes?</th><th>Replay</th><th>What it does / how a rerun stays correct</th></tr>
+<tr><td><code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code></td><td>read: no; others: yes</td><td>set in pi-durable</td><td>File and shell access in the session's working directory. Not a sandbox.</td></tr>
+<tr><td><code>read_state</code></td><td>no</td><td>safe</td><td>Read App State.</td></tr>
+<tr><td><code>update_state</code></td><td>yes</td><td>safe</td><td>One path operation on App State. A receipt key <code>agent:&lt;session&gt;:&lt;taskId&gt;</code> makes a rerun return the first result instead of applying twice.</td></tr>
+<tr><td><code>list_durable_jobs</code></td><td>no</td><td>safe</td><td>List job definitions.</td></tr>
+<tr><td><code>run_durable_job</code></td><td>yes</td><td>safe</td><td>Start a job. A task-scoped <code>Receipt</code> document makes a rerun find the run it already started.</td></tr>
+<tr><td><code>check_durable_job</code></td><td>no</td><td>safe</td><td>Read a job's status.</td></tr>
+<tr><td><code>search_history</code></td><td>no</td><td>safe</td><td>Search every stored entry, including entries before a compaction or reset.</td></tr>
+<tr><td><code>ping_on_call_engineer</code></td><td>yes</td><td>default (unsafe)</td><td>Simulated page; no outside call. A <code>Pager</code> document allows one page per conversation.</td></tr>
+<tr><td><code>subagent</code></td><td>yes</td><td>safe</td><td>Start a child conversation. A rerun finds the existing child by owner task. The child cannot call <code>subagent</code> itself.</td></tr>
+<tr><td><code>start_session</code></td><td>yes</td><td>safe</td><td>Create a new session on the same device and send it a first prompt, deduplicated by key.</td></tr>
+<tr><td><code>handoff</code></td><td>no</td><td>default (unsafe)</td><td>Start a fresh model context with a handoff note.</td></tr>
+</table></div>
+<p><b>Read-only mode</b> removes the 8 tools in <code>WRITE_TOOLS</code> (<code>bash, write, edit, update_state, run_durable_job, ping_on_call_engineer, subagent, start_session</code>) from the agent's next request, which leaves 6 (<code>store.ts:68-77</code>, <code>780-784</code>). A test confirms a blocked <code>bash</code> call returns "Tool bash is not available" (<code>tests/store.test.ts:246-250</code>).</p>
+<figure><img src="../images/12_tools_change_mid_run.svg" alt="With Read only on, 8 write tools leave the tool set"><figcaption>From the repo's README.</figcaption></figure>
+
+<h4>The two add-on extensions (the "Extend" tab)</h4>
+<ul>
+<li><b><code>system-prompts</code></b>: a checklist of prompt files from <code>apps/dpi-backend/prompts/</code>, default <code>smart_ass_opus_fix.md</code>. Checked prompts become a prompt section. The checklist is a document with <code>fork:"current"</code>, so a fork copies it (<code>src/addons.ts:29-36</code>, <code>99-113</code>).</li>
+<li><b><code>jev-damage-control</code></b> (off by default): a <code>beforeTool</code> hook on <code>bash</code> only. It sends <code>{command}</code> to Jev, and blocks if the <code>effect</code> answer is <code>irreversible</code> with confidence ≥ 0.6, or if the <code>destructive_intent</code> score is ≥ 0.7 (<code>addons.ts:41-72</code>). The verdict is stored in a memo. If Jev fails, the command runs (fail-open). Details in <a href="#jev">8</a>.</li>
+</ul>
+<figure><img src="../images/13_hook_blocks_tool.svg" alt="jev-damage-control beforeTool hook blocks rm -rf"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3 id="be-jobs">6.5 Durable jobs</h3>
+<p>Jobs are the repo's example of a multi-step workflow that survives restarts (<code>src/jobs.ts:64-120</code>). Each saves its result to App State under <code>/jobs/&lt;id&gt;</code>.</p>
+<div class="tbl"><table>
+<tr><th>Job</th><th>Phases</th><th>Inputs</th></tr>
+<tr><td><code>workspace-snapshot</code></td><td>scan → measure → save → verify</td><td><code>path</code> (default <code>.</code>)</td></tr>
+<tr><td><code>release-check</code></td><td>plan → gather (a subagent) → <b>approve</b> (waits for a person) → publish → verify</td><td><code>commits</code> 1–20 (default 5)</td></tr>
+<tr><td><code>change-watch</code></td><td>baseline → watch (repeats) → report</td><td><code>path</code>; <code>checks</code> 2–20 (default 5); <code>interval_seconds</code> 2–60 (default 4)</td></tr>
+</table></div>
+<p><b>How a job runs</b> (<code>jobs.ts:667-737</code>): each job is one pi-durable task <code>demo.job.&lt;id&gt;</code>, with checkpoint <code>{phase, iteration, data, approvalTask?}</code>.</p>
+<ol class="steps">
+<li>Before each phase except the first, a durable <code>runtime.sleep</code> of 900 ms.</li>
+<li>An entry commit marks the phase as started. If it finds steps from the same iteration, a crash interrupted it: those steps are discarded, <code>resumed</code> is incremented, and the note "Resumed from the last checkpoint after a restart" is added.</li>
+<li>The handler runs. It returns <code>{done}</code> (commit the next phase) or <code>{again}</code> (commit the same phase with <code>iteration + 1</code>; <code>change-watch</code> uses this for one checkpoint per check).</li>
+</ol>
+<p><b>Granularity.</b> Resumption is per phase and iteration. A resumed phase runs its handler from the start, so its shell commands run again. Writes stay single because each App State write uses a receipt key <code>job:&lt;session&gt;:&lt;task&gt;:&lt;phase&gt;:&lt;iteration&gt;:&lt;path&gt;</code> (<code>jobs.ts:439</code>, <code>456-470</code>).</p>
+<p><b>How approval waits</b> (<code>jobs.ts:376-400</code>, <code>622-665</code>):</p>
+<ol class="steps">
+<li>One commit sets <code>run.approval = "pending"</code>, creates a child task <code>demo.job-approval</code>, and moves the job to <code>{status:"waiting", on:[approvalTask], policy:"allSettled"}</code>.</li>
+<li>The child task reads the run record every 500 ms with a durable sleep. It writes nothing until the value changes.</li>
+<li>A person clicks Approve or Decline: <code>POST …/demo/jobs/:taskId/approval</code> flips the value in one commit. A second click returns <code>409 conflict</code>.</li>
+<li>The child completes; the job wakes, reads the outcome, and continues or fails ("declined").</li>
+</ol>
+<p>The pending approval survives a restart (<code>tests/store.test.ts:86-92</code>).</p>
+<figure><img src="../images/11_durable_jobs_wait.svg" alt="release-check job waits for a person at approve"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3 id="be-state">6.6 App State (shared state)</h3>
+<ul>
+<li>One JSON document per device, stored in its own harness (<code>app-state.sqlite</code>), so every session on the device sees the same value, and a fork always sees the current value.</li>
+<li>Each change is one path operation: <code>create</code> (fails if the key exists), <code>update</code>, <code>delete</code>, <code>increment</code> (numbers only). Paths are JSON Pointers. <code>__proto__</code>, <code>constructor</code> and <code>prototype</code> are rejected. Limits: depth 24, 100,000 characters total (<code>apps/dpi-sdk/src/app-state.ts</code>).</li>
+<li>Each successful change increments a <code>revision</code>. A full-document save sends <code>expectedRevision</code>; a stale value returns <code>409 conflict</code>.</li>
+<li>A change with a receipt key is checked against the receipt <b>before</b> the revision, so a replayed tool call succeeds even if the revision moved (<code>shared-state.ts:62-81</code>).</li>
+</ul>
+<figure><img src="../images/10_shared_app_state.svg" alt="Main and a subagent change one path each; a stale save gets 409"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3 id="be-compact">6.7 Compaction numbers in this repo</h3>
+<p>The repo replaces the library's thresholds with model-dependent ones, set per session (<code>apps/dpi-sdk/src/api.ts:133-159</code>):</p>
+<pre><code>wait  = min(250000, contextWindow - 16384)   // blocking point
+auto  = min(200000, wait - 32768)            // background point
+reserveTokens    = contextWindow - wait
+backgroundTokens = wait - auto
+keepRecentTokens = 2000                      // library default is 20000</code></pre>
+<div class="tbl"><table>
+<tr><th>Model window</th><th>Background summary starts</th><th>Next request blocks</th></tr>
+<tr><td>1,000,000</td><td>200,000</td><td>250,000</td></tr>
+<tr><td>200,000</td><td>150,848</td><td>183,616</td></tr>
+<tr><td>128,000 (faux)</td><td>Falls back to the library-style default (reserve 16,384, background 32,768)</td><td>(tested at <code>store.test.ts:105</code>)</td></tr>
+</table></div>
+<p>The web UI's context bar has two draggable markers for these points. The values apply to every agent in the session.</p>
+
+<h3 id="be-api">6.8 API, streams and auth</h3>
+<ul>
+<li><b>Auth</b>: <code>Authorization: Bearer &lt;token&gt;</code> or <code>X-DPI-Token</code>. Both sides are SHA-256 hashed and compared with <code>timingSafeEqual</code> (<code>src/auth.ts</code>). <code>GET /healthz</code> needs no token; everything under <code>/v1</code> does. No rate limiting.</li>
+<li><b>Routes</b>: the full list is in <code>apps/dpi-backend/API.md</code>. Sessions and agents are addressed by id or by unique case-insensitive name: <code>/v1/sessions/release-notes/agents/main</code>.</li>
+<li><b>Streams</b> (SSE): device (<code>/v1/events</code>), session, and agent. Every stream sends <code>hello</code>, then a snapshot, then deltas. A <code>: ping</code> comment every 15 s. A viewer more than 2,000,000 bytes behind is disconnected (<code>src/streams.ts:20-74</code>).</li>
+<li><b>No replay</b>: <code>Last-Event-ID</code> is ignored. A reconnect gets a fresh snapshot. Closing a stream never stops work (<code>streams.test.ts:92-94</code>).</li>
+<li><b>Two dedupe mechanisms</b>: <code>requestId</code> for messages; an <code>Idempotency-Key</code> header for three create routes only (<code>POST /sessions</code>, <code>POST …/agents</code>, <code>POST …/fork</code>).</li>
+</ul>
+<figure><img src="../images/07_one_api_every_client.svg" alt="web UI, dpi-tui and curl all call /v1 with a bearer token"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3 id="be-walk">6.9 Walkthrough: kill the device in the middle of a tool call</h3>
+<p>This is the scenario <code>just test e2e</code> runs on a real device (<code>README.md:319</code>). Read it as one end-to-end story of the parts above.</p>
+<ol class="steps">
+<li>You type "run the test suite and fix failures" in <code>dpi-tui</code>. The TUI sends it with a fresh <code>requestId</code>. The backend calls <code>submit</code>; pi-durable commits a <code>pi.user</code> entry and a <code>pi.generation</code> task in one transaction.</li>
+<li>The web client, open on the same agent, receives the commit through its SSE stream and shows the message. It never talked to the TUI.</li>
+<li>The model streams a reply. Every 100 ms the partial text is committed to <code>pi.live</code>. The model asks for <code>bash npm test</code>. A <code>pi.tool</code> task commits its intent (<code>execute</code> phase, arguments, replay policy) and starts the process.</li>
+<li>You close both clients. Nothing changes on the device: clients only watch.</li>
+<li>The device restarts (power cycle, <code>just net restart</code>, crash). The <code>bash</code> process dies with it.</li>
+<li>systemd or launchd starts <code>dpi-backend</code> again. It finds the old lock files, sees the PIDs are dead, takes the locks, opens each session, and calls <code>resume()</code>.</li>
+<li>pi-durable finds the tool task in its <code>execute</code> phase. <code>bash</code> is not replay-safe, so it does not run <code>npm test</code> again. It commits an <code>interrupted</code> result with the partial output that was saved.</li>
+<li>The generation task continues. The model reads "interrupted", decides to run the tests again, and continues normally.</li>
+<li>You run <code>just tui attach mac-mini:api-refactor:main</code>. The TUI gets a fresh snapshot and shows the whole run, including the interrupted call. The e2e result: "9 tool results, 1 interrupted by the restart, each prompt admitted once" (<code>README.md:319</code>).</li>
+</ol>
+</section>
+
+<!-- ================================================================== -->
+<section id="pi">
+<h2>7. The role of Pi</h2>
+<p class="lead">Pi supplies the model access and the agent design; pi-durable supplies the durable loop. This repo uses the libraries, not the Pi CLI.</p>
+<p>Pi is "a minimal, extensible agent harness that you can make your own" (<code>ai_docs/pi/readme.md:19</code>). Its maker is Earendil (<code>earendil-works/pi</code>); the pi-durable announcement is signed "From: Earendil Engineering" and dated 2026-10-01, alongside Pi 1.0 (<code>ai_docs/durable_pi/announcement.md:6-20</code>).</p>
+<div class="callout"><b class="label">About the names.</b> The video credits "Mario and Armen" (first names only) as the creators and maintainers <span class="tag t-vid">video</span>. No file in the repo names them; the docs show only the handle <code>badlogic</code> (<code>ai_docs/pi/readme.md:68-73</code>). Surnames are not in any source used for this page.</div>
+<div class="tbl"><table>
+<tr><th>Package</th><th>Role</th><th>Used here?</th></tr>
+<tr><td><code>@earendil-works/pi-ai</code></td><td>One API for 15+ model providers</td><td>Yes: OpenRouter provider and model catalog</td></tr>
+<tr><td><code>@earendil-works/pi-durable</code></td><td>Durable conversation, task and document runtime</td><td>Yes: the core of every backend</td></tr>
+<tr><td><code>@earendil-works/chord</code></td><td>State and replication library (contexts, deltas, documents)</td><td>Yes: <code>BACKGROUND_CONTEXT</code>, document deltas</td></tr>
+<tr><td><code>pi-tui</code></td><td>Terminal UI library</td><td>Yes: <code>dpi-tui</code> is built on it</td></tr>
+<tr><td><code>pi-agent-core</code></td><td>The non-durable <code>Agent</code> class</td><td>No. The pi-durable docs do not mention it. pi-durable copied its env and tools from the coding agent's harness instead (<code>pico-v5-handoff.md:64-72</code>)</td></tr>
+<tr><td><code>pi-coding-agent</code></td><td>The <code>pi</code> CLI</td><td>No. (It ships its own experimental durable mode at <code>packages/coding-agent/src/experimental/durable</code>; <code>coding-agent-integration.md:7-9</code>.)</td></tr>
+</table></div>
+<p><b>Design choices inherited from Pi.</b> Pi has no permission popups: tools run with the OS permissions of the process (<code>ai_docs/pi/index.md:43</code>). This repo keeps that. A token to a device is therefore a shell on that device. Pi's extension model (tools, hooks, prompt sections) carries over to pi-durable, which is why the video's custom extensions work in the durable agents.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="jev">
+<h2>8. The role of Jev</h2>
+<p class="lead">Jev is a cheap, fast classifier. The repo uses it for small yes/no and multiple-choice decisions, and leaves open-ended work to the agent. The design rule: "Code owns thresholds; Jev owns the judgment" (<code>README.md:77-81</code>).</p>
+<div class="tbl"><table>
+<tr><th>Layer</th><th>Decides</th><th>In the demo</th></tr>
+<tr><td>Code</td><td>Thresholds and side effects</td><td>3 incident verdicts with one fingerprint within 120 s open an incident</td></tr>
+<tr><td>Jev</td><td>Bounded judgments, one call per row</td><td><code>normal</code>, <code>suspicious</code> or <code>incident</code> plus an impact score; a few hundred ms; about $0.00003 a row</td></tr>
+<tr><td>Agent</td><td>Open-ended work</td><td>Investigate, fix, prove, deploy: about $0.09 per incident with Sonnet 5.5</td></tr>
+</table></div>
+
+<h3>How Jev is called</h3>
+<p>There are two clients with the same shape: <code>apps/dpi-backend/src/jev.ts</code> and <code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/jev.ts</code>.</p>
+<div class="tbl"><table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Endpoint, if <code>TYPESAFE_API_KEY</code> is set</td><td><code>POST https://api.typesafe.ai/v1/systemone</code>, model <code>jev-latest</code></td></tr>
+<tr><td>Endpoint, else if <code>OPENROUTER_API_KEY</code> is set</td><td><code>POST https://openrouter.ai/api/alpha/decisions</code>, model <code>~typesafe/jev-latest</code> (an <b>alpha</b> path)</td></tr>
+<tr><td>Request</td><td><code>{model, state, questions}</code>, header <code>Authorization: Bearer &lt;key&gt;</code></td></tr>
+<tr><td>Question types</td><td><code>choice</code> (pick a label; returns <code>choice</code>, <code>confidence</code>, <code>probabilities</code>); <code>score</code> (demo, ordered criteria); <code>noul</code> (backend client, returns a number)</td></tr>
+<tr><td>Timeout</td><td>15 s per attempt. The "~300 ms" in the README is typical latency, not a limit.</td></tr>
+<tr><td>Retries</td><td>On HTTP 429, 502, 503, 529: 3 attempts in total (2 retries), backoff 800 ms then 1,600 ms. The demo README says "retried up to 3 times" (<code>apps/proactive-dpi-demo/README.md:46</code>); the code does 2 retries.</td></tr>
+<tr><td>Validation</td><td>Each answer's type must match its question, or the call throws.</td></tr>
+</table></div>
+
+<h3>Use 1: judge every log row (proactive demo)</h3>
+<p>Questions (<code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/watcher.ts:8-33</code>):</p>
+<ul>
+<li><code>verdict</code> (choice): <code>normal</code> (routine; includes expected client errors such as 404, 401, 402 declined card, 429 on a scraper), <code>suspicious</code> (slow queries, timeouts that recovered), <code>incident</code> ("Our code is failing real customers…").</li>
+<li><code>impact</code> (score 0–4, "No customer impact" to "Many customers blocked and revenue is being lost"). The impact score is stored and shown, but no threshold uses it.</li>
+</ul>
+<p>Jev sees a reduced view of each row: severity, service, revision, <code>METHOD route → status in Nms</code>, the message, the first 3 stack lines, and the <code>jsonPayload</code> fields (<code>watcher.ts:53-66</code>).</p>
+<p><b>Fingerprint</b> = <code>service · METHOD route · kind</code>, where kind is the error type, else <code>HTTP &lt;status&gt;</code>, else a normalized message. The bug rows fingerprint as <code>checkout-api · POST /v1/checkout · TypeError</code> (<code>watcher.ts:38-50</code>).</p>
+<p><b>Trigger</b>: when the current row is <code>incident</code> with probability ≥ 0.6, the code counts incident verdicts with the same fingerprint whose log timestamp is inside the last 120 s. At ≥ 3 it opens an incident. ≥ 8 suspicious verdicts also open one (<code>watcher.ts:162-177</code>).</p>
+<figure><img src="../images/05_judge_every_row.svg" alt="Jev labels every log row; code counts three incident verdicts"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3>Use 2: block dangerous shell commands (<code>jev-damage-control</code>)</h3>
+<p>A <code>beforeTool</code> hook on <code>bash</code> in <code>dpi-backend</code>, off by default. The video shows it blocking <code>rm -rf</code> with "Harness blocked because deletion is irreversible" <span class="tag t-vid">video</span>. Facts from the code (<code>apps/dpi-backend/src/addons.ts:41-134</code>):</p>
+<ul>
+<li>Blocks if <code>effect</code> = <code>irreversible</code> with confidence ≥ 0.6, or <code>destructive_intent</code> ≥ 0.7.</li>
+<li>Memoized with <code>api.memo("jev-damage-control")</code>, so a restart does not ask again. Memos live in the task's checkpoint envelope, so the scope is one tool call <span class="tag t-doc">pd-doc</span>.</li>
+<li><b>Fails open</b>: no key, a timeout, or an error means the command runs. Worst case before it runs: 3 × 15 s + 2.4 s backoff ≈ 47 s <span class="tag t-inf">inferred</span>.</li>
+<li>With the faux provider it uses an offline regex instead of the API.</li>
+<li>It covers <code>bash</code> tool calls only. Not <code>write</code> or <code>edit</code>, not job shell commands, not the <code>release-check</code> subagent's bash <span class="tag t-inf">inferred</span>.</li>
+</ul>
+</section>
+
+<!-- ================================================================== -->
+<section id="demo">
+<h2>9. The proactive demo, step by step</h2>
+<p class="lead">A mock online store ("Lumen Market") emits Cloud Run-style logs. A bad commit breaks guest checkout. Jev flags the errors, code opens an incident, a durable agent fixes the bug and proves the fix, then waits for you to approve the deploy. "It doesn't wait for you to work. It works for you, then waits." (<code>README.md:69</code>).</p>
+<figure><img src="../images/04_fix_ready_before_you_arrive.svg" alt="Timeline: bad deploy at T+5 s, ready for review by T+25 s, waits for approval at T+30 s"><figcaption>From the repo's README.</figcaption></figure>
+
+<p class="muted">Short file names in this section (<code>ops.ts</code>, <code>extensions.ts</code>, <code>watcher.ts</code>, <code>repo.ts</code>) refer to <code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/</code>. In section 6, short names refer to <code>apps/dpi-backend/src/</code>.</p>
+<h3>The bug</h3>
+<p>The mock repo has three commits (<code>mock-repo-template/commits.json</code>). The third, "feat(pricing): apply loyalty tier discounts at checkout", adds this line (<code>mock-repo-template/03-loyalty/src/pricing/loyalty.ts:11</code>):</p>
+<pre><code>const rate = TIER_RATES[customer.loyalty!.tier];</code></pre>
+<p>Guest customers have no <code>loyalty</code> field. The <code>!</code> (TypeScript non-null assertion) hides the problem from the type checker, so every guest checkout throws a <code>TypeError</code>. The commit's tests cover members only, so the suite passes. <code>scripts/reset.ts:51-52</code> runs it to show that: "That is how it reached production". The video calls this "a classic bad null check" <span class="tag t-vid">video</span>.</p>
+
+<h3>The parts</h3>
+<div class="tbl"><table>
+<tr><th>Process</th><th>Role</th><th>Storage</th></tr>
+<tr><td>Log stream (<code>apps/proactive-dpi-logs</code>)</td><td>Generates traffic at ~2 rows/s. <b>Runs real code</b>: it <code>git archive</code>s a commit of the mock repo and imports its checkout route, so the TypeError is real.</td><td><code>.data/logs.sqlite</code></td></tr>
+<tr><td>Backend (<code>apps/proactive-dpi-be</code>)</td><td>Watcher (Jev), pi-durable harness, incident agents, HTTP + SSE for the UI, voice.</td><td><code>.data/watch.sqlite</code>, <code>.data/agent.sqlite</code></td></tr>
+<tr><td>Web UI (<code>apps/proactive-dpi-fe</code>)</td><td>Vue app on port 4790: chat tabs, incident card, Approve/Decline bar, event stream.</td><td>none</td></tr>
+</table></div>
+<p>The two processes talk only through a key/value <code>control</code> table in <code>logs.sqlite</code> (<code>deploy_request</code>, <code>deployed</code>, <code>live_revision</code>, …).</p>
+
+<h3>Timeline (measured 2026-10-05, 2 runs; <code>apps/proactive-dpi-demo/README.md:25-37</code>)</h3>
+<div class="tbl"><table>
+<tr><th>Time</th><th>Event</th></tr>
+<tr><td>T+5.0 s</td><td>Bad revision <code>checkout-api-00042-vex</code> deploys. The stream sends 3 guest checkouts 200 ms apart.</td></tr>
+<tr><td>T+5.8–5.9 s</td><td>3 incident verdicts → incident <code>INC-0001</code> opens. One commit creates the incident record and an ownerless conversation configured with <code>CodingTools</code>, <code>OpsTools</code> and <code>IncidentAgent</code>, in a git worktree on branch <code>incident/inc-0001</code>.</td></tr>
+<tr><td>~T+8 s</td><td>Investigating: <code>update_incident</code>, <code>log_summary</code>, <code>query_logs</code>.</td></tr>
+<tr><td>~T+18 s</td><td>Root cause found (<code>git log</code>, <code>git show</code>, read the file in the top stack frame); fixing.</td></tr>
+<tr><td>~T+21 s</td><td>Ready for review: <code>submit_fix</code> proved the new test <b>fails on <code>main</code></b> and the whole suite <b>passes on the branch</b>, then committed.</td></tr>
+<tr><td>T+25.3–30.3 s</td><td><code>deploy</code> called; the voice line plays; the deploy task waits for you.</td></tr>
+<tr><td>after approval</td><td>About 3 s: rollout, then verification on 3 live guest checkouts with 0 errors.</td></tr>
+</table></div>
+
+<h3>How the incident agent starts with no person</h3>
+<ol class="steps">
+<li>The watcher's threshold is met. Code (not the agent) opens the incident in one <code>harness.commit</code>: increment <code>seq</code>, create the conversation, configure it, write the incident document (<code>ops.ts:125-180</code>).</li>
+<li>Code submits the brief with <code>requestId: "incident:&lt;id&gt;:brief"</code>. If the backend restarts, <code>recover()</code> submits the same brief again; the requestId makes the second submit a no-op (<code>ops.ts:117-123</code>, <code>189-196</code>).</li>
+<li>The agent follows the <code>incident_playbook</code> prompt section: investigate → root cause → fix + regression test → <code>submit_fix</code> → short review note → <code>deploy</code> (<code>extensions.ts:466-486</code>).</li>
+</ol>
+
+<h3>Why the deploy cannot run twice</h3>
+<p>The <code>deploy</code> tool creates a durable task <code>ops.deploy</code> owned by the tool call, with phases <code>approval → rollout → verify</code>. The approval phase reads the <code>ops.deploys</code> document every 400 ms through a durable sleep. The code comment states the reason: "Durable Pi has no built-in signal" (<code>extensions.ts:243</code>). Five independent mechanisms keep the deploy single:</p>
+<ol class="steps">
+<li>A replay of the same tool call finds the existing deploy by <code>toolTaskId === api.taskId</code> and returns it (<code>extensions.ts:369-372</code>).</li>
+<li>The deploy task's phases are checkpoints. A restart resumes the current phase; it does not start over.</li>
+<li><code>POST /api/deploys/:id/decide</code> changes the status only if it is still <code>awaiting_approval</code> (<code>ops.ts:306-316</code>).</li>
+<li>The log stream ignores a deploy request whose id equals the last <code>deployed.id</code> (<code>apps/proactive-dpi-logs/src/main.ts:96</code>).</li>
+<li>The "ready" voice flag is set in the same commit as the task, so the announcement does not repeat after a crash.</li>
+</ol>
+<p>This is the repo's practical answer to "durable is not exactly-once": the effect (the rollout) carries its own idempotency key (the task id), checked by the receiver.</p>
+
+<h3>Guardrails on the incident agent</h3>
+<ul>
+<li>A <code>beforeTool</code> regex on <code>bash</code> blocks <code>git push</code>, <code>merge</code>, <code>rebase</code>, <code>switch</code>, <code>worktree</code>, <code>reset --hard</code>, branch delete/rename, and checkout of new branches or <code>main</code>/<code>master</code>. Message: "Blocked by the incident guard… A human reviews and merges." (<code>extensions.ts:460-461</code>, <code>488-500</code>).</li>
+<li>API keys are kept out of the agent's shell; test runs get only <code>PATH</code> and <code>HOME</code> (<code>ops.ts:72-77</code>, <code>repo.ts:40</code>).</li>
+<li>Tool calls run one at a time (<code>toolExecution: "sequential"</code>), chosen for a readable timeline (<code>ops.ts:86-87</code>).</li>
+</ul>
+
+<h3>Commands</h3>
+<pre><code>just proactive install   # dependencies
+just proactive build     # build the UI
+just proactive take      # reset and start; prints http://localhost:4790; bug deploys at 5 s
+just proactive bug       # deploy the bad commit now
+just proactive stop      # end the demo</code></pre>
+<p>Useful flags (passed through <code>take</code>/<code>start</code>): <code>--bug-at</code> (5, or <code>off</code>), <code>--rate</code> (2 rows/s), <code>--incident-threshold</code> (3), <code>--suspicious-threshold</code> (8), <code>--window</code> (120 s), <code>--model</code> (<code>anthropic/claude-sonnet-5.5</code>), <code>--thinking</code> (<code>high</code>), <code>--tts</code> (<code>host</code> on macOS, <code>browser</code> elsewhere), <code>--host</code> (127.0.0.1), <code>--port</code> (4790). Voice uses ElevenLabs if <code>ELEVENLABS_API_KEY</code> is set; otherwise the line shows as a toast.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="network">
+<h2>10. The network: hub, SDK, TUI, devices</h2>
+
+<h3>Device kinds (<code>dpi-network.yaml</code>)</h3>
+<p>Devices are data: the YAML declares each device, and no code or recipe names a machine. The file is gitignored; copy it from <code>dpi-network.example.yaml</code>.</p>
+<div class="tbl"><table>
+<tr><th>Kind</th><th>How it runs</th><th><code>just net up &lt;id&gt;</code> does</th></tr>
+<tr><td><code>local</code></td><td><code>just backend run</code> on this machine, or a service if <code>service:</code> is set</td><td>Write <code>~/.dpi/backend.env</code> and register (plus the service if set)</td></tr>
+<tr><td><code>ssh</code></td><td>launchd LaunchAgent (macOS) or systemd unit (Linux)</td><td>Install Node with nvm, rsync code, <code>npm ci</code>, env, service, register, wait online (up to 90 s)</td></tr>
+<tr><td><code>exe-dev</code></td><td>systemd on an exe.dev VM behind its HTTPS proxy</td><td>Create the VM if missing, the ssh steps, then make port 4780 public over HTTPS</td></tr>
+<tr><td><code>url</code></td><td>Anything already running</td><td>Register the URL and token only</td></tr>
+</table></div>
+<p>YAML fields: <code>name</code>, <code>kind</code>, <code>port</code> (4780), <code>node</code> (24), <code>code_dir</code> (<code>~/dpi</code>), <code>home_dir</code> (<code>~/.dpi</code>), <code>start_dirs</code> (<code>["~/dpi-work"]</code>), <code>host</code> (127.0.0.1 for local, 0.0.0.0 otherwise), <code>env_keys</code>, <code>env</code>, <code>service</code>, <code>ssh</code>, <code>vm</code>, <code>create</code>, <code>url</code>, and the undocumented <code>token_env</code> (<code>apps/dpi-sdk/src/node/config.ts</code>). Device fields merge over <code>defaults</code> shallowly, except <code>env</code>, which merges key by key. A device-level <code>env_keys</code> therefore <em>replaces</em> the default list.</p>
+<pre><code>just net up &lt;id&gt;       # every step for the kind, in order; idempotent
+just net status        # probe every device; exit 2 if any is not online
+just net deploy &lt;id&gt;   # ssh, exe-dev: rsync code, npm ci, restart; data stays
+just net logs &lt;id&gt;     # tail the service log
+just net restart &lt;id&gt;
+just net rotate &lt;id&gt;   # new token, then re-register
+just net destroy &lt;id&gt;  # exe-dev only; asks you to type the VM name
+just net probe &lt;id&gt;    # /healthz must be 200, tokenless /v1/device must be 401</code></pre>
+
+<h3>The hub (<code>apps/dpi-playground</code>)</h3>
+<ul>
+<li>Binds <code>127.0.0.1:4781</code>. Stores every device URL and token in <code>~/.dpi/network.sqlite</code> (mode 600, plain text).</li>
+<li>The browser never sees a token. It opens one SSE connection to the hub; the hub opens the authenticated streams to devices and multiplexes them (max 20 subscriptions per tab).</li>
+<li>A guard on <code>/api</code>: an unknown Host header returns 421 (against DNS rebinding); an Origin that does not match Host returns 403; POST/PUT/PATCH must be JSON (415).</li>
+<li>A monitor loop per device sets its status:</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>Status</th><th>Detected by</th><th>Fix shown in the UI</th></tr>
+<tr><td><code>online</code></td><td><code>GET /v1/device</code> succeeds</td><td>—</td></tr>
+<tr><td><code>checking</code></td><td>A probe is in progress</td><td>—</td></tr>
+<tr><td><code>offline</code></td><td>Network error; retry with backoff 1–30 s</td><td><code>just backend run</code> or <code>just net restart &lt;id&gt;</code></td></tr>
+<tr><td><code>unauthorized</code></td><td>No token stored, or HTTP 401</td><td><code>just net register &lt;id&gt;</code></td></tr>
+<tr><td><code>mismatch</code></td><td>The device answers with a different uid than the one first seen (a rebuilt VM or wiped data dir)</td><td><code>just net register &lt;id&gt;</code> (re-trusts)</td></tr>
+<tr><td><code>incompatible</code></td><td><code>apiVersion</code> is not 1</td><td><code>just net deploy &lt;id&gt;</code></td></tr>
+</table></div>
+<p>An offline device keeps its last known tree, dimmed.</p>
+
+<h3>The web client</h3>
+<p>Three columns: network tree (device → session → agent), inspector, agent transcript. Inspector tabs: <b>Session</b> (model, thinking, context bar, usage), <b>State</b> (App State), <b>Tasks</b> (durable jobs and the live task tree), <b>Tools</b> (read-only switch, each tool's signature and "replay safe" or "interrupt on crash"), <b>Extend</b> (the two add-ons). The composer has three modes: Follow-up (default), Steer, Reject if busy. Slash commands: <code>/compact</code>, <code>/reset</code>, <code>/tasks</code>, <code>/new</code>, <code>/fork</code>, <code>/name</code>, <code>/model</code>, <code>/thinking</code>, <code>/help</code>. A send's <code>requestId</code> is kept in <code>sessionStorage</code>, so a retry of the same text after a reload is deduplicated by the device.</p>
+<figure><img src="../images/15_web_client.png" alt="The web client: network tree, inspector, transcript"><figcaption>From the repo's README.</figcaption></figure>
+
+<h3>The TUI</h3>
+<pre><code>just tui attach &lt;device&gt;                     # pick or create a session
+just tui attach &lt;device&gt;:&lt;session&gt;:&lt;agent&gt;   # straight to an agent, by name or id
+just tui new &lt;device&gt; &lt;name&gt;                 # create a session and attach</code></pre>
+<div class="tbl"><table>
+<tr><th>Key</th><th>Action</th></tr>
+<tr><td><kbd>Enter</kbd></td><td>Send. <b>Steer if the agent is busy</b>, else follow-up. (The web default is always follow-up.)</td></tr>
+<tr><td><kbd>Alt</kbd>+<kbd>Enter</kbd></td><td>Queue as follow-up</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Interrupt the foreground run</td></tr>
+<tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Cycle thinking level</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>L</kbd></td><td>Model picker</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Expand tool output and thinking</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> on empty input</td><td>Exit and print the reattach command. The agent keeps running.</td></tr>
+</table></div>
+
+<h3>The SDK</h3>
+<p><code>apps/dpi-sdk</code> is not published to npm; apps import it by relative path. One reducer (<code>AgentModel</code>) turns stream frames into state, and one function (<code>toTranscript</code>) turns state into transcript items. The web client, the TUI and the backend's <code>/transcript</code> endpoint all use them: "One reducer, two renderers" (<code>README.md:121</code>). <code>DpiClient.follow()</code> reconnects with backoff 1–15 s and stops on <code>unauthorized</code> or <code>not_found</code>.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="run">
+<h2>11. Run it (and the Windows facts)</h2>
+
+<div class="callout danger"><b class="label">Read before you run on Windows.</b> The original repo targets macOS and Linux. No file in the original repo mentions Windows or WSL. Facts checked on one Windows 11 machine during the research (2026-10-12):
+<ul>
+<li>The <code>justfile</code> and every <code>just/*/mod.just</code> set <code>shell := ["zsh", "-cu"]</code> with no <code>windows-shell</code>. <code>zsh</code> is not installed here, so <b>every <code>just</code> recipe fails</b> natively.</li>
+<li>Node here is <b>v22.22.0</b>. The README and <code>/install</code> require Node 24. The backend's <code>engines</code> field accepts ≥ 22.19. The proactive demo README requires 24.14+.</li>
+<li><code>rsync</code> and <code>lsof</code> are not installed. <code>just/free-port.sh</code> exits 0 silently when <code>lsof</code> is missing, so it does not free the port.</li>
+</ul>
+Likely failures found by reading the code <span class="tag t-unv">unverified</span>:
+<ul>
+<li><code>DPI_START_DIRS</code> is split on <code>:</code> (<code>apps/dpi-backend/src/config.ts:40-43</code>), so a path like <code>C:\work</code> splits into <code>C</code> and <code>\work</code>.</li>
+<li><code>apps/proactive-dpi-demo/scripts/demo.ts:37</code> spawns <code>node_modules/.bin/tsx</code> without a shell. On Windows the shim is <code>tsx.cmd</code>.</li>
+<li><code>voice.ts:49</code> builds a URL with <code>path.split("/")</code>; Windows paths use <code>\</code>, so browser voice breaks.</li>
+<li><code>just proactive stop</code> uses <code>pkill</code>, <code>open</code> is macOS-only, <code>afplay</code> is macOS-only.</li>
+<li>The registry's mode-600 permission is a POSIX permission; Windows does not enforce it the same way.</li>
+</ul>
+<b>Recommendation</b> <span class="tag t-inf">inferred</span>: run the repo inside WSL2 (Ubuntu) with Node 24, zsh and just installed there, and keep the clone on the Linux file system (<code>~/</code>), not under <code>/mnt/c</code>. <code>node_modules</code> is not portable between Windows and WSL because it holds platform binaries (esbuild, oxlint).</div>
+
+<h3>Quickstart (macOS, Linux or WSL2)</h3>
+<ol class="steps">
+<li>Install Node 24 (nvm), <code>just</code>, <code>zsh</code>, <code>git</code>. Get an OpenRouter API key.</li>
+<li>Create the env file and the network file:
+<pre><code>cp .env.example .env                           # set OPENROUTER_API_KEY=sk-or-...
+cp dpi-network.example.yaml dpi-network.yaml   # declares only `local`</code></pre></li>
+<li>Install, configure this machine, build the UI:
+<pre><code>just install
+just net up local      # writes ~/.dpi/backend.env with a fresh DPI_TOKEN, registers the device
+just hub build</code></pre></li>
+<li>Check (free; uses the faux model):
+<pre><code>just check</code></pre></li>
+<li>Start the device server, the hub, and a terminal client, each in its own terminal:
+<pre><code>just backend run       # :4780
+just hub start         # http://localhost:4781
+just tui attach local</code></pre></li>
+<li>Expected: the hub page shows device <code>local</code> as online. Create a session, type <code>ping</code>, and see the answer in both the browser and the TUI.</li>
+</ol>
+<div class="callout"><b class="label">No API key?</b> Run <code>DPI_PROVIDER=faux just backend run</code>. The faux model echoes, and responds to triggers such as <code>!ls</code> (runs bash), <code>jobs?</code>, <code>job: workspace-snapshot {} wait</code>, <code>slow:</code> (<code>apps/dpi-backend/src/faux.ts</code>). Cost: $0.</div>
+<p>The repo also ships Claude Code commands: <code>/install</code> (runs the steps above, never starts a server, never touches a device other than <code>local</code>) and <code>/prime</code> (loads project context) in <code>.claude/commands/</code>.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="uu">
+<h2>12. Unknown unknowns</h2>
+<p class="lead">These are facts a new user would not know to ask about. Each item gives the likely assumption, what the code does, and what to do.</p>
+<p class="muted">Short file names in this section: <code>store.ts</code>, <code>jobs.ts</code> = <code>apps/dpi-backend/src/</code>; <code>watcher.ts</code>, <code>watch-store.ts</code>, <code>ops.ts</code> = <code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/</code>; <code>deploys.ts</code> = <code>apps/proactive-dpi-demo/apps/proactive-dpi-logs/src/</code>; <code>guard.ts</code> = <code>apps/dpi-playground/apps/dpi-playground-hub/src/</code>; <code>registry.ts</code> = <code>apps/dpi-sdk/src/node/</code>; <code>spec.md</code>, <code>readme.md</code> = <code>ai_docs/durable_pi/</code>.</p>
+
+<h3>Durability guarantees</h3>
+<div class="uu"><h4>"Durable" does not mean "every effect happens exactly once"</h4><dl>
+<dt>Assumption</dt><dd>After a crash, the system makes sure each action happened once.</dd>
+<dt>Reality</dt><dd>Only <em>admission</em> of a submission with a <code>requestId</code> is exactly-once. A replay-safe tool reruns (at-least-once). An unsafe tool reports "interrupted" and the effect may or may not have happened (<code>README.md:332</code>).</dd>
+<dt>Action</dt><dd>Give every outside effect its own idempotency key, as the demo deploy does with the task id (<a href="#demo">9</a>).</dd></dl></div>
+
+<div class="uu"><h4>A power cut can lose the newest commit</h4><dl>
+<dt>Assumption</dt><dd>Anything shown in the UI is on disk forever.</dd>
+<dt>Reality</dt><dd>SQLite runs in WAL mode with <code>synchronous = NORMAL</code>: commits survive a process crash, "the newest may be lost on power or host failure" (<code>ai_docs/durable_pi/readme.md:544</code>) <span class="tag t-doc">pd-doc</span>.</dd>
+<dt>Action</dt><dd>Treat the last second before a power loss as uncertain. For hard guarantees on a device, use a UPS or a VM host with durable disks.</dd></dl></div>
+
+<div class="uu"><h4>A safety hook does not run again on a replayed tool call</h4><dl>
+<dt>Assumption</dt><dd>A <code>beforeTool</code> guard checks every execution.</dd>
+<dt>Reality</dt><dd>On recovery, a replay-safe tool reruns with the stored arguments and <code>beforeTool</code> is skipped (<code>spec.md:2917-2925</code>) <span class="tag t-doc">pd-doc</span>. The guard decided once, at call time.</dd>
+<dt>Action</dt><dd>Accept this for guards whose decision does not change. Put checks that must run on every execution inside the tool itself.</dd></dl></div>
+
+<div class="uu"><h4>A hook can run twice; a phase that changes nothing is "faulted"</h4><dl>
+<dt>Assumption</dt><dd>Hooks and task phases run once.</dd>
+<dt>Reality</dt><dd>Hooks run outside the commit line and can rerun after a crash. A phase that returns its input checkpoint unchanged ends <code>faulted</code> (<code>spec.md:1825-1826</code>, <code>2545-2546</code>) <span class="tag t-doc">pd-doc</span>.</dd>
+<dt>Action</dt><dd>Store hook decisions in a memo. Make every phase return a changed checkpoint.</dd></dl></div>
+
+<div class="uu"><h4>Queued follow-ups can wait forever after a failed run</h4><dl>
+<dt>Assumption</dt><dd>A failed run processes the queue anyway.</dd>
+<dt>Reality</dt><dd>After a failed run, queued follow-ups stay in <code>pi.inbox</code>, and their <code>wait()</code> does not settle until the next submission or a withdrawal (<code>spec.md:4559-4564</code>) <span class="tag t-doc">pd-doc</span>.</dd>
+<dt>Action</dt><dd>After an error, send a new message or withdraw the queued item (the X on the queue strip).</dd></dl></div>
+
+<div class="uu"><h4>Removing an extension can freeze tasks</h4><dl>
+<dt>Assumption</dt><dd>Old tasks from a deleted extension fail and disappear.</dd>
+<dt>Reality</dt><dd>A task whose definition is missing at open stays blocked (<code>missing_task</code>) and still counts as live, so "wait until idle" can hang (<code>spec.md:611-623</code>) <span class="tag t-doc">pd-doc</span>.</dd>
+<dt>Action</dt><dd>Keep task definitions (with <code>migrate</code>) until old sessions have no live tasks of that kind.</dd></dl></div>
+
+<div class="uu"><h4>A resumed job phase repeats its shell commands</h4><dl>
+<dt>Assumption</dt><dd>Jobs resume at the exact step.</dd>
+<dt>Reality</dt><dd>Resumption is per phase and iteration. The phase handler runs from the start again; only App State writes are deduplicated by receipt (<code>jobs.ts:676-694</code>).</dd>
+<dt>Action</dt><dd>Keep each phase's shell work safe to repeat, as the three example jobs do.</dd></dl></div>
+
+<h3 id="uu-secrets">Security</h3>
+<div class="uu"><h4>A device token is a shell on that device</h4><dl>
+<dt>Assumption</dt><dd>The token only lets you chat with an agent.</dd>
+<dt>Reality</dt><dd>Anyone with the token can make an agent run <code>bash</code> as the device's user. <code>start_dirs</code> only set where sessions begin; any existing directory is accepted as a working directory (<code>store.ts:398-406</code>; <code>README.md:333</code>).</dd>
+<dt>Action</dt><dd>Treat tokens like ssh private keys. Run devices as a dedicated low-privilege user, ideally on a machine reserved for agents, as the video does with its M6 Mac mini <span class="tag t-vid">video</span>.</dd></dl></div>
+
+<div class="uu"><h4>The agent can read its own API keys from disk</h4><dl>
+<dt>Assumption</dt><dd>Keys are hidden because the agent's shell environment does not include them.</dd>
+<dt>Reality</dt><dd>The shell env is a whitelist (<code>store.ts:501-505</code>), but <code>~/.dpi/backend.env</code> holds <code>DPI_TOKEN</code> and <code>OPENROUTER_API_KEY</code> and runs as the same user. A <code>read</code> or <code>cat</code> of that file works <span class="tag t-inf">inferred</span>. A prompt injected through a log line or a web page could ask for it.</dd>
+<dt>Action</dt><dd>Use a key with a spending limit. Do not give agents untrusted input on a device that holds valuable keys.</dd></dl></div>
+
+<div class="uu"><h4>The hub has no login</h4><dl>
+<dt>Assumption</dt><dd>The Host/Origin guard protects the hub.</dd>
+<dt>Reality</dt><dd>The guard blocks browsers on other sites. A request with no Origin header (curl, any local program) passes. The hub holds every token and proxies every route, including session deletion (<code>guard.ts:15-25</code>). Binding the hub to a non-loopback address exposes every device.</dd>
+<dt>Action</dt><dd>Keep the hub on 127.0.0.1. Treat any local process as able to control your devices.</dd></dl></div>
+
+<div class="uu"><h4>exe.dev devices are public on the internet; LAN devices send tokens in clear text</h4><dl>
+<dt>Assumption</dt><dd>A cloud sandbox is private.</dd>
+<dt>Reality</dt><dd><code>just net up</code> runs <code>share set-public</code> for exe-dev devices; the bearer token is the only gate. <code>ssh</code> devices on the LAN speak plain HTTP (<code>README.md:334</code>). ssh uses <code>StrictHostKeyChecking=accept-new</code> (trust on first use).</dd>
+<dt>Action</dt><dd>Rotate tokens (<code>just net rotate &lt;id&gt;</code>) after any doubt. Use a VPN (for example Tailscale) for LAN devices.</dd></dl></div>
+
+<div class="uu"><h4>Read-only mode only limits the model</h4><dl>
+<dt>Assumption</dt><dd>A read-only agent cannot change anything.</dd>
+<dt>Reality</dt><dd>It removes 8 tools from the model's list. The REST routes <code>/demo/jobs</code> and <code>/demo/state</code> still run jobs (with shell commands) and change App State on that agent (<code>store.ts:1098-1143</code>).</dd>
+<dt>Action</dt><dd>Use read-only as a safety switch for the model, not as an access control for clients.</dd></dl></div>
+
+<div class="uu"><h4>The demo's git guard is a regex, and approving a deploy runs agent code</h4><dl>
+<dt>Assumption</dt><dd>The incident agent cannot touch <code>main</code>, and the approved code runs in a separate service.</dd>
+<dt>Reality</dt><dd>Forms such as <code>git -C … push</code>, <code>git -c x=y push</code> and <code>update-ref</code> do not match the pattern, and <code>write</code>/<code>edit</code> are not checked <span class="tag t-inf">inferred</span>. The log stream <code>import()</code>s the approved commit into its own process (<code>deploys.ts:31</code>). The demo has no login and binds 127.0.0.1 by default.</dd>
+<dt>Action</dt><dd>Keep the demo on loopback. Review the diff ("View diff") before you approve.</dd></dl></div>
+
+<h3>Jev</h3>
+<div class="uu"><h4>The damage-control guard fails open and has gaps</h4><dl>
+<dt>Assumption</dt><dd>With <code>jev-damage-control</code> on, destructive commands cannot run.</dd>
+<dt>Reality</dt><dd>No key, an error or a timeout lets the command run. It checks <code>bash</code> tool calls only. It sends every command's text to a third-party API (<code>README.md:337</code>). It is off by default.</dd>
+<dt>Action</dt><dd>Treat it as a seat belt, not a sandbox. Use OS-level isolation (a dedicated user, a VM) for real protection.</dd></dl></div>
+
+<div class="uu"><h4>A Jev outage leaves rows unjudged for good</h4><dl>
+<dt>Assumption</dt><dd>When Jev recovers, the backlog is judged.</dd>
+<dt>Reality</dt><dd>A row that fails is recorded as <code>error</code> and never re-judged. Only rows in flight at a backend restart are re-judged (<code>watcher.ts:155-157</code>). The demo still recovers because the bug keeps producing new failing rows <span class="tag t-inf">inferred</span>.</dd>
+<dt>Action</dt><dd>In production, add a retry queue for <code>error</code> rows, or a cheap code pre-filter (the video suggests checking 4xx/5xx status first <span class="tag t-vid">video</span>).</dd></dl></div>
+
+<div class="uu"><h4>The incident threshold counts low-confidence rows</h4><dl>
+<dt>Assumption</dt><dd>All 3 counted verdicts passed the 0.6 probability gate.</dd>
+<dt>Reality</dt><dd>The 0.6 gate applies to the current row only. Earlier rows with the same fingerprint count at any probability. The window uses log timestamps, not judge time (<code>watcher.ts:165</code> vs <code>watch-store.ts:139-146</code>).</dd>
+<dt>Action</dt><dd>If false alarms matter, filter the count by probability too.</dd></dl></div>
+
+<h3>Proactive demo behavior</h3>
+<div class="uu"><h4>One fingerprint opens one incident, ever</h4><dl>
+<dt>Assumption</dt><dd>If the same error comes back next week, a new incident opens.</dd>
+<dt>Reality</dt><dd>The open-fingerprint set is rebuilt from the incident document on restart, and blocks a repeat even after the incident is Deployed (<code>ops.ts:126</code>, <code>134</code>).</dd>
+<dt>Action</dt><dd>Run <code>just proactive take</code> (it resets) for a new take. In a real system, release the fingerprint when the incident closes.</dd></dl></div>
+
+<div class="uu"><h4>Interrupting a deploy after rollout does not roll back</h4><dl>
+<dt>Assumption</dt><dd>Interrupt cancels the deploy.</dd>
+<dt>Reality</dt><dd><code>cancelDeploy</code> withdraws only a request the stream has not picked up. After pickup, the new revision stays live while the deploy shows <code>cancelled</code> (<code>watch-store.ts:243-246</code>) <span class="tag t-inf">inferred</span>.</dd>
+<dt>Action</dt><dd>Decide at the approval step, not during rollout.</dd></dl></div>
+
+<h3>Operations</h3>
+<div class="uu"><h4>A stale lock with a reused PID blocks startup</h4><dl>
+<dt>Assumption</dt><dd>After a crash, the backend always restarts.</dd>
+<dt>Reality</dt><dd>A lock is taken over only if its PID is dead. If a reboot gives that PID to another process, startup fails with "Database already owned by process N" (<code>store.ts:110-119</code>).</dd>
+<dt>Action</dt><dd>Check that no <code>dpi-backend</code> runs, then delete the <code>*.sqlite.lock</code> file named in the error.</dd></dl></div>
+
+<div class="uu"><h4>A pi-ai upgrade or an OpenRouter outage can stop the server from starting</h4><dl>
+<dt>Assumption</dt><dd>A missing model only disables that model.</dd>
+<dt>Reality</dt><dd>Startup throws if any of the 29 curated models is missing from pi-ai's OpenRouter catalog, or if the model list cannot load in 10 s (<code>store.ts:184-185</code>, <code>282</code>). Whether the list load needs the network is <span class="tag t-unv">unverified</span>. A stored model that is no longer curated is silently replaced by the default <code>anthropic/claude-sonnet-5.5</code> (<code>store.ts:302-312</code>).</dd>
+<dt>Action</dt><dd>Keep the pinned versions together. Check <code>apps/dpi-backend/src/model-catalog.ts</code> after any upgrade.</dd></dl></div>
+
+<div class="uu"><h4>One registry for every checkout; it prunes tokens</h4><dl>
+<dt>Assumption</dt><dd>Two clones of the repo keep separate device lists.</dd>
+<dt>Reality</dt><dd>All clones share <code>~/.dpi/network.sqlite</code>. Every hub start, TUI start and <code>just net</code> command syncs the YAML and deletes config devices that are not in it, <b>tokens included</b> (<code>registry.ts:202-205</code>).</dd>
+<dt>Action</dt><dd>Use one <code>dpi-network.yaml</code>, or set <code>DPI_HOME</code> per clone.</dd></dl></div>
+
+<div class="uu"><h4>New YAML devices need a hub restart</h4><dl>
+<dt>Assumption</dt><dd>The hub sees a new device in the YAML automatically.</dd>
+<dt>Reality</dt><dd>The hub seeds the registry once at boot, and only starts monitor loops at boot or on "Check now". The cookbook's "picks it up automatically" (<code>cookbook/dpi-network.md:92</code>) does not match the code (<code>apps/dpi-playground/apps/dpi-playground-hub/src/main.ts:27-30</code>).</dd>
+<dt>Action</dt><dd>Restart <code>just hub start</code> after you add a device.</dd></dl></div>
+
+<div class="uu"><h4>Compaction settings stick after you change models</h4><dl>
+<dt>Assumption</dt><dd>Thresholds follow the current model's window.</dd>
+<dt>Reality</dt><dd>After any manual change, the full settings object is saved and no longer derived. A switch to a smaller model refits and saves; a switch back does not restore 200k/250k (<code>store.ts:799-803</code>, <code>1028-1031</code>).</dd>
+<dt>Action</dt><dd>Re-drag the context-bar markers after a model change.</dd></dl></div>
+
+<div class="uu"><h4>Two clients, two Enter behaviors</h4><dl>
+<dt>Assumption</dt><dd>Enter does the same thing everywhere.</dd>
+<dt>Reality</dt><dd>In the TUI, Enter on a busy agent <b>steers</b> (joins the current run). In the web composer the default is <b>follow-up</b> (waits for the run to end).</dd>
+<dt>Action</dt><dd>Use <kbd>Alt</kbd>+<kbd>Enter</kbd> in the TUI to queue.</dd></dl></div>
+
+<div class="uu"><h4>Two processes must never open one session database</h4><dl>
+<dt>Assumption</dt><dd>You can open <code>agent.sqlite</code> with a second tool while the backend runs.</dd>
+<dt>Reality</dt><dd>pi-durable has no cross-process lock; the repo's PID lock is the only protection. A second writer is unsupported (<code>readme.md:547</code>). Read-only inspection with <code>sqlite3</code> is outside the documented contract <span class="tag t-unv">unverified</span>.</dd>
+<dt>Action</dt><dd>Use the API (<code>/inspect</code>, <code>/entries</code>, <code>/transcript</code>) to read state.</dd></dl></div>
+
+<div class="uu"><h4>Storage grows without a cleanup job</h4><dl>
+<dt>Assumption</dt><dd>Old data is removed.</dd>
+<dt>Reality</dt><dd>Entries are never deleted (that is how <code>search_history</code> works). App State receipts are never pruned. Archiving a session leaves its compaction and spawn rows in the catalog (<code>store.ts:487-488</code>) <span class="tag t-inf">inferred</span>.</dd>
+<dt>Action</dt><dd>Archive old sessions and delete <code>backend/archive/</code> by hand when needed.</dd></dl></div>
+
+<div class="uu"><h4>pi-durable is experimental</h4><dl>
+<dt>Assumption</dt><dd>This is ready for production.</dd>
+<dt>Reality</dt><dd>"The API changes without notice between releases" (<code>ai_docs/durable_pi/readme.md:7</code>). Version 1.0.3 (2026-10-05) already had breaking environment API changes (<code>changelog.md:9-37</code>). The video author says he will not deploy it to production until a stable V1 <span class="tag t-vid">video</span>.</dd>
+<dt>Action</dt><dd>Pin exact versions (the repo does). Read the changelog before each upgrade.</dd></dl></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="tests">
+<h2>13. What the tests prove</h2>
+<div class="tbl"><table>
+<tr><th>Suite</th><th>What it shows</th><th>Cost</th></tr>
+<tr><td><code>just check</code></td><td>SDK (14), backend (10), hub (1), TUI (8) unit tests with strict types, web build and lint. Includes <code>recovery.test.ts</code>: SIGKILL the server during <code>change-watch</code>, restart, and the run completes with exactly 4 checks and 1 start entry (no duplicates).</td><td>Free (faux model)</td></tr>
+<tr><td><code>just test ui</code></td><td>28 web checks against two faux devices: offline recovery, bad tokens, read only, extensions, jobs, context bar, slash commands, keyboard, mobile.</td><td>Free; needs Google Chrome</td></tr>
+<tr><td><code>just test device &lt;id&gt;</code></td><td>18 checks with a real model: steer, dedupe, subagents, jobs, compaction, reset, quitting the browser mid-tool.</td><td>Model spend</td></tr>
+<tr><td><code>just test e2e &lt;id&gt;</code></td><td>TUI and web on one run, both closed, device restarted mid-tool, fork, reattach: "9 tool results, 1 interrupted by the restart, each prompt admitted once".</td><td>Model spend; needs tmux</td></tr>
+<tr><td>Proactive demo end to end</td><td>Incident at T+6 s, deploy waits at T+27–30 s, approved revision passes 3 guest checkouts with 0 errors.</td><td>~$0.09 per incident</td></tr>
+</table></div>
+<p class="muted">Results as stated in <code>README.md:312-322</code>. Not re-run for this document.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="gaps">
+<h2>14. Gaps for builders</h2>
+<p class="lead">This section lists the gaps in the durability claims, in order of consequence for code built on top of this repo. Group 1 is claims that are not verified. Group 2 is limits that stay true even if every claim is correct. Group 3 is states where the data survives but no process resumes the work.</p>
+<p class="muted">Short file names: <code>store.ts</code>, <code>jobs.ts</code>, <code>extensions.ts</code> = <code>apps/dpi-backend/src/</code>; <code>watcher.ts</code> = <code>apps/proactive-dpi-demo/apps/proactive-dpi-be/src/</code>; <code>spec.md</code>, <code>readme.md</code>, <code>changelog.md</code>, <code>announcement.md</code> = <code>ai_docs/durable_pi/</code>. Checked 2026-10-12.</p>
+
+<h3 id="gaps-claims">Group 1: Claims not verified against code</h3>
+<div class="tbl"><table>
+<tr><th>#</th><th>Gap</th><th>Evidence</th><th>How to close it</th></tr>
+<tr><td>1</td><td><b>The replay policies of the built-in tools are not in the checkout.</b> The "bash comes back interrupted" behavior (<code>README.md:58</code>) is true only if <code>bash</code> is <code>unsafe</code>.</td><td>No <code>node_modules/@earendil-works/pi-durable</code> exists in the checkout. The repo's own tools are verified: a tool with no policy defaults to <code>unsafe</code> (<code>store.ts:712</code>); <code>page_oncall</code> is <code>unsafe</code> on purpose (<code>extensions.ts:357</code>). The policies of <code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code> come from the docs only <span class="tag t-unv">unverified</span>.</td><td>Install in WSL2, then run <code>grep -rn replay node_modules/@earendil-works/pi-durable</code>. The agent detail route also lists each tool with its <code>replay</code> value (<code>apps/dpi-backend/API.md:34</code>).</td></tr>
+<tr><td>2</td><td><b>pi-durable is experimental.</b></td><td>"The API changes without notice between releases" (<code>readme.md:7</code>). Version 1.0.3 already had breaking environment API changes (<code>changelog.md:9-37</code>). The video author will not deploy it to production before a stable V1 <span class="tag t-vid">video</span>.</td><td>Pin exact versions. Read the changelog before each upgrade.</td></tr>
+<tr><td>3</td><td><b>No test was run for this document.</b></td><td>The table in <a href="#tests">13</a> repeats <code>README.md:312-322</code>.</td><td>Run <code>just check</code> (free, faux model) in WSL2.</td></tr>
+</table></div>
+
+<h3 id="gaps-boundary">Group 2: Guarantees that stop at a boundary</h3>
+<div class="callout"><b class="label">The rule.</b> Everything inside the pi-durable commit line is durable. Everything outside it is not. Each row below is a thing that sits outside the line.</div>
+<div class="tbl"><table>
+<tr><th>#</th><th>What is outside</th><th>Consequence</th><th>Ref</th></tr>
+<tr><td>1</td><td><b>Outside effects</b></td><td>Only admission of a submission with a <code>requestId</code> is exactly-once, and only within one conversation. A <code>safe</code> tool can run more than once. An <code>unsafe</code> tool returns <code>interrupted</code>, and the effect may or may not have happened. Every real agent product meets this gap first.</td><td><code>README.md:332</code>; <code>spec.md:2203-2204</code></td></tr>
+<tr><td>2</td><td><b>Hooks</b></td><td>A hook can run twice. On a replay of a safe tool, <code>beforeTool</code> is skipped, so a safety check does not see the rerun. The rerun uses the conversation's current working directory.</td><td><code>spec.md:2545-2546</code>, <code>2917-2925</code></td></tr>
+<tr><td>3</td><td><b>Shell work in a job phase</b></td><td>A resumed phase runs its shell commands again. Only App State writes are deduplicated by receipt.</td><td><code>jobs.ts:676-694</code></td></tr>
+<tr><td>4</td><td><b>Data stored outside pi-durable</b></td><td>In the demo, Jev verdicts are in a plain <code>watch.sqlite</code>. A failed Jev call is marked <code>error</code> and is never sent again.</td><td><code>watcher.ts:155-157</code></td></tr>
+<tr><td>5</td><td><b>The newest commit on power loss</b></td><td>SQLite runs with <code>synchronous = NORMAL</code>. A process crash loses nothing committed; a power or host failure can lose the newest commit.</td><td><code>readme.md:544</code></td></tr>
+<tr><td>6</td><td><b>The disk itself</b></td><td>Each session has one <code>agent.sqlite</code> on one disk. The code read for this document has no copy, snapshot or replication step. Disk loss is total loss. The library has no cross-process lock, so an external reader of the WAL file (a replication tool) is outside the documented contract <span class="tag t-unv">unverified</span>.</td><td><code>readme.md:547</code></td></tr>
+<tr><td>7</td><td><b>The restart layer</b></td><td>Restart comes from <code>apps/dpi-backend/deploy/dpi-backend.service</code> (<code>Restart=always</code>) and <code>dpi-backend.plist</code> (<code>KeepAlive</code>). No native Windows equivalent was found. On Windows 11, automatic restart depends on WSL2.</td><td><a href="#run">11</a></td></tr>
+</table></div>
+
+<h3 id="gaps-stuck">Group 3: The state survives, but nothing resumes it</h3>
+<p>These are not data loss. The data is on disk, but the work does not continue without a person.</p>
+<div class="tbl"><table>
+<tr><th>Trap</th><th>What happens</th><th>Ref</th></tr>
+<tr><td>Removed extension</td><td>Its tasks stay blocked with <code>missing_task</code> and still count as live, so <code>waitForIdle</code> waits forever.</td><td><code>spec.md:611-623</code></td></tr>
+<tr><td>Failed run</td><td>Queued follow-ups stay in <code>pi.inbox</code> until the next submission or a withdrawal.</td><td><code>spec.md:4559-4564</code></td></tr>
+<tr><td>Model catalog</td><td>Startup throws if any of the 29 curated models is missing from pi-ai's catalog, or if the model list does not load in 10 s.</td><td><code>store.ts:184-185</code>, <code>282</code></td></tr>
+<tr><td>Reused PID</td><td>A stale lock whose PID now belongs to another process blocks startup with "Database already owned by process N".</td><td><code>store.ts:110-119</code></td></tr>
+</table></div>
+<p class="muted">Security gaps (a token is a shell, the hub has no login, read-only mode limits only the model) are not durability gaps. See <a href="#uu-secrets">12, Security</a>.</p>
+
+<h3 id="gaps-build">What to build</h3>
+<p>Each option names the gap it closes, where to start, and one limit. The full plan for all 11 buildable changes (7 fully, 4 in part), with files, lines and consequences, is in <a href="durability-fixes.html">the durability fix plan</a>. What was built, and where, is in <a href="implemented-changes.html">the changes as built</a>.</p>
+<div class="layers">
+<div class="card"><h4 style="margin-top:0">Recommended first: a crash-test harness</h4>
+<p><b>Closes:</b> Group 1, row 1 (claims not verified, source not in hand).</p>
+<p><b>What:</b> SIGKILL the backend at random points: during <code>unsafe</code> tools, during hooks, between job phases. Restart, then check that no effect ran twice and no result was lost.</p>
+<p><b>Start from:</b> the existing <code>recovery.test.ts</code>, which kills the server once during <code>change-watch</code> and checks for exactly 4 checks and 1 start entry.</p>
+<p><b>Limit:</b> it finds only the failures that it checks for.</p></div>
+<div class="card"><h4 style="margin-top:0">Product build: an effect ledger</h4>
+<p><b>Closes:</b> Group 2, row 1 (outside effects).</p>
+<p><b>What:</b> each outside effect gets an idempotency key from <code>${task.id}</code> and a receipt row. After a crash, "interrupted, the effect may have happened" becomes "done" or "not done".</p>
+<p><b>Start from:</b> the patterns that exist now: App State receipts (<a href="#be-state">6.6</a>), the demo deploy id (<a href="#demo">9</a>), and <code>`payment-${task.id}`</code> (<code>announcement.md:459-464</code>).</p>
+<p><b>Limit:</b> the outside service must accept an idempotency key, or let you query whether the effect happened.</p></div>
+<div class="card"><h4 style="margin-top:0">Small fix: a retry queue for Jev <code>error</code> rows</h4>
+<p><b>Closes:</b> Group 2, row 4.</p>
+<p><b>What:</b> send rows marked <code>error</code> to Jev again after an outage.</p>
+<p><b>Start from:</b> <code>watcher.ts:155-157</code>. A few lines in one file.</p>
+<p><b>Limit:</b> it fixes the demo only.</p></div>
+</div>
+</section>
+
+<!-- ================================================================== -->
+<section id="limits">
+<h2>15. Limits of this document</h2>
+<ul>
+<li><b>pi-durable internals</b> come from its documentation, not its source code. The source is not in the checkout. The replay policies of <code>read</code>, <code>write</code>, <code>edit</code> and <code>bash</code> are not confirmed in code.</li>
+<li><b>No test suite was run</b> for this document. The "What the tests prove" table repeats the README.</li>
+<li><b>Windows items</b> marked <span class="tag t-unv">unverified</span> come from reading code; none was executed.</li>
+<li><b>Not covered in depth</b>: the <code>.claude/skills/agent-sandboxes-exe-dev</code> skill and its Python CLI; <code>ai_docs/pi/*</code> beyond the pages cited; <code>pico-v5-handoff.md</code> and <code>vacation-planner.md</code> (design notes and a separate demo).</li>
+</ul>
+<div class="card"><b>Keep this page true.</b> This page tracks <code>apps/dpi-backend/src/*.ts</code>, <code>apps/proactive-dpi-demo/**</code>, <code>apps/dpi-sdk/src/**</code>, <code>apps/dpi-playground/apps/dpi-playground-hub/src/*.ts</code>, the <code>justfile</code> and <code>just/**</code>, and <code>ai_docs/durable_pi/</code>. Change it in the same commit as the code it describes. The pinned version (1.0.3), prices ($0.00003 per Jev row, $0.09 per incident) and model names are dated 2026-10-05 to 2026-10-12 and change fastest.</div>
+</section>
+
+</main>
+</div>
+</body>
+</html>

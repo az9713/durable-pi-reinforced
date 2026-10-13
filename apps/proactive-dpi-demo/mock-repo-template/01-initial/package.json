@@ -1,0 +1,10 @@
+{
+  "name": "checkout-api",
+  "version": "1.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.ts",
+    "test": "node --test"
+  }
+}

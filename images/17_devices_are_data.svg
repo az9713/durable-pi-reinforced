@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Devices are data</title>
+  <desc id="desc">Each device is one row of dpi-network.yaml, an id and a kind, and just net up &lt;id&gt; runs that kind's steps (local: env, register; ssh: provision, deploy, env, service, register; exe-dev adds create and expose) until the device is online.</desc>
+  <style>
+    .a { animation-duration: 14s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+    .ln { animation-timing-function: linear; }
+    .x { transform-box: fill-box; transform-origin: center; }
+    @keyframes cmd { 0%, 2.5% { opacity: 0; transform: translateY(-8px) } 6.43%, 96% { opacity: 1; transform: translateY(0) } 100% { opacity: 0; transform: translateY(0) } }
+    @keyframes leg { 0%, 44.29% { opacity: 0 } 46.43%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes cap { 0%, 57.14% { opacity: 0 } 61.43%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes bar0 { 0%, 8.57% { fill: #443438 } 10.71%, 96% { fill: #FF5252 } 100% { fill: #443438 } }
+    @keyframes kd0 { 0%, 8.57% { fill: #B9AAAE } 10.71%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    @keyframes ln0 { 0%, 8.57% { stroke-dashoffset: 1; stroke-opacity: 1; opacity: 1 } 44.29% { stroke-dashoffset: 0; stroke-opacity: 1; opacity: 1 } 48.57%, 96% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 1 } 100% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 0 } }
+    @keyframes ah0 { 0%, 43.93% { opacity: 0 } 44.29% { opacity: 1 } 48.57%, 96% { opacity: .55 } 100% { opacity: 0 } }
+    @keyframes dv0 { 0%, 44.29% { stroke: #443438; fill: #21191B } 46.07%, 96% { stroke: #FF5252; fill: #3A1D20 } 100% { stroke: #443438; fill: #21191B } }
+    @keyframes dg0 { 0%, 44.29% { opacity: .35 } 46.07%, 96% { opacity: 1 } 100% { opacity: .35 } }
+    @keyframes od0 { 0%, 45% { opacity: 0; transform: scale(.2) } 46.43% { opacity: 1; transform: scale(1.35) } 47.86%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(.2) } }
+    @keyframes k00 { 0%, 25.2% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 26.28% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 28.78% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 31.63%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k01 { 0%, 40.36% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 41.43% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 43.93% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 46.79%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes bar1 { 0%, 12.14% { fill: #443438 } 14.29%, 96% { fill: #FF5252 } 100% { fill: #443438 } }
+    @keyframes kd1 { 0%, 12.14% { fill: #B9AAAE } 14.29%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    @keyframes ln1 { 0%, 12.14% { stroke-dashoffset: 1; stroke-opacity: 1; opacity: 1 } 47.86% { stroke-dashoffset: 0; stroke-opacity: 1; opacity: 1 } 52.14%, 96% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 1 } 100% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 0 } }
+    @keyframes ah1 { 0%, 47.5% { opacity: 0 } 47.86% { opacity: 1 } 52.14%, 96% { opacity: .55 } 100% { opacity: 0 } }
+    @keyframes dv1 { 0%, 47.86% { stroke: #443438; fill: #21191B } 49.64%, 96% { stroke: #FF5252; fill: #3A1D20 } 100% { stroke: #443438; fill: #21191B } }
+    @keyframes dg1 { 0%, 47.86% { opacity: .35 } 49.64%, 96% { opacity: 1 } 100% { opacity: .35 } }
+    @keyframes od1 { 0%, 48.57% { opacity: 0; transform: scale(.2) } 50% { opacity: 1; transform: scale(1.35) } 51.43%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(.2) } }
+    @keyframes k10 { 0%, 18.67% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 19.74% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 22.24% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 25.1%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k11 { 0%, 23.72% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 24.8% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 27.3% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 30.15%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k12 { 0%, 28.78% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 29.85% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 32.35% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 35.2%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k13 { 0%, 33.83% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 34.9% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 37.4% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 40.26%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k14 { 0%, 43.93% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 45% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 47.5% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 50.36%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes bar2 { 0%, 15.71% { fill: #443438 } 17.86%, 96% { fill: #FF5252 } 100% { fill: #443438 } }
+    @keyframes kd2 { 0%, 15.71% { fill: #B9AAAE } 17.86%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    @keyframes ln2 { 0%, 15.71% { stroke-dashoffset: 1; stroke-opacity: 1; opacity: 1 } 51.43% { stroke-dashoffset: 0; stroke-opacity: 1; opacity: 1 } 55.71%, 96% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 1 } 100% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 0 } }
+    @keyframes ah2 { 0%, 51.07% { opacity: 0 } 51.43% { opacity: 1 } 55.71%, 96% { opacity: .55 } 100% { opacity: 0 } }
+    @keyframes dv2 { 0%, 51.43% { stroke: #443438; fill: #21191B } 53.21%, 96% { stroke: #FF5252; fill: #3A1D20 } 100% { stroke: #443438; fill: #21191B } }
+    @keyframes dg2 { 0%, 51.43% { opacity: .35 } 53.21%, 96% { opacity: 1 } 100% { opacity: .35 } }
+    @keyframes od2 { 0%, 52.14% { opacity: 0; transform: scale(.2) } 53.57% { opacity: 1; transform: scale(1.35) } 55%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(.2) } }
+    @keyframes k20 { 0%, 22.24% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 23.32% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 25.82% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 28.67%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k21 { 0%, 27.3% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 28.37% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 30.87% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 33.72%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k22 { 0%, 32.35% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 33.42% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 35.92% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 38.78%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k23 { 0%, 37.4% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 38.47% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 40.97% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 43.83%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k24 { 0%, 47.5% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 48.57% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 51.07% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 53.93%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes bar3 { 0%, 19.29% { fill: #443438 } 21.43%, 96% { fill: #FF5252 } 100% { fill: #443438 } }
+    @keyframes kd3 { 0%, 19.29% { fill: #B9AAAE } 21.43%, 96% { fill: #FF5252 } 100% { fill: #B9AAAE } }
+    @keyframes ln3 { 0%, 19.29% { stroke-dashoffset: 1; stroke-opacity: 1; opacity: 1 } 55% { stroke-dashoffset: 0; stroke-opacity: 1; opacity: 1 } 59.29%, 96% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 1 } 100% { stroke-dashoffset: 0; stroke-opacity: .55; opacity: 0 } }
+    @keyframes ah3 { 0%, 54.64% { opacity: 0 } 55% { opacity: 1 } 59.29%, 96% { opacity: .55 } 100% { opacity: 0 } }
+    @keyframes dv3 { 0%, 55% { stroke: #443438; fill: #21191B } 56.79%, 96% { stroke: #FF5252; fill: #3A1D20 } 100% { stroke: #443438; fill: #21191B } }
+    @keyframes dg3 { 0%, 55% { opacity: .35 } 56.79%, 96% { opacity: 1 } 100% { opacity: .35 } }
+    @keyframes od3 { 0%, 55.71% { opacity: 0; transform: scale(.2) } 57.14% { opacity: 1; transform: scale(1.35) } 58.57%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(.2) } }
+    @keyframes k30 { 0%, 20.77% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 21.84% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 24.34% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 27.19%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k31 { 0%, 25.82% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 26.89% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 29.39% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 32.24%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k32 { 0%, 30.87% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 31.94% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 34.44% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 37.3%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k33 { 0%, 35.92% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 36.99% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 39.49% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 42.35%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k34 { 0%, 40.97% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 42.04% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 44.54% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 47.4%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k35 { 0%, 46.02% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 47.09% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 49.59% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 52.45%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @keyframes k36 { 0%, 51.07% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } 52.14% { stroke: #FF5252; fill: #3A1D20; transform: scale(1.12) } 54.64% { stroke: #FF5252; fill: #3A1D20; transform: scale(1) } 57.5%, 96% { stroke: #FF5252; fill: #21191B; transform: scale(1) } 100% { stroke: #6B5A5E; fill: #21191B; transform: scale(1) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-laptop" viewBox="0 0 64 44">
+      <rect x="9" y="3" width="46" height="30" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="15" y="9" width="34" height="18" rx="2" fill="#141011"/>
+      <path d="M2 37 H62 L58 42 H6 Z" fill="#F3EDEE"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-cloud" viewBox="0 0 64 44">
+      <path d="M18 38 H48 A11 11 0 0 0 48 16 A15 15 0 0 0 20 13 A12.5 12.5 0 0 0 18 38 Z" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="25" y="22" width="16" height="10" rx="2" fill="none" stroke="#FF5252" stroke-width="2.2"/>
+    </symbol>
+    <!-- Step icons, 24x24 line drawings. They take their stroke colour from the chip. -->
+    <symbol id="i-create" viewBox="0 0 24 24"><g fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 4.5 V19.5 M 4.5 12 H19.5"/></g></symbol>
+    <symbol id="i-provision" viewBox="0 0 24 24"><g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 7.5 V16.5 L12 21 L4 16.5 V7.5 Z M 4 7.5 L12 12 L20 7.5 M12 12 V21"/></g></symbol>
+    <symbol id="i-deploy" viewBox="0 0 24 24"><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 V14.5 M7.5 10 L12 14.5 L16.5 10 M 4.5 14.5 V19.5 H19.5 V14.5"/></g></symbol>
+    <symbol id="i-env" viewBox="0 0 24 24"><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="12" r="4"/><path d="M11.5 12 H21 M17.5 12 V15.5 M21 12 V14.5"/></g></symbol>
+    <symbol id="i-service" viewBox="0 0 24 24"><g fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 3.5 V11.5 M7.18 7.25 A7.5 7.5 0 1 0 16.82 7.25"/></g></symbol>
+    <symbol id="i-expose" viewBox="0 0 24 24"><g fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="3.6" ry="8.5"/><path d="M3.5 12 H20.5"/></g></symbol>
+    <symbol id="i-register" viewBox="0 0 24 24"><g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="2.8"/><path d="M5 6 V18 A7 2.8 0 0 0 19 18 V6 M5 12 A7 2.8 0 0 0 19 12"/></g></symbol>
+  </defs>
+  <rect width="1200" height="600" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Devices are data</text>
+
+  <rect x="330" y="160" width="822" height="64" rx="12" fill="#1B1517"/>
+  <path d="M351 192 H1051" fill="none" stroke="#443438" stroke-width="2.5"/>
+  <path d="M1050 186 L1061 192 L1050 198 Z" fill="#443438"/>
+  <path class="a ln" style="animation-name: ln0" d="M351 192 H1051" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-opacity=".55" stroke-width="2.5"/>
+  <path class="a" style="animation-name: ah0" d="M1050 186 L1061 192 L1050 198 Z" fill="#FF5252" opacity=".55"/>
+  <g class="a x" style="animation-name: k00" stroke="#FF5252" fill="#21191B"><rect x="677" y="168" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-env" x="686" y="177" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k01" stroke="#FF5252" fill="#21191B"><rect x="974" y="168" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-register" x="983" y="177" width="30" height="30"/></g>
+  <rect class="a" style="animation-name: dv0" x="1066" y="162" width="80" height="60" rx="12" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+  <g class="a" style="animation-name: dg0"><use href="#g-laptop" x="1077" y="172" width="58" height="40"/></g>
+  <circle class="a x" style="animation-name: od0" cx="1143" cy="165" r="7" fill="#FF5252" stroke="#141011" stroke-width="3"/>
+  <rect x="330" y="236" width="822" height="64" rx="12" fill="#1B1517"/>
+  <path d="M351 268 H1051" fill="none" stroke="#443438" stroke-width="2.5"/>
+  <path d="M1050 262 L1061 268 L1050 274 Z" fill="#443438"/>
+  <path class="a ln" style="animation-name: ln1" d="M351 268 H1051" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-opacity=".55" stroke-width="2.5"/>
+  <path class="a" style="animation-name: ah1" d="M1050 262 L1061 268 L1050 274 Z" fill="#FF5252" opacity=".55"/>
+  <g class="a x" style="animation-name: k10" stroke="#FF5252" fill="#21191B"><rect x="479" y="244" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-provision" x="488" y="253" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k11" stroke="#FF5252" fill="#21191B"><rect x="578" y="244" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-deploy" x="587" y="253" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k12" stroke="#FF5252" fill="#21191B"><rect x="677" y="244" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-env" x="686" y="253" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k13" stroke="#FF5252" fill="#21191B"><rect x="776" y="244" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-service" x="785" y="253" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k14" stroke="#FF5252" fill="#21191B"><rect x="974" y="244" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-register" x="983" y="253" width="30" height="30"/></g>
+  <rect class="a" style="animation-name: dv1" x="1066" y="238" width="80" height="60" rx="12" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+  <g class="a" style="animation-name: dg1"><use href="#g-server" x="1077" y="248" width="58" height="40"/></g>
+  <circle class="a x" style="animation-name: od1" cx="1143" cy="241" r="7" fill="#FF5252" stroke="#141011" stroke-width="3"/>
+  <rect x="330" y="312" width="822" height="64" rx="12" fill="#1B1517"/>
+  <path d="M351 344 H1051" fill="none" stroke="#443438" stroke-width="2.5"/>
+  <path d="M1050 338 L1061 344 L1050 350 Z" fill="#443438"/>
+  <path class="a ln" style="animation-name: ln2" d="M351 344 H1051" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-opacity=".55" stroke-width="2.5"/>
+  <path class="a" style="animation-name: ah2" d="M1050 338 L1061 344 L1050 350 Z" fill="#FF5252" opacity=".55"/>
+  <g class="a x" style="animation-name: k20" stroke="#FF5252" fill="#21191B"><rect x="479" y="320" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-provision" x="488" y="329" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k21" stroke="#FF5252" fill="#21191B"><rect x="578" y="320" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-deploy" x="587" y="329" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k22" stroke="#FF5252" fill="#21191B"><rect x="677" y="320" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-env" x="686" y="329" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k23" stroke="#FF5252" fill="#21191B"><rect x="776" y="320" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-service" x="785" y="329" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k24" stroke="#FF5252" fill="#21191B"><rect x="974" y="320" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-register" x="983" y="329" width="30" height="30"/></g>
+  <rect class="a" style="animation-name: dv2" x="1066" y="314" width="80" height="60" rx="12" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+  <g class="a" style="animation-name: dg2"><use href="#g-server" x="1077" y="324" width="58" height="40"/></g>
+  <circle class="a x" style="animation-name: od2" cx="1143" cy="317" r="7" fill="#FF5252" stroke="#141011" stroke-width="3"/>
+  <rect x="330" y="388" width="822" height="64" rx="12" fill="#1B1517"/>
+  <path d="M351 420 H1051" fill="none" stroke="#443438" stroke-width="2.5"/>
+  <path d="M1050 414 L1061 420 L1050 426 Z" fill="#443438"/>
+  <path class="a ln" style="animation-name: ln3" d="M351 420 H1051" pathLength="1" stroke-dasharray="1 1" fill="none" stroke="#FF5252" stroke-opacity=".55" stroke-width="2.5"/>
+  <path class="a" style="animation-name: ah3" d="M1050 414 L1061 420 L1050 426 Z" fill="#FF5252" opacity=".55"/>
+  <g class="a x" style="animation-name: k30" stroke="#FF5252" fill="#21191B"><rect x="380" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-create" x="389" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k31" stroke="#FF5252" fill="#21191B"><rect x="479" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-provision" x="488" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k32" stroke="#FF5252" fill="#21191B"><rect x="578" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-deploy" x="587" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k33" stroke="#FF5252" fill="#21191B"><rect x="677" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-env" x="686" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k34" stroke="#FF5252" fill="#21191B"><rect x="776" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-service" x="785" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k35" stroke="#FF5252" fill="#21191B"><rect x="875" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-expose" x="884" y="405" width="30" height="30"/></g>
+  <g class="a x" style="animation-name: k36" stroke="#FF5252" fill="#21191B"><rect x="974" y="396" width="48" height="48" rx="10" stroke-width="2"/><use href="#i-register" x="983" y="405" width="30" height="30"/></g>
+  <rect class="a" style="animation-name: dv3" x="1066" y="390" width="80" height="60" rx="12" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+  <g class="a" style="animation-name: dg3"><use href="#g-cloud" x="1077" y="400" width="58" height="40"/></g>
+  <circle class="a x" style="animation-name: od3" cx="1143" cy="393" r="7" fill="#FF5252" stroke="#141011" stroke-width="3"/>
+
+  <g>
+    <rect x="48" y="100" width="302" height="358" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <text x="74" y="135" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#B9AAAE">dpi-network.yaml</text>
+    <path d="M 49 154 H349" stroke="#443438" stroke-width="2"/>
+    <path d="M 64 230 H334 M 64 306 H334 M 64 382 H334" stroke="#443438" stroke-width="1.5"/>
+    <rect class="a" style="animation-name: bar0" x="58" y="178" width="4" height="28" rx="2" fill="#FF5252"/>
+    <text x="74" y="200.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">local:</text>
+    <text class="a" style="animation-name: kd0" x="232.4" y="200.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252">local</text>
+    <rect class="a" style="animation-name: bar1" x="58" y="254" width="4" height="28" rx="2" fill="#FF5252"/>
+    <text x="74" y="276.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">mac-mini:</text>
+    <text class="a" style="animation-name: kd1" x="232.4" y="276.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252">ssh</text>
+    <rect class="a" style="animation-name: bar2" x="58" y="330" width="4" height="28" rx="2" fill="#FF5252"/>
+    <text x="74" y="352.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">linux-box:</text>
+    <text class="a" style="animation-name: kd2" x="232.4" y="352.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252">ssh</text>
+    <rect class="a" style="animation-name: bar3" x="58" y="406" width="4" height="28" rx="2" fill="#FF5252"/>
+    <text x="74" y="428.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">vm-1:</text>
+    <text class="a" style="animation-name: kd3" x="232.4" y="428.5" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#FF5252">exe-dev</text>
+  </g>
+
+  <g class="a x" style="animation-name: cmd">
+    <rect x="566" y="105" width="270" height="44" rx="10" fill="#2A1A1D" stroke="#FF5252" stroke-width="2"/>
+    <text x="701" y="135.5" text-anchor="middle" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#F3EDEE">just net up &lt;id&gt;</text>
+  </g>
+  <g class="a" style="animation-name: leg">
+    <circle cx="1072" cy="127" r="7" fill="#FF5252"/>
+    <text x="1086" y="134.5" font-size="22" fill="#B9AAAE">online</text>
+  </g>
+
+  <g font-size="20" fill="#B9AAAE" text-anchor="middle">
+    <text x="404" y="482">create</text>
+    <text x="503" y="482">provision</text>
+    <text x="602" y="482">deploy</text>
+    <text x="701" y="482">env</text>
+    <text x="800" y="482">service</text>
+    <text x="899" y="482">expose</text>
+    <text x="998" y="482">register</text>
+  </g>
+
+  <g class="a" style="animation-name: cap" font-size="22" fill="#B9AAAE" text-anchor="middle">
+    <text x="600" y="536">Machine facts live only in <tspan font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace">dpi-network.yaml</tspan>.</text>
+    <text x="600" y="566">Tokens never do: each device makes its own, and register copies it to the hub.</text>
+  </g>
+</svg>

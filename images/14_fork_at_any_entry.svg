@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Fork at any entry</title>
+  <desc id="desc">Main's thread forks at entry #8: the experiment agent starts with a copy of entries 1 to 8, then Main and experiment each add their own entries.</desc>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    @keyframes e1 { 0%, 3.33% { opacity: 0; transform: scale(0.55) } 4.69% { opacity: 1; transform: scale(1.12) } 5.42%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e1 { animation: e1 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e2 { 0%, 5.58% { opacity: 0; transform: scale(0.55) } 6.94% { opacity: 1; transform: scale(1.12) } 7.67%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e2 { animation: e2 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e3 { 0%, 7.83% { opacity: 0; transform: scale(0.55) } 9.19% { opacity: 1; transform: scale(1.12) } 9.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e3 { animation: e3 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e4 { 0%, 10.08% { opacity: 0; transform: scale(0.55) } 11.44% { opacity: 1; transform: scale(1.12) } 12.17%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e4 { animation: e4 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e5 { 0%, 12.33% { opacity: 0; transform: scale(0.55) } 13.69% { opacity: 1; transform: scale(1.12) } 14.42%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e5 { animation: e5 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e6 { 0%, 14.58% { opacity: 0; transform: scale(0.55) } 15.94% { opacity: 1; transform: scale(1.12) } 16.67%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e6 { animation: e6 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e7 { 0%, 16.83% { opacity: 0; transform: scale(0.55) } 18.19% { opacity: 1; transform: scale(1.12) } 18.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e7 { animation: e7 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e8 { 0%, 19.08% { opacity: 0; transform: scale(0.55) } 20.44% { opacity: 1; transform: scale(1.12) } 21.17%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e8 { animation: e8 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes red8 { 0%, 22.5% { opacity: 0 } 24.58%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .red8 { animation: red8 12s ease-in-out infinite; }
+    @keyframes ring8 { 0%, 22.5% { opacity: 0; transform: scale(0.55) } 24.12% { opacity: 1; transform: scale(1.12) } 25%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .ring8 { animation: ring8 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes lbl8 { 0%, 22.92% { opacity: 0 } 25%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .lbl8 { animation: lbl8 12s ease-in-out infinite; }
+    @keyframes cap { 0%, 25.83% { opacity: 0 } 28.75%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cap { animation: cap 12s ease-in-out infinite; }
+    @keyframes branch { 0%, 29.17% { stroke-dashoffset: 341.6 } 36.67%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 341.6 } }
+    .branch { animation: branch 12s ease-in-out infinite; }
+    @keyframes exptile { 0%, 36.25% { opacity: 0; transform: scale(0.7) } 38.15% { opacity: 1; transform: scale(1.12) } 39.17%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .exptile { animation: exptile 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes tree2 { 0%, 36.67% { stroke-dashoffset: 69.0 } 39.17%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 69.0 } }
+    .tree2 { animation: tree2 12s ease-in-out infinite; }
+    @keyframes treeexp { 0%, 38.33% { opacity: 0 } 40.83%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .treeexp { animation: treeexp 12s ease-in-out infinite; }
+    @keyframes e9 { 0%, 40.83% { opacity: 0; transform: scale(0.55) } 42.19% { opacity: 1; transform: scale(1.12) } 42.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e9 { animation: e9 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes f1 { 0%, 43.33% { opacity: 0; transform: scale(0.55) } 44.69% { opacity: 1; transform: scale(1.12) } 45.42%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .f1 { animation: f1 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e10 { 0%, 45.83% { opacity: 0; transform: scale(0.55) } 47.19% { opacity: 1; transform: scale(1.12) } 47.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e10 { animation: e10 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes f2 { 0%, 48.33% { opacity: 0; transform: scale(0.55) } 49.69% { opacity: 1; transform: scale(1.12) } 50.42%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .f2 { animation: f2 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e11 { 0%, 50.83% { opacity: 0; transform: scale(0.55) } 52.19% { opacity: 1; transform: scale(1.12) } 52.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e11 { animation: e11 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes f3 { 0%, 53.33% { opacity: 0; transform: scale(0.55) } 54.69% { opacity: 1; transform: scale(1.12) } 55.42%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .f3 { animation: f3 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes e12 { 0%, 55.83% { opacity: 0; transform: scale(0.55) } 57.19% { opacity: 1; transform: scale(1.12) } 57.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .e12 { animation: e12 12s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+
+  <rect width="1200" height="520" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Fork at any entry</text>
+
+  <!-- Agent tree on the device -->
+  <rect x="48" y="148" width="324" height="244" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <use href="#g-server" x="72" y="172" width="64" height="44"/>
+  <text class="mono" x="152" y="202" font-size="22" fill="#F3EDEE">mac-mini</text>
+  <path d="M104 220 V268 H124" stroke="#B9AAAE" stroke-width="2" fill="none"/>
+  <use href="#g-pi" x="128" y="248" width="40" height="40"/>
+  <text x="182" y="276" font-size="22" fill="#F3EDEE">Main</text>
+  <path class="tree2" d="M148 292 V340 H168" stroke="#FF5252" stroke-width="2" fill="none" stroke-dasharray="69"/>
+  <g class="treeexp">
+    <use href="#g-pi" x="172" y="320" width="40" height="40"/>
+    <text x="226" y="348" font-size="22" fill="#F3EDEE">experiment</text>
+  </g>
+
+  <!-- Main thread: the fork copies entries 1..8 -->
+  <rect class="cap" x="406" y="166" width="402" height="44" rx="22" fill="#FF5252" fill-opacity=".08" stroke="#FF5252" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M392 188 H1032" stroke="#B9AAAE" stroke-width="2.5" fill="none"/>
+  <path class="branch" d="M782 205 C782 282 800 328 848 328 H1032" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="341.6"/>
+  <circle class="e1" cx="432" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e2" cx="482" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e3" cx="532" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e4" cx="582" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e5" cx="632" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e6" cx="682" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e7" cx="732" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e8" cx="782" cy="188" r="11" fill="#141011" stroke="#F3EDEE" stroke-width="2.5"/>
+  <circle class="e9" cx="832" cy="188" r="11" fill="#141011" stroke="#B9AAAE" stroke-width="2.5"/>
+  <circle class="e10" cx="882" cy="188" r="11" fill="#141011" stroke="#B9AAAE" stroke-width="2.5"/>
+  <circle class="e11" cx="932" cy="188" r="11" fill="#141011" stroke="#B9AAAE" stroke-width="2.5"/>
+  <circle class="e12" cx="982" cy="188" r="11" fill="#141011" stroke="#B9AAAE" stroke-width="2.5"/>
+  <circle class="red8" cx="782" cy="188" r="11" fill="#FF5252"/>
+  <circle class="ring8" cx="782" cy="188" r="17" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <text class="mono lbl8" x="782" y="152" text-anchor="middle" font-size="22" font-weight="700" fill="#FF5252">#8</text>
+  <circle class="f1" cx="882" cy="328" r="11" fill="#FF5252"/>
+  <circle class="f2" cx="932" cy="328" r="11" fill="#FF5252"/>
+  <circle class="f3" cx="982" cy="328" r="11" fill="#FF5252"/>
+
+  <use href="#g-pi" x="1040" y="156" width="64" height="64"/>
+  <text x="1072" y="252" text-anchor="middle" font-size="22" fill="#F3EDEE">Main</text>
+  <g class="exptile">
+    <use href="#g-pi" x="1040" y="296" width="64" height="64"/>
+    <text x="1072" y="390" text-anchor="middle" font-size="22" fill="#F3EDEE">experiment</text>
+  </g>
+
+  <text x="48" y="458" font-size="22" fill="#B9AAAE">A fork copies the conversation up to that entry.</text>
+  <text x="48" y="488" font-size="22" fill="#B9AAAE">Both agents keep their own history from there.</text>
+</svg>

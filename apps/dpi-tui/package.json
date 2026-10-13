@@ -1,0 +1,20 @@
+{
+  "name": "dpi-tui",
+  "private": true,
+  "type": "module",
+  "bin": { "dpi-tui": "./bin/dpi-tui.mjs" },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "check": "tsc --noEmit -p .",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@earendil-works/pi-tui": "1.0.3",
+    "tsx": "^4.20.0",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "5.9.3"
+  }
+}

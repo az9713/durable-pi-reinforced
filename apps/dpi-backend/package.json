@@ -1,0 +1,29 @@
+{
+  "name": "dpi-backend",
+  "private": true,
+  "type": "module",
+  "description": "Durable Pi device server: hosts durable sessions and exposes them over an authenticated HTTP + SSE API (v1).",
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "dev": "tsx watch src/main.ts",
+    "check": "tsc --noEmit -p .",
+    "test": "tsx --test tests/*.test.ts",
+    "token": "tsx scripts/token.ts",
+    "migrate-playground": "tsx scripts/migrate-playground.ts"
+  },
+  "dependencies": {
+    "@earendil-works/chord": "1.0.3",
+    "@earendil-works/pi-ai": "1.0.3",
+    "@earendil-works/pi-durable": "1.0.3",
+    "express": "^5.1.0",
+    "tsx": "^4.20.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.0.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

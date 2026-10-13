@@ -1,0 +1,675 @@
+/* Durable Agent Network layout: tree | inspector | agent. Loaded after style.css.
+   Both side panels collapse to a 52px icon rail. */
+.net-workspace {
+  --tree-w: 300px;
+  --inspector-w: 450px;
+  --rail-w: 52px;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.net-workspace > .chat-panel,
+.net-workspace > .welcome,
+.net-workspace > .offline-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.net-workspace > .network-sidebar {
+  width: var(--tree-w);
+  flex: 0 0 auto;
+}
+.net-workspace > .network-sidebar.collapsed {
+  width: var(--rail-w);
+}
+.net-workspace > .inspector {
+  width: var(--inspector-w);
+  flex: 0 0 auto;
+  border-right: 1px solid var(--line);
+  border-left: 0;
+  max-height: none;
+  min-height: 0;
+}
+.net-workspace > .inspector.collapsed {
+  width: var(--rail-w);
+}
+.network-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.tree-toggle,
+.inspector-toggle,
+.tree-backdrop,
+.inspector-backdrop {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- collapsed rails */
+.panel-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 0;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.panel-rail .panel-toggle {
+  margin-bottom: 6px;
+}
+.rail-device,
+.rail-tab {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  color: var(--muted);
+}
+.rail-device:hover,
+.rail-tab:hover {
+  background: #ffffff0a;
+  color: #f2eeee;
+}
+.rail-tab.active {
+  color: var(--accent);
+  background: #ff899714;
+}
+.rail-device .dot {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 8px;
+  height: 8px;
+  flex-basis: 8px;
+  box-shadow: 0 0 0 2px #181213;
+}
+.rail-tab .count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 11px;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #1a1012;
+  padding: 0 4px;
+}
+.inspector .panel-rail {
+  background: #1c1516;
+}
+.inspector-tabs .panel-toggle {
+  margin-left: auto;
+  align-self: center;
+}
+.device-icon {
+  flex: 0 0 auto;
+  display: inline-block;
+}
+.device-icon.exe,
+.device-icon.apple {
+  color: #e9e2e2;
+}
+
+/* ---------------------------------------------------------------- tree */
+.network-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #181213;
+  border-right: 1px solid var(--line);
+}
+.tree-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 10px 16px;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 1.6px;
+  font-weight: 650;
+}
+.tree-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tree-list {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 6px 12px;
+  outline: none;
+  scrollbar-width: thin;
+  scrollbar-color: #473537 transparent;
+}
+.tree-list:focus-visible {
+  box-shadow: inset 0 0 0 1px #856669;
+}
+.tree-empty {
+  padding: 12px 10px;
+}
+.tree-row {
+  --depth: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 3px 6px 3px calc(4px + var(--depth) * 16px);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #e9e2e2;
+  white-space: nowrap;
+}
+.tree-row:hover {
+  background: #ffffff08;
+}
+.tree-row.focus {
+  box-shadow: inset 0 0 0 1px #6d5557;
+}
+.tree-row.sel {
+  background: #ff899714;
+}
+.tree-row.sel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.tree-row.stale {
+  opacity: 0.55;
+}
+.tree-row .chev {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  flex: 0 0 18px;
+  color: var(--muted);
+}
+.tree-row span.chev {
+  display: inline-block;
+}
+.tree-row .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.tree-row.device .name {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+}
+.tree-row.session .name {
+  font-weight: 600;
+}
+.tree-row .ico {
+  flex: 0 0 auto;
+  color: var(--muted);
+}
+.tree-row .ico.root {
+  color: var(--accent);
+}
+.tree-row .badge {
+  font-size: 12px;
+  border: 1px solid #443738;
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+}
+.tree-row .meta,
+.tree-row .path {
+  font-size: 13px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.tree-row .path {
+  font-family: "IBM Plex Mono", monospace;
+  flex: 1;
+}
+.tree-row .meta.err {
+  color: #ff8a80;
+}
+.tree-row .acts {
+  margin-left: auto;
+  display: none;
+  gap: 2px;
+  background: #181213;
+  border-radius: 6px;
+}
+.tree-row:hover .acts,
+.tree-row.focus .acts {
+  display: inline-flex;
+}
+.tree-row:hover .acts ~ *,
+.tree-row .acts .icon-button {
+  width: 26px;
+  height: 26px;
+}
+.tree-row .acts .icon-button:disabled {
+  opacity: 0.35;
+  background: none;
+}
+.tree-row .bg-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.tree-row > .dot.work,
+.tree-row > .bg-count {
+  margin-left: auto;
+}
+.tree-row > .dot.work + .bg-count {
+  margin-left: 6px;
+}
+.tree-row:hover > .dot.work,
+.tree-row:hover > .bg-count,
+.tree-row.focus > .dot.work,
+.tree-row.focus > .bg-count {
+  display: none;
+}
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: 0 0 9px;
+  background: #756062;
+}
+.dot.on {
+  background: #6fcf97;
+  box-shadow: 0 0 6px #6fcf9766;
+}
+.dot.chk {
+  background: var(--secondary);
+  animation: dpi-pulse 1.1s ease-in-out infinite;
+}
+.dot.err {
+  background: #ff6b6b;
+}
+.dot.off {
+  background: #5a4a4b;
+}
+.dot.work {
+  background: var(--accent);
+  animation: dpi-pulse 1.1s ease-in-out infinite;
+}
+.dot.bg {
+  background: transparent;
+  border: 2px solid var(--accent);
+  width: 9px;
+  height: 9px;
+}
+@keyframes dpi-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.tree-resizer {
+  flex: 0 0 6px;
+  width: 6px;
+  margin: 0 -3px;
+  cursor: col-resize;
+  z-index: 5;
+  position: relative;
+}
+.tree-resizer:hover {
+  background: #ff899733;
+}
+
+/* ---------------------------------------------------------------- agent header + transcript */
+/* Breadcrumb: device › workspace › agent › fork, every crumb the same size with its level above. */
+.crumbs {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #67464c transparent;
+  padding: 2px 0;
+}
+.crumb {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex: 0 0 auto;
+  padding: 5px 10px 6px;
+  border-radius: 8px;
+  color: #e9e2e2;
+  max-width: 260px;
+}
+.crumb:hover {
+  background: #ffffff0a;
+}
+.crumb.current {
+  background: #ff899714;
+  color: var(--accent);
+}
+.crumb-kind {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.crumb-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  min-width: 0;
+  max-width: 100%;
+}
+.crumb-name,
+.crumb .device-chip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.crumb .device-chip {
+  font-family: "IBM Plex Mono", monospace;
+}
+.crumb-sep {
+  flex: 0 0 auto;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.chat-header-actions .secondary.active {
+  border-color: var(--accent);
+}
+.history-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  margin: 8px 0 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.history-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px dashed #4a3b3c;
+}
+.entry.history {
+  opacity: 0.6;
+}
+.retry-note {
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------------- dialogs */
+.session-modal {
+  width: 1120px;
+}
+.device-modal code,
+.session-modal code {
+  overflow-wrap: anywhere;
+}
+.modal .field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 20px;
+}
+.dir-browser {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dir-path {
+  display: flex;
+  gap: 8px;
+}
+.dir-path input {
+  flex: 1;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px !important;
+}
+.dir-list {
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 4px;
+  background: #161011;
+}
+.dir-item {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #e9e2e2;
+}
+.dir-item:hover {
+  background: #ffffff0a;
+}
+.dir-item[aria-selected="true"] {
+  background: #ff899714;
+  color: #fff;
+}
+.dir-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.device-result {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #544042;
+  overflow-wrap: anywhere;
+}
+.device-result.online {
+  border-color: #6fcf9777;
+}
+.device-result:not(.online) {
+  border-color: #ff6b6b77;
+}
+.primary.danger {
+  background: #c94f5d;
+  border-color: #c94f5d;
+}
+
+/* ---------------------------------------------------------------- offline panel */
+.offline-panel .chat-empty {
+  max-width: 640px;
+  margin: 0 auto;
+  gap: 6px;
+}
+.offline-panel .eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.offline-panel.unauthorized svg,
+.offline-panel.mismatch svg {
+  color: #ff6b6b;
+}
+.offline-error {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.offline-command {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 4px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #0f0a0b;
+  border: 1px solid var(--line);
+}
+.offline-command code {
+  font-size: 17px;
+  color: #fff;
+}
+.offline-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.spin {
+  animation: dpi-spin 1s linear infinite;
+}
+@keyframes dpi-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 1100px) {
+  /* The inspector keeps its rail; expanded, it opens over the chat. */
+  .inspector-toggle {
+    display: inline-flex;
+  }
+  .net-workspace > .inspector.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(420px, 100%);
+    z-index: 30;
+    box-shadow: 20px 0 60px #0008;
+  }
+  .inspector-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 29;
+    background: #0d080899;
+  }
+}
+@media (max-width: 760px) {
+  .tree-resizer {
+    display: none;
+  }
+  .tree-toggle {
+    display: inline-flex;
+  }
+  .net-workspace > .network-sidebar {
+    display: none;
+  }
+  .net-workspace > .network-sidebar.open {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(340px, 90vw);
+    z-index: 40;
+    box-shadow: 20px 0 60px #0008;
+  }
+  .tree-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 39;
+    background: #0d080899;
+  }
+  .network-summary,
+  .new-agent-button {
+    display: none !important;
+  }
+  .shell {
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .net-workspace .chat-panel {
+    height: auto;
+    min-height: 0;
+  }
+  .net-workspace > .inspector .session-status,
+  .net-workspace > .inspector .model-section {
+    display: block;
+  }
+  .top-actions .inspector-toggle {
+    display: inline-flex;
+  }
+  .crumb-kind {
+    display: none;
+  }
+}
+.net-workspace .lineage-picker {
+  flex: 1 1 240px;
+}
+.net-workspace .conversation-lineage {
+  flex: 0 1 auto;
+}
+
+/* ---------------------------------------------------------------- composer slash commands */
+.composer {
+  position: relative;
+}
+.slash-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 8px);
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #251a1b;
+  border: 1px solid #544042;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px #0007;
+  z-index: 20;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.slash-menu li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.slash-menu li.active {
+  background: #ff899714;
+}
+.slash-menu code {
+  color: var(--accent);
+  font-size: 15px;
+}
+.slash-args {
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+}
+.slash-desc {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+}

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">An extension can block a tool</title>
+  <desc id="desc">An agent's bash call to rm -rf build/ reaches the jev-damage-control beforeTool hook, which judges it irreversible, cuts the path to execution and returns a blocked tool result to the agent.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <marker id="head-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#FF5252"/>
+    </marker>
+    <marker id="head-muted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#B9AAAE"/>
+    </marker>
+    <marker id="head-quiet" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#6B5A5E"/>
+    </marker>
+  </defs>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .an { animation-duration: 13s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(.4, 0, .2, 1); }
+    .lin { animation-timing-function: linear; }
+    .draw { stroke-dasharray: 1 2; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+
+    /* 1. the agent issues the bash call and it travels to the hook */
+    .call { animation-name: call; }
+    @keyframes call { 0%, 4% { opacity: 0; transform: translateX(-100px) } 7% { opacity: 1 } 11%, 96% { opacity: 1; transform: translateX(0) } 100% { opacity: 0; transform: translateX(0) } }
+    .a1-line { animation-name: a1-line; } .a1-head { animation-name: a1-head; }
+    @keyframes a1-line { 0%, 8% { stroke-dashoffset: 1; opacity: 1 } 11%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    @keyframes a1-head { 0%, 10.5% { opacity: 0 } 11%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .a2-line { animation-name: a2-line; } .a2-head { animation-name: a2-head; }
+    @keyframes a2-line { 0%, 12% { stroke-dashoffset: 1; opacity: 1 } 17%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    @keyframes a2-head { 0%, 16.5% { opacity: 0 } 17%, 96% { opacity: 1 } 100% { opacity: 0 } }
+
+    /* 2. the hook judges the call */
+    .sweep { animation-name: sweep; }
+    @keyframes sweep { 0%, 18% { stroke-dashoffset: 1; opacity: 1 } 28%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    .note { animation-name: note; }
+    @keyframes note { 0%, 18% { fill: #B9AAAE } 20%, 28% { fill: #F3EDEE } 31%, 100% { fill: #B9AAAE } }
+
+    /* 3. the path to execution is cut */
+    .cut { animation-name: cut; }
+    @keyframes cut { 0%, 29% { opacity: 0; transform: scaleY(0) } 32%, 96% { opacity: 1; transform: scaleY(1) } 100% { opacity: 0; transform: scaleY(1) } }
+    .dead { animation-name: dead; } .dead-head { animation-name: dead-head; }
+    @keyframes dead { 0%, 29% { stroke: #B9AAAE } 32%, 96% { stroke: #6B5A5E } 100% { stroke: #B9AAAE } }
+    @keyframes dead-head { 0%, 29% { opacity: 0 } 32%, 96% { opacity: 1 } 100% { opacity: 0 } }
+
+    /* 4. the blocked result returns to the agent */
+    .r1-line { animation-name: r1-line; }
+    @keyframes r1-line { 0%, 34% { stroke-dashoffset: 1; opacity: 1 } 40%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    .result { animation-name: result; }
+    @keyframes result { 0%, 40% { opacity: 0; transform: scale(.94) } 43%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(1) } }
+    .why1 { animation-name: why1; } .why2 { animation-name: why2; }
+    @keyframes why1 { 0%, 43% { opacity: 0 } 46%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    @keyframes why2 { 0%, 45% { opacity: 0 } 48%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .r2-line { animation-name: r2-line; } .r2-head { animation-name: r2-head; }
+    @keyframes r2-line { 0%, 48% { stroke-dashoffset: 1; opacity: 1 } 53%, 96% { stroke-dashoffset: 0; opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+    @keyframes r2-head { 0%, 52.5% { opacity: 0 } 53%, 96% { opacity: 1 } 100% { opacity: 0 } }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="560" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">An extension can block a tool</text>
+
+  <!-- agent -> bash call -> hook -->
+  <path class="an draw a1-line" pathLength="1" d="M130 182H164" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="an a1-head" d="M156 182H164" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+  <path class="an draw a2-line" pathLength="1" d="M460 182H502" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="an a2-head" d="M494 182H502" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+
+  <g class="an call">
+    <rect x="168" y="158" width="290" height="48" rx="8" fill="#21191B" stroke="#443438" stroke-width="2"/>
+    <text class="mono" x="184" y="190" font-size="22"><tspan fill="#B9AAAE">bash</tspan><tspan x="263" fill="#F3EDEE">rm -rf build/</tspan></text>
+  </g>
+  <use href="#g-pi" x="48" y="142" width="80" height="80"/>
+
+  <!-- beforeTool hook -->
+  <rect x="506" y="126" width="342" height="112" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <path class="an lin draw sweep" pathLength="1" d="M506 182V138A12 12 0 0 1 518 126H836A12 12 0 0 1 848 138V226A12 12 0 0 1 836 238H518A12 12 0 0 1 506 226Z" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <text x="526" y="170" font-size="24" font-weight="600" fill="#F3EDEE">beforeTool hook</text>
+  <text class="mono" x="526" y="206" font-size="20" fill="#B9AAAE">jev-damage-control</text>
+  <rect x="742" y="150" width="44" height="24" rx="12" fill="#FF5252"/>
+  <circle cx="774" cy="162" r="8" fill="#F3EDEE"/>
+  <text x="796" y="169" font-size="20" font-weight="600" letter-spacing="1" fill="#FF5252">ON</text>
+  <text class="an note" x="604" y="280" font-size="22" fill="#B9AAAE">Jev judges each bash call in about 300 ms.</text>
+
+  <!-- hook -> execution, cut -->
+  <path d="M850 182H916" fill="none" stroke="#B9AAAE" stroke-width="2.5"/>
+  <path class="an dead" d="M916 182H980" fill="none" stroke="#6B5A5E" stroke-width="2.5"/>
+  <path d="M972 182H980" fill="none" stroke="#B9AAAE" stroke-width="2.5" marker-end="url(#head-muted)"/>
+  <path class="an dead-head" d="M972 182H980" fill="none" stroke="#6B5A5E" stroke-width="2.5" marker-end="url(#head-quiet)"/>
+  <g class="an pop cut">
+    <rect x="902" y="170" width="28" height="24" fill="#141011"/>
+    <path d="M910 166V198M922 166V198" stroke="#FF5252" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <rect x="984" y="158" width="168" height="48" rx="8" fill="#181314" stroke="#3A2E31" stroke-width="2"/>
+  <text x="1068" y="189" font-size="20" letter-spacing="1" text-anchor="middle" fill="#6B5A5E">EXECUTION</text>
+
+  <!-- hook -> blocked result -> agent -->
+  <path class="an draw r1-line" pathLength="1" d="M580 239V350H480" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="an draw r2-line" pathLength="1" d="M160 350H88V226" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+  <path class="an r2-head" d="M88 234V226" fill="none" stroke="#FF5252" stroke-width="2.5" marker-end="url(#head-red)"/>
+  <g class="an pop result">
+    <rect x="160" y="326" width="320" height="48" rx="8" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+    <text x="320" y="357" font-size="20" letter-spacing="1" text-anchor="middle" fill="#F3EDEE">TOOL RESULT<tspan fill="#FF5252"> · BLOCKED</tspan></text>
+  </g>
+  <g class="mono" font-size="20" fill="#B9AAAE">
+    <text class="an why1" x="160" y="410"><tspan fill="#FF5252">irreversible (0.99):</tspan> nothing would</text>
+    <text class="an why2" x="160" y="436">restore what this removes or overwrites</text>
+  </g>
+
+  <g font-size="22" fill="#B9AAAE">
+    <text x="48" y="500">Extensions add tools, hooks and prompt sections.</text>
+    <text x="48" y="530">Toggle one per agent and it applies on the next request.</text>
+  </g>
+</svg>

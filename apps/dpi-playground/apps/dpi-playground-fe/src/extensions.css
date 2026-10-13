@@ -1,0 +1,105 @@
+/* The Extensions tab: one card per custom harness extension. */
+
+.ext-card {
+  margin-top: 12px;
+  padding: 13px 14px;
+  border: 1px solid #453536;
+  border-left: 3px solid #5a3a3e;
+  border-radius: 8px;
+  background: #241819;
+}
+.ext-card.on {
+  border-left-color: #6fcf97;
+}
+.ext-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ext-head > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  min-width: 0;
+}
+.ext-head strong {
+  font-size: 16px;
+}
+.ext-head code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  color: var(--secondary);
+}
+.ext-card > p {
+  margin: 8px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.ext-prompts {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid #3c2b2d;
+  display: grid;
+  gap: 10px;
+}
+.ext-prompts.off {
+  opacity: 0.6;
+}
+.ext-prompts li {
+  display: grid;
+  gap: 4px;
+  font-size: 16px;
+}
+.ext-prompts label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.ext-prompts code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+}
+.ext-prompts li > span {
+  padding-left: 26px;
+  color: var(--secondary);
+  line-height: 1.45;
+}
+.ext-prompts details {
+  padding-left: 26px;
+}
+.ext-prompts summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+.ext-prompts pre {
+  max-height: 260px;
+  overflow: auto;
+  margin: 6px 0 0;
+  padding: 9px;
+  white-space: pre-wrap;
+  background: #180f10;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Tools tab: tools the agent's tool filter removes (read only) fade out. */
+.tool-row.disabled summary > strong,
+.tool-row.disabled summary > svg,
+.tool-row.disabled > p,
+.tool-row.disabled > pre,
+.tool-row.disabled > small {
+  opacity: 0.45;
+}
+/* Sits right after the name; the replay tag keeps the row's right edge. */
+.tool-row summary .tag.tool-disabled {
+  margin-left: 2px;
+  margin-right: auto;
+  color: #f2c94c;
+  border-color: #6b5a24;
+}
+.tool-row summary .tag.tool-disabled + .tag {
+  margin-left: auto;
+}

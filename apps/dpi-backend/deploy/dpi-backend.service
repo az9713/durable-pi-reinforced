@@ -1,0 +1,22 @@
+[Unit]
+Description=Durable Pi device server (dpi-backend)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=__USER__
+WorkingDirectory=__APP__
+ExecStart=__NODE__ __APP__/node_modules/tsx/dist/cli.mjs src/main.ts
+Environment=PATH=__PATH__
+Environment=HOME=__HOME__
+Environment=DPI_HOME=__DPI_HOME__
+Environment=NODE_NO_WARNINGS=1
+Restart=always
+RestartSec=2
+KillSignal=SIGTERM
+TimeoutStopSec=20
+StandardOutput=append:__LOG__
+StandardError=append:__LOG__
+
+[Install]
+WantedBy=multi-user.target

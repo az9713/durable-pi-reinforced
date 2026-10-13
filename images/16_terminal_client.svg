@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1106 608" width="1106" height="608" role="img">
+<title>dpi-tui  ·  vm-1:release-notes</title>
+<style>text{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;font-size:15.0px;white-space:pre;font-variant-ligatures:none}</style>
+<rect width="1106" height="608" rx="14" fill="#141011" stroke="#443438" stroke-width="2"/>
+<path d="M1 40 H1105" stroke="#443438" stroke-width="2"/>
+<circle cx="24" cy="20" r="6" fill="#FF5252"/><circle cx="44" cy="20" r="6" fill="#6B5A5E"/><circle cx="64" cy="20" r="6" fill="#6B5A5E"/>
+<text x="553.0" y="25" text-anchor="middle" fill="#B9AAAE" style="font-size:14.0px">dpi-tui  ·  vm-1:release-notes</text>
+<text x="31.0" y="71.2" fill="#ff8997" font-weight="700">dpi</text>
+<text x="58.0" y="71.2" fill="#a08a74">  │  device</text>
+<text x="166.0" y="71.2" fill="#c9a87c">vm-1</text>
+<text x="202.0" y="71.2" fill="#a08a74">  │  workspace</text>
+<text x="337.0" y="71.2" fill="#F3EDEE" font-weight="700">release-notes</text>
+<text x="454.0" y="71.2" fill="#a08a74">  │  agent</text>
+<text x="544.0" y="71.2" fill="#F3EDEE"> Main</text>
+<text x="589.0" y="71.2" fill="#a08a74">  │  </text>
+<text x="634.0" y="71.2" fill="#6fcf97">● live</text>
+<text x="22.0" y="113.8" fill="#8ec5ff">› Make a folder release-notes, write release-notes/changelog.py that prints three short release notes for v1.2.0 as a</text>
+<text x="40.0" y="135.1" fill="#8ec5ff">bulleted list, run it with python3, then tell me in one sentence what you built.</text>
+<text x="22.0" y="177.7" fill="#6fcf97">✓</text>
+<text x="40.0" y="177.7" fill="#F3EDEE" font-weight="700">write</text>
+<text x="94.0" y="177.7" fill="#a08a74">release-notes/changelog.py</text>
+<text x="22.0" y="199.0" fill="#a08a74">  │ </text>
+<text x="58.0" y="199.0" fill="#F3EDEE">Successfully wrote to release-notes/changelog.py</text>
+<text x="22.0" y="241.6" fill="#6fcf97">✓</text>
+<text x="40.0" y="241.6" fill="#F3EDEE" font-weight="700">bash</text>
+<text x="85.0" y="241.6" fill="#a08a74">python3 release-notes/changelog.py</text>
+<text x="22.0" y="262.9" fill="#a08a74">  │ </text>
+<text x="58.0" y="262.9" fill="#F3EDEE">Release notes for v1.2.0</text>
+<text x="22.0" y="284.2" fill="#a08a74">  │ </text>
+<text x="58.0" y="284.2" fill="#F3EDEE">- Added dark mode to the settings panel.</text>
+<text x="22.0" y="305.5" fill="#a08a74">  │ </text>
+<text x="58.0" y="305.5" fill="#F3EDEE">- Improved startup time by 30%.</text>
+<text x="22.0" y="326.8" fill="#a08a74">  │ </text>
+<text x="58.0" y="326.8" fill="#F3EDEE">- Fixed a crash when importing empty files.</text>
+<text x="22.0" y="369.4" fill="#F3EDEE">I created </text>
+<text x="112.0" y="369.4" fill="#c9a87c">release-notes/changelog.py</text>
+<text x="346.0" y="369.4" fill="#F3EDEE">, which prints a &quot;Release notes for v1.2.0&quot; heading and three bulleted notes, and</text>
+<text x="22.0" y="390.7" fill="#F3EDEE">I ran it with python3 to confirm the output.</text>
+<text x="22.0" y="518.5" fill="#a08a74">──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<rect x="31.0" y="524.0" width="9.6" height="21.8" fill="#F3EDEE"/>
+<text x="22.0" y="561.1" fill="#a08a74">──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="31.0" y="582.4" fill="#a08a74">claude-sonnet-5.5: low │ 99% CTX │ 13.7K tok $0.027 │ /help</text>
+</svg>

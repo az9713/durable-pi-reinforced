@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 668" width="1200" height="668" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">One shared App State</title>
+  <desc id="desc">Three agents on one device change a shared App State one path at a time: Main sets release.ready (rev 3 to 4), Fork reads, and Subagent increments incidents.open (rev 4 to 5); the web UI renders each change live, and its full JSON save from stale rev 3 gets 409 conflict.</desc>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    @keyframes chipM { 0%, 4.62% { opacity: 0; transform: scale(0.55) } 6.12% { opacity: 1; transform: scale(1.12) } 6.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .chipM { animation: chipM 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes m1 { 0%, 6.92% { stroke-dashoffset: 336.0 } 12.31%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 336.0 } }
+    .m1 { animation: m1 13s ease-in-out infinite; }
+    @keyframes chkM { 0%, 12.31% { opacity: 0; transform: scale(0.55) } 13.81% { opacity: 1; transform: scale(1.12) } 14.62%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .chkM { animation: chkM 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes revM { 0%, 13.08% { opacity: 0 } 15.38%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .revM { animation: revM 13s ease-in-out infinite; }
+    @keyframes m2 { 0%, 14.62% { stroke-dashoffset: 147.4 } 17.31%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 147.4 } }
+    .m2 { animation: m2 13s ease-in-out infinite; }
+    @keyframes m2h { 0%, 16.92% { opacity: 0 } 17.69%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .m2h { animation: m2h 13s ease-in-out infinite; }
+    @keyframes rev3 { 0%, 17.31% { opacity: 1 } 18.85%, 96% { opacity: 0 } 100% { opacity: 1 } }
+    .rev3 { animation: rev3 13s ease-in-out infinite; }
+    @keyframes rev4 { 0%, 17.31% { opacity: 0 } 18.85%, 46.54% { opacity: 1 } 48.08%, 100% { opacity: 0 } }
+    .rev4 { animation: rev4 13s ease-in-out infinite; }
+    @keyframes ui { 0%, 19.23% { stroke-dashoffset: 55.0 } 21.92%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 55.0 } }
+    .ui { animation: ui 13s ease-in-out infinite; }
+    @keyframes uih { 0%, 21.54% { opacity: 0 } 22.31%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .uih { animation: uih 13s ease-in-out infinite; }
+    @keyframes knob { 0%, 22.31% { transform: translateX(-40px); fill: #B9AAAE } 24.62%, 96% { transform: translateX(0); fill: #FF5252 } 100% { transform: translateX(-40px); fill: #B9AAAE } }
+    .knob { animation: knob 13s ease-in-out infinite; }
+    @keyframes pill { 0%, 22.31% { fill: #2C2225; stroke: #6B5A5E } 24.62%, 96% { fill: #5A2328; stroke: #FF5252 } 100% { fill: #2C2225; stroke: #6B5A5E } }
+    .pill { animation: pill 13s ease-in-out infinite; }
+    @keyframes cardA { 0%, 22.31% { stroke: #443438 } 23.46%, 27.69% { stroke: #FF5252 } 30.38%, 48.08% { stroke: #443438 } 49.23%, 53.46% { stroke: #FF5252 } 56.15%, 100% { stroke: #443438 } }
+    .cardA { animation: cardA 13s ease-in-out infinite; }
+    @keyframes fk { 0%, 27.69% { stroke-dashoffset: 477.0 } 33.08%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 477.0 } }
+    .fk { animation: fk 13s ease-in-out infinite; }
+    @keyframes fkh { 0%, 32.69% { opacity: 0 } 33.46%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .fkh { animation: fkh 13s ease-in-out infinite; }
+    @keyframes chipS { 0%, 35.38% { opacity: 0; transform: scale(0.55) } 36.88% { opacity: 1; transform: scale(1.12) } 37.69%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .chipS { animation: chipS 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes s1 { 0%, 37.69% { stroke-dashoffset: 336.0 } 43.08%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 336.0 } }
+    .s1 { animation: s1 13s ease-in-out infinite; }
+    @keyframes chkS { 0%, 43.08% { opacity: 0; transform: scale(0.55) } 44.58% { opacity: 1; transform: scale(1.12) } 45.38%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .chkS { animation: chkS 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes revS { 0%, 43.85% { opacity: 0 } 46.15%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .revS { animation: revS 13s ease-in-out infinite; }
+    @keyframes s2 { 0%, 45.38% { stroke-dashoffset: 147.4 } 48.08%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 147.4 } }
+    .s2 { animation: s2 13s ease-in-out infinite; }
+    @keyframes s2h { 0%, 47.69% { opacity: 0 } 48.46%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .s2h { animation: s2h 13s ease-in-out infinite; }
+    @keyframes rev5 { 0%, 46.54% { opacity: 0 } 48.08%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .rev5 { animation: rev5 13s ease-in-out infinite; }
+    @keyframes n1 { 0%, 48.46% { opacity: 1 } 50%, 96% { opacity: 0 } 100% { opacity: 1 } }
+    .n1 { animation: n1 13s ease-in-out infinite; }
+    @keyframes n2 { 0%, 48.46% { opacity: 0 } 50%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .n2 { animation: n2 13s ease-in-out infinite; }
+    @keyframes save { 0%, 53.08% { stroke: #B9AAAE; fill: #21191B } 53.85%, 55.77% { stroke: #FF5252; fill: #3A1D20 } 57.31%, 100% { stroke: #B9AAAE; fill: #21191B } }
+    .save { animation: save 13s ease-in-out infinite; }
+    @keyframes b409 { 0%, 56.15% { opacity: 0; transform: scale(0.55) } 57.65% { opacity: 1; transform: scale(1.12) } 58.46%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.55) } }
+    .b409 { animation: b409 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes note { 0%, 58.46% { opacity: 0 } 60.77%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .note { animation: note 13s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M0 0H3V2H2V1H0Z"/>
+        <path d="M0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-db" viewBox="0 0 48 60">
+      <path d="M3 10 V50 A21 7 0 0 0 45 50 V10" fill="#3A1D20" stroke="#FF5252" stroke-width="2.5"/>
+      <ellipse cx="24" cy="10" rx="21" ry="7" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M3 24 A21 7 0 0 0 45 24 M3 37 A21 7 0 0 0 45 37" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 64 44">
+      <rect x="3" y="4" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <rect x="3" y="24" width="58" height="16" rx="4" fill="#21191B" stroke="#F3EDEE" stroke-width="2.5"/>
+      <circle cx="13" cy="12" r="2.6" fill="#FF5252"/><circle cx="13" cy="32" r="2.6" fill="#FF5252"/>
+      <path d="M36 12 H53 M36 32 H53" stroke="#B9AAAE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="g-check-o" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M9.5 16.5 L14 21 L22.5 11.5" fill="none" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <marker id="ah-red" viewBox="0 0 12 12" refX="4" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L12 6 L0 11 Z" fill="#FF5252"/></marker>
+    <marker id="ah-muted" viewBox="0 0 12 12" refX="4" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L12 6 L0 11 Z" fill="#B9AAAE"/></marker>
+  </defs>
+
+  <rect width="1200" height="668" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">One shared App State</text>
+
+  <!-- Device panel: three agents on mac-mini share one App State -->
+  <rect x="48" y="100" width="736" height="464" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <use href="#g-server" x="72" y="120" width="64" height="44"/>
+  <text class="mono" x="150" y="150" font-size="22" fill="#F3EDEE">mac-mini</text>
+  <use href="#g-pi" x="96" y="196" width="64" height="64"/>
+  <text x="128" y="290" text-anchor="middle" font-size="22" fill="#F3EDEE">Main</text>
+  <use href="#g-pi" x="96" y="320" width="64" height="64"/>
+  <text x="128" y="414" text-anchor="middle" font-size="22" fill="#F3EDEE">Fork</text>
+  <use href="#g-pi" x="96" y="444" width="64" height="64"/>
+  <text x="128" y="538" text-anchor="middle" font-size="22" fill="#F3EDEE">Subagent</text>
+
+  <!-- The App State document and its revision -->
+  <use href="#g-db" x="648" y="292" width="96" height="120"/>
+  <text x="696" y="248" text-anchor="middle" font-size="22" fill="#F3EDEE">app state</text>
+  <text class="mono rev3" x="696" y="280" text-anchor="middle" font-size="24" fill="#F3EDEE" opacity="0">rev <tspan fill="#F3EDEE">3</tspan></text>
+  <text class="mono rev4" x="696" y="280" text-anchor="middle" font-size="24" fill="#F3EDEE" opacity="0">rev <tspan fill="#FF5252">4</tspan></text>
+  <text class="mono rev5" x="696" y="280" text-anchor="middle" font-size="24" fill="#F3EDEE">rev <tspan fill="#FF5252">5</tspan></text>
+
+  <!-- Fork reads -->
+  <path class="fk" d="M650 352 L174 352" stroke="#B9AAAE" stroke-width="2.5" fill="none" stroke-dasharray="477.0"/>
+  <path class="fkh" d="M175 352 L174 352" stroke="#B9AAAE" stroke-width="2.5" fill="none" marker-end="url(#ah-muted)"/>
+
+  <!-- Main sets one path: accepted, rev 3 -> 4 -->
+  <path class="m1" d="M172 228 H507" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="336.0"/>
+  <path class="m2" d="M541 228 H572 L646.8 315.9" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="147.4"/>
+  <path class="m2h" d="M646.2 315.1 L646.8 315.9" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <g class="chipM">
+    <rect x="194" y="210" width="272" height="36" rx="8" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+    <text class="mono" x="330" y="235" text-anchor="middle" font-size="20" fill="#F3EDEE">release.ready = true</text>
+  </g>
+  <g class="chkM">
+    <circle cx="524" cy="228" r="17" fill="#21191B"/>
+    <use href="#g-check-o" x="508" y="212" width="32" height="32"/>
+  </g>
+  <text class="mono revM" x="524" y="204" text-anchor="middle" font-size="20" fill="#B9AAAE">rev 3 → 4</text>
+
+  <!-- Subagent increments one path atomically: accepted, rev 4 -> 5 -->
+  <path class="s1" d="M172 476 H507" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="336.0"/>
+  <path class="s2" d="M541 476 H572 L646.8 388.1" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="147.4"/>
+  <path class="s2h" d="M646.2 388.9 L646.8 388.1" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+  <g class="chipS">
+    <rect x="200" y="458" width="260" height="36" rx="8" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+    <text class="mono" x="330" y="483" text-anchor="middle" font-size="20" fill="#F3EDEE">incidents.open += 1</text>
+  </g>
+  <g class="chkS">
+    <circle cx="524" cy="476" r="17" fill="#21191B"/>
+    <use href="#g-check-o" x="508" y="460" width="32" height="32"/>
+  </g>
+  <text class="mono revS" x="524" y="518" text-anchor="middle" font-size="20" fill="#B9AAAE">rev 4 → 5</text>
+
+  <!-- DB -> web UI -->
+  <path class="ui" d="M750 352 L804 352" stroke="#FF5252" stroke-width="2.5" fill="none" stroke-dasharray="55.0"/>
+  <path class="uih" d="M803 352 L804 352" stroke="#FF5252" stroke-width="2.5" fill="none" marker-end="url(#ah-red)"/>
+
+  <!-- Web UI: live controls, and the JSON editor's full-document save -->
+  <rect x="816" y="100" width="336" height="464" rx="12" fill="#21191B" stroke="#F3EDEE" stroke-width="2"/>
+  <path d="M816 152 H1152" stroke="#F3EDEE" stroke-width="2"/>
+  <circle cx="842" cy="126" r="5" fill="#FF5252"/>
+  <circle cx="862" cy="126" r="5" fill="#B9AAAE"/>
+  <circle cx="882" cy="126" r="5" fill="#B9AAAE"/>
+  <text x="984" y="134" text-anchor="middle" font-size="22" fill="#F3EDEE">web UI</text>
+
+  <rect class="cardA" x="840" y="176" width="288" height="164" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+  <text class="mono" x="860" y="225" font-size="20" fill="#B9AAAE">release.ready</text>
+  <rect class="pill" x="1028" y="198" width="80" height="40" rx="20" fill="#5A2328" stroke="#FF5252" stroke-width="2.5"/>
+  <circle class="knob" cx="1088" cy="218" r="13" fill="#FF5252"/>
+  <path d="M860 258 H1108" stroke="#443438" stroke-width="1.5"/>
+  <text class="mono" x="860" y="305" font-size="20" fill="#B9AAAE">incidents.open</text>
+  <text class="n1" x="1106" y="314" text-anchor="end" font-size="44" font-weight="600" fill="#F3EDEE" opacity="0">1</text>
+  <text class="n2" x="1106" y="314" text-anchor="end" font-size="44" font-weight="600" fill="#F3EDEE">2</text>
+
+  <rect x="840" y="364" width="288" height="177" rx="10" fill="#141011" stroke="#443438" stroke-width="2"/>
+  <text x="860" y="394" font-size="20" letter-spacing="1" fill="#B9AAAE">JSON</text>
+  <rect class="save" x="860" y="406" width="84" height="36" rx="8" fill="#21191B" stroke="#B9AAAE" stroke-width="2"/>
+  <text class="mono" x="902" y="431" text-anchor="middle" font-size="20" fill="#F3EDEE">save</text>
+  <text x="960" y="431" font-size="20" fill="#B9AAAE">from rev 3</text>
+  <g class="b409">
+    <rect x="860" y="456" width="180" height="36" rx="8" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+    <text x="950" y="481" text-anchor="middle" font-size="22" font-weight="600" fill="#F3EDEE">409 conflict</text>
+  </g>
+  <text class="note" x="860" y="520" font-size="20" fill="#B9AAAE">reload, then save</text>
+
+  <text x="48" y="610" font-size="22" fill="#B9AAAE">One JSON document per device.</text>
+  <text x="48" y="640" font-size="22" fill="#B9AAAE">Agents change it one path at a time; a stale full-document save gets 409.</text>
+</svg>

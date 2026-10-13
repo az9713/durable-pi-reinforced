@@ -1,0 +1,35 @@
+{
+  "name": "proactive-dpi-demo",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "reset": "tsx scripts/reset.ts",
+    "logs": "tsx apps/proactive-dpi-logs/src/main.ts",
+    "be": "tsx apps/proactive-dpi-be/src/main.ts",
+    "dev": "tsx scripts/demo.ts --dev",
+    "start": "tsx scripts/demo.ts",
+    "build": "vue-tsc --noEmit -p apps/proactive-dpi-fe/tsconfig.json && tsc --noEmit -p apps/proactive-dpi-be/tsconfig.json && tsc --noEmit -p apps/proactive-dpi-logs/tsconfig.json && vite build --config apps/proactive-dpi-fe/vite.config.ts"
+  },
+  "dependencies": {
+    "@earendil-works/chord": "1.0.3",
+    "@earendil-works/pi-ai": "1.0.3",
+    "@earendil-works/pi-durable": "1.0.3",
+    "dompurify": "^3.2.0",
+    "express": "^5.1.0",
+    "lucide-vue-next": "^0.468.0",
+    "marked": "^17.0.0",
+    "vue": "3.5.43"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-vue": "latest",
+    "tsx": "latest",
+    "typescript": "5.9.3",
+    "vite": "8.3.2",
+    "vue-tsc": "latest"
+  }
+}

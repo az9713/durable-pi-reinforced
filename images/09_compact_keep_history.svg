@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 588" width="1200" height="588" role="img" aria-labelledby="title desc" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title">Smaller context. Full history retained.</title>
+  <desc id="desc">All ten entries stay in stored history while the model context is compacted to a summary of entries 1 to 7 plus recent entries 8 to 10: the summary starts in the background at 200k tokens, compaction blocks at 250k, and search_history still reads every stored entry.</desc>
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    @keyframes h1 { 0%, 3.08% { opacity: 0; transform: scale(0.7) } 4.33% { opacity: 1; transform: scale(1.12) } 5%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h1 { animation: h1 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c1 { 0%, 4% { opacity: 0; transform: translateX(0) scale(.6) } 5.92%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(172px) scale(.6) } }
+    .c1 { animation: c1 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h2 { 0%, 6.54% { opacity: 0; transform: scale(0.7) } 7.79% { opacity: 1; transform: scale(1.12) } 8.46%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h2 { animation: h2 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c2 { 0%, 7.46% { opacity: 0; transform: translateX(0) scale(.6) } 9.38%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(115px) scale(.6) } }
+    .c2 { animation: c2 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h3 { 0%, 10% { opacity: 0; transform: scale(0.7) } 11.25% { opacity: 1; transform: scale(1.12) } 11.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h3 { animation: h3 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c3 { 0%, 10.92% { opacity: 0; transform: translateX(0) scale(.6) } 12.85%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(57px) scale(.6) } }
+    .c3 { animation: c3 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h4 { 0%, 13.46% { opacity: 0; transform: scale(0.7) } 14.71% { opacity: 1; transform: scale(1.12) } 15.38%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h4 { animation: h4 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c4 { 0%, 14.38% { opacity: 0; transform: translateX(0) scale(.6) } 16.31%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(0px) scale(.6) } }
+    .c4 { animation: c4 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h5 { 0%, 16.92% { opacity: 0; transform: scale(0.7) } 18.17% { opacity: 1; transform: scale(1.12) } 18.85%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h5 { animation: h5 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c5 { 0%, 17.85% { opacity: 0; transform: translateX(0) scale(.6) } 19.77%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(-57px) scale(.6) } }
+    .c5 { animation: c5 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h6 { 0%, 20.38% { opacity: 0; transform: scale(0.7) } 21.63% { opacity: 1; transform: scale(1.12) } 22.31%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h6 { animation: h6 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c6 { 0%, 21.31% { opacity: 0; transform: translateX(0) scale(.6) } 23.23%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(-115px) scale(.6) } }
+    .c6 { animation: c6 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h7 { 0%, 23.85% { opacity: 0; transform: scale(0.7) } 25.1% { opacity: 1; transform: scale(1.12) } 25.77%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h7 { animation: h7 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c7 { 0%, 24.77% { opacity: 0; transform: translateX(0) scale(.6) } 26.69%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(-172px) scale(.6) } }
+    .c7 { animation: c7 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h8 { 0%, 30% { opacity: 0; transform: scale(0.7) } 31.25% { opacity: 1; transform: scale(1.12) } 31.92%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h8 { animation: h8 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c8 { 0%, 30.92% { opacity: 0; transform: translateX(0) scale(.6) } 32.85%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(57px) scale(.6) } }
+    .c8 { animation: c8 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h9 { 0%, 33.46% { opacity: 0; transform: scale(0.7) } 34.71% { opacity: 1; transform: scale(1.12) } 35.38%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h9 { animation: h9 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c9 { 0%, 34.38% { opacity: 0; transform: translateX(0) scale(.6) } 36.31%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(0px) scale(.6) } }
+    .c9 { animation: c9 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes h10 { 0%, 36.92% { opacity: 0; transform: scale(0.7) } 38.17% { opacity: 1; transform: scale(1.12) } 38.85%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.7) } }
+    .h10 { animation: h10 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes c10 { 0%, 37.85% { opacity: 0; transform: translateX(0) scale(.6) } 39.77%, 42.69% { opacity: 1; transform: translateX(0) scale(1) } 45%, 100% { opacity: 0; transform: translateX(-57px) scale(.6) } }
+    .c10 { animation: c10 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes meter { 0%, 4% { transform: scaleX(0) } 5.92%, 7.46% { transform: scaleX(0.408) } 9.38%, 10.92% { transform: scaleX(0.816) } 12.85%, 14.38% { transform: scaleX(1.224) } 16.31%, 17.85% { transform: scaleX(1.633) } 19.77%, 21.31% { transform: scaleX(2.041) } 23.23%, 24.77% { transform: scaleX(2.449) } 26.69%, 30.92% { transform: scaleX(2.857) } 32.85%, 34.38% { transform: scaleX(3.000) } 36.31%, 37.85% { transform: scaleX(3.143) } 39.77%, 45% { transform: scaleX(3.286) } 49.62%, 96% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+    .meter { animation: meter 13s ease-in-out infinite; transform-box: fill-box; transform-origin: left center; }
+    @keyframes chip { 0%, 26.54% { opacity: 0 } 28.85%, 48.46% { opacity: 1 } 50.77%, 100% { opacity: 0 } }
+    .chip { animation: chip 13s ease-in-out infinite; }
+    @keyframes brk { 0%, 39.23% { opacity: 0 } 41.15%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .brk { animation: brk 13s ease-in-out infinite; }
+    @keyframes arA { 0%, 40% { stroke-dashoffset: 93.0 } 43.08%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 93.0 } }
+    .arA { animation: arA 13s ease-in-out infinite; }
+    @keyframes arAh { 0%, 42.69% { opacity: 0 } 43.46%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .arAh { animation: arAh 13s ease-in-out infinite; }
+    @keyframes arB { 0%, 40% { stroke-dashoffset: 93.0 } 43.08%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 93.0 } }
+    .arB { animation: arB 13s ease-in-out infinite; }
+    @keyframes arBh { 0%, 42.69% { opacity: 0 } 43.46%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .arBh { animation: arBh 13s ease-in-out infinite; }
+    @keyframes sum { 0%, 44.62% { opacity: 0; transform: scale(0.8) } 46.37% { opacity: 1; transform: scale(1.12) } 47.31%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.8) } }
+    .sum { animation: sum 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes rec { 0%, 44.62% { opacity: 0; transform: scale(0.8) } 46.37% { opacity: 1; transform: scale(1.12) } 47.31%, 96% { opacity: 1; transform: scale(1) } 100% { opacity: 0; transform: scale(0.8) } }
+    .rec { animation: rec 13s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <marker id="ah-muted" viewBox="0 0 12 12" refX="4" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L12 6 L0 11 Z" fill="#B9AAAE"/></marker>
+    <clipPath id="track"><rect x="300" y="410" width="808" height="12" rx="6"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="588" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">Smaller context. Full history retained.</text>
+
+  <!-- Stored history keeps every entry -->
+  <rect x="48" y="100" width="1104" height="116" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="72" y="159" font-size="20" letter-spacing="1" fill="#B9AAAE">STORED HISTORY</text>
+  <g class="h1"><rect x="300" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="335" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">1</text></g>
+  <g class="h2"><rect x="382" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="417" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">2</text></g>
+  <g class="h3"><rect x="464" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="499" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">3</text></g>
+  <g class="h4"><rect x="546" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="581" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">4</text></g>
+  <g class="h5"><rect x="628" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="663" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">5</text></g>
+  <g class="h6"><rect x="710" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="745" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">6</text></g>
+  <g class="h7"><rect x="792" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="827" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">7</text></g>
+  <g class="h8"><rect x="874" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="909" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">8</text></g>
+  <g class="h9"><rect x="956" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="991" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">9</text></g>
+  <g class="h10"><rect x="1038" y="124" width="70" height="56" rx="8" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="1073" y="160" text-anchor="middle" font-size="22" fill="#F3EDEE">10</text></g>
+  <g class="brk" stroke="#B9AAAE" stroke-width="2" fill="none">
+    <path d="M304 190 V198 H858 V190"/>
+    <path d="M878 190 V198 H1104 V190"/>
+  </g>
+
+  <!-- Background summary while entries keep arriving -->
+  <g class="chip" opacity="0">
+    <rect x="612" y="228" width="357" height="36" rx="18" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+    <text x="790.5" y="253" text-anchor="middle" font-size="20" fill="#F3EDEE">summarizing in the background</text>
+  </g>
+
+  <!-- Model context: copied from the history as summary + recent entries -->
+  <rect x="48" y="276" width="1104" height="204" rx="12" fill="#21191B" stroke="#443438" stroke-width="2"/>
+  <text x="72" y="350" font-size="20" letter-spacing="1" fill="#B9AAAE">MODEL CONTEXT</text>
+  <path class="arA" d="M581 198 L581 290" stroke="#B9AAAE" stroke-width="2.5" fill="none" stroke-dasharray="93.0"/>
+  <path class="arAh" d="M581 289 L581 290" stroke="#B9AAAE" stroke-width="2.5" fill="none" marker-end="url(#ah-muted)"/>
+  <path class="arB" d="M991 198 L991 290" stroke="#B9AAAE" stroke-width="2.5" fill="none" stroke-dasharray="93.0"/>
+  <path class="arBh" d="M991 289 L991 290" stroke="#B9AAAE" stroke-width="2.5" fill="none" marker-end="url(#ah-muted)"/>
+  <g class="c1" opacity="0"><rect x="312" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="335" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">1</text></g>
+  <g class="c2" opacity="0"><rect x="394" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="417" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">2</text></g>
+  <g class="c3" opacity="0"><rect x="476" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="499" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">3</text></g>
+  <g class="c4" opacity="0"><rect x="558" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="581" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">4</text></g>
+  <g class="c5" opacity="0"><rect x="640" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="663" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">5</text></g>
+  <g class="c6" opacity="0"><rect x="722" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="745" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">6</text></g>
+  <g class="c7" opacity="0"><rect x="804" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="827" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">7</text></g>
+  <g class="c8" opacity="0"><rect x="886" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="909" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">8</text></g>
+  <g class="c9" opacity="0"><rect x="968" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="991" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">9</text></g>
+  <g class="c10" opacity="0"><rect x="1050" y="320" width="46" height="46" rx="6" fill="#141011" stroke="#B9AAAE" stroke-width="2"/><text class="mono" x="1073" y="350" text-anchor="middle" font-size="20" fill="#B9AAAE">10</text></g>
+  <g class="sum">
+    <rect x="461" y="300" width="240" height="86" rx="10" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+    <text x="581" y="336" text-anchor="middle" font-size="22" fill="#F3EDEE">SUMMARY</text>
+    <text x="581" y="365" text-anchor="middle" font-size="20" fill="#B9AAAE">entries 1–7</text>
+  </g>
+  <g class="rec">
+    <rect x="874" y="300" width="234" height="86" rx="10" fill="#141011" stroke="#FF5252" stroke-width="2"/>
+    <text x="991" y="336" text-anchor="middle" font-size="22" fill="#F3EDEE">RECENT ENTRIES</text>
+    <text x="991" y="365" text-anchor="middle" font-size="20" fill="#B9AAAE">8–10</text>
+  </g>
+
+  <!-- Context meter: 0 to 250k tokens -->
+  <rect x="300" y="410" width="808" height="12" rx="6" fill="#141011" stroke="#443438" stroke-width="1.5"/>
+  <g clip-path="url(#track)">
+    <rect class="meter" x="300" y="410" width="226" height="12" fill="#FF5252"/>
+  </g>
+  <path d="M946 400 V432" stroke="#FF5252" stroke-width="2.5"/>
+  <path d="M1108 400 V432" stroke="#B9AAAE" stroke-width="2.5"/>
+  <text class="mono" x="946" y="458" text-anchor="middle" font-size="20" fill="#FF5252">200k</text>
+  <text class="mono" x="1108" y="458" text-anchor="end" font-size="20" fill="#B9AAAE">250k</text>
+
+  <!-- Notes -->
+  <path d="M75 506 V528" stroke="#FF5252" stroke-width="3"/>
+  <text x="92" y="524" font-size="22" fill="#B9AAAE">Background summary at 200k tokens</text>
+  <path d="M75 540 V562" stroke="#B9AAAE" stroke-width="3"/>
+  <text x="92" y="558" font-size="22" fill="#B9AAAE">Blocks at 250k</text>
+  <rect x="601" y="509" width="15" height="15" rx="3" fill="none" stroke="#B9AAAE" stroke-width="2"/>
+  <text x="628" y="524" font-size="22" fill="#B9AAAE"><tspan class="mono">search_history</tspan> still reads every entry</text>
+</svg>

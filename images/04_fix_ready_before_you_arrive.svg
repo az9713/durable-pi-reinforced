@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" width="1200" height="690" role="img" aria-labelledby="t05 d05" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="t05">The fix is ready before you arrive</title>
+  <desc id="d05">A 30-second incident timeline: a bad checkout-api revision ships at T+5 s, the Pi incident agent detects it, investigates, finds the root cause, fixes it and is ready for review by T+25 s, places a voice callback, and when you arrive at T+30 s the deploy is waiting for your approval.</desc>
+  <defs>
+    <symbol id="g-pi" viewBox="0 0 64 64">
+      <rect x="1.5" y="1.5" width="61" height="61" rx="12" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+      <g fill="#FFFFFF" transform="translate(16 16) scale(8)">
+        <path d="M 0 0H3V2H2V1H0Z"/>
+        <path d="M 0 1H1V2H2V3H1V4H0Z"/>
+        <path d="M 3 2H4V4H3Z"/>
+      </g>
+    </symbol>
+    <symbol id="g-check-o" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="13.5" fill="none" stroke="#FF5252" stroke-width="2.5"/>
+      <path d="M 9.5 16.5 L14 21 L22.5 11.5" fill="none" stroke="#FF5252" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="g-person" viewBox="0 0 40 40">
+      <circle cx="20" cy="13" r="7.5" fill="none" stroke="#F3EDEE" stroke-width="2.5"/>
+      <path d="M 6 36 C7 27 13 23 20 23 C27 23 33 27 34 36" fill="none" stroke="#F3EDEE" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#3A1D20"/>
+      <path d="M 5 0 V10" stroke="#FF5252" stroke-width="2" stroke-opacity=".5"/>
+    </pattern>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M 0 0 L10 5 L0 10 Z" fill="#FF5252"/>
+    </marker>
+  </defs>
+  <style>
+    /* One 15 s loop: the playhead sweeps T+0 to T+30 s and uncovers the timeline, stages appear as they
+       start and check off as they end, the voice callback pops at T+25 s, the approval card at T+30 s, then the
+       finished diagram holds. Un-animated, every element shows its final state. */
+    .a, .sweep, .head { animation-duration: 15s; animation-iteration-count: infinite; }
+    .a { animation-timing-function: ease; }
+    .pop { transform-box: fill-box; transform-origin: center; }
+    .callout { transform-box: fill-box; transform-origin: 100% 50%; }
+    .sweep { animation-name: sweep; animation-timing-function: linear }
+    @keyframes sweep { 0%, 2.67% { transform: translateX(-848px) } 60.67%, 96% { transform: none } 100% { transform: translateX(-848px) } }
+    .head { animation-name: head; animation-timing-function: linear }
+    @keyframes head { 0% { opacity: 0; transform: translateX(-848px) } 2% { opacity: 1; transform: translateX(-848px) } 2.67% { transform: translateX(-848px) } 60.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-848px) } }
+    .bd0 { animation-name: bd0 }
+    @keyframes bd0 { 0%, 13.88% { opacity: 0 } 15.21%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .bd1 { animation-name: bd1 }
+    @keyframes bd1 { 0%, 18.13% { opacity: 0 } 19.47%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .bd2 { animation-name: bd2 }
+    @keyframes bd2 { 0%, 37.47% { opacity: 0 } 38.8%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .bd3 { animation-name: bd3 }
+    @keyframes bd3 { 0%, 38.05% { opacity: 0 } 39.38%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .bd4 { animation-name: bd4 }
+    @keyframes bd4 { 0%, 43.27% { opacity: 0 } 44.6%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .bd5 { animation-name: bd5 }
+    @keyframes bd5 { 0%, 51% { opacity: 0 } 52.33%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .ln { animation-name: ln }
+    @keyframes ln { 0%, 13.88% { stroke-dashoffset: 238 } 15.21%, 18.13% { stroke-dashoffset: 210 } 19.47%, 37.47% { stroke-dashoffset: 168 } 37.76%, 38.05% { stroke-dashoffset: 126 } 39.38%, 43.27% { stroke-dashoffset: 84 } 44.6%, 51% { stroke-dashoffset: 42 } 52.33%, 96% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 238 } }
+    .sl0 { animation-name: sl0 }
+    @keyframes sl0 { 0%, 13.88% { opacity: 0; transform: translateX(-8px) } 15.21%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .ck0 { animation-name: ck0 }
+    @keyframes ck0 { 0%, 18.13% { opacity: 0; transform: scale(.4) } 19.47%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .sl1 { animation-name: sl1 }
+    @keyframes sl1 { 0%, 18.13% { opacity: 0; transform: translateX(-8px) } 19.47%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .ck1 { animation-name: ck1 }
+    @keyframes ck1 { 0%, 37.47% { opacity: 0; transform: scale(.4) } 38.8%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .sl2 { animation-name: sl2 }
+    @keyframes sl2 { 0%, 37.47% { opacity: 0; transform: translateX(-8px) } 38.8%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .ck2 { animation-name: ck2 }
+    @keyframes ck2 { 0%, 37.95% { opacity: 0; transform: scale(.4) } 39.28%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .sl3 { animation-name: sl3 }
+    @keyframes sl3 { 0%, 38.05% { opacity: 0; transform: translateX(-8px) } 39.38%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .ck3 { animation-name: ck3 }
+    @keyframes ck3 { 0%, 43.27% { opacity: 0; transform: scale(.4) } 44.6%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .sl4 { animation-name: sl4 }
+    @keyframes sl4 { 0%, 43.27% { opacity: 0; transform: translateX(-8px) } 44.6%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .ck4 { animation-name: ck4 }
+    @keyframes ck4 { 0%, 51% { opacity: 0; transform: scale(.4) } 52.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.4) } }
+    .sl5 { animation-name: sl5 }
+    @keyframes sl5 { 0%, 51% { opacity: 0; transform: translateX(-8px) } 52.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(-8px) } }
+    .nn { animation-name: nn }
+    @keyframes nn { 0%, 21.23% { opacity: 0 } 23.23%, 96% { opacity: 1 } 100% { opacity: 0 } }
+    .cla { animation-name: cla }
+    @keyframes cla { 0%, 51.67% { opacity: 0; transform: translateX(18px) } 53.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateX(18px) } }
+    .cl { animation-name: cl }
+    @keyframes cl { 0%, 52.67% { opacity: 0; transform: scale(.92) } 54.67%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: scale(.92) } }
+    .cd { animation-name: cd }
+    @keyframes cd { 0%, 61% { opacity: 0; transform: translateY(14px) } 63.33%, 96% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(14px) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="690" rx="18" fill="#141011"/>
+  <text x="48" y="70" font-size="34" font-weight="600" fill="#F3EDEE">The fix is ready before you arrive</text>
+  <g font-size="20" fill="#B9AAAE" text-anchor="middle">
+    <text x="296.0" y="122">T+0 s</text>
+    <text x="437.3" y="122">T+5 s</text>
+    <text x="578.7" y="122">T+10 s</text>
+    <text x="720.0" y="122">T+15 s</text>
+    <text x="861.3" y="122">T+20 s</text>
+    <text x="1002.7" y="122">T+25 s</text>
+    <text x="1144.0" y="122">T+30 s</text>
+  </g>
+  <text x="48" y="168" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#F3EDEE">checkout-api</text>
+
+  <!-- Timeline content, uncovered by the playhead -->
+  <g fill="#1C1618">
+    <rect class="a bd0" x="48" y="244" width="1096" height="36" rx="6"/>
+    <rect class="a bd1" x="48" y="286" width="1096" height="36" rx="6"/>
+    <rect class="a bd2" x="48" y="328" width="1096" height="36" rx="6"/>
+    <rect class="a bd3" x="48" y="370" width="1096" height="36" rx="6"/>
+    <rect class="a bd4" x="48" y="412" width="1096" height="36" rx="6"/>
+    <rect class="a bd5" x="48" y="454" width="1096" height="36" rx="6"/>
+  </g>
+  <g stroke="#443438" stroke-width="1.5" stroke-dasharray="2 6">
+    <path d="M 296.0 134 V658"/>
+    <path d="M 437.3 134 V658"/>
+    <path d="M 578.7 134 V658"/>
+    <path d="M 720.0 134 V658"/>
+    <path d="M 861.3 134 V658"/>
+    <path d="M 1002.7 134 V658"/>
+    <path d="M 1144.0 134 V658"/>
+  </g>
+  <rect x="294" y="142" width="142.3" height="36" rx="6" fill="#21191B" stroke="#6B5A5E" stroke-width="2"/>
+  <text x="365.1" y="167" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#B9AAAE" text-anchor="middle">00041-rup</text>
+  <rect x="438.3" y="142" width="705.7" height="36" rx="6" fill="url(#hatch)"/>
+  <rect x="440.3" y="144" width="402" height="32" fill="#3A1D20"/>
+  <rect x="438.3" y="142" width="705.7" height="36" rx="6" fill="none" stroke="#FF5252" stroke-width="2"/>
+  <text x="454.3" y="167" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#F3EDEE">00042-vex: guest checkouts fail</text>
+  <path d="M 491.0 181 V240" stroke="#FF5252" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <rect x="459.9" y="248" width="62.2" height="28" rx="6" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+  <rect x="522.1" y="290" width="282.7" height="28" rx="6" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+  <path d="M 804.8 334 L816.8 346 L804.8 358 L792.8 346 Z" fill="#3A1D20" stroke="#FF5252" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="804.8" y="374" width="84.8" height="28" rx="6" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+  <rect x="889.6" y="416" width="113.1" height="28" rx="6" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+  <rect x="1002.7" y="458" width="141.3" height="28" rx="6" fill="#3A1D20" stroke="#FF5252" stroke-width="2"/>
+  <text x="1016.7" y="479" font-size="20" font-weight="500" fill="#F3EDEE">waiting</text>
+  <rect class="sweep" x="1144" y="132" width="888" height="528" fill="#141011"/>
+
+  <!-- Agent lane and you -->
+  <use href="#g-pi" x="48" y="194" width="40" height="40"/>
+  <text x="100" y="222" font-size="22" font-weight="700" fill="#F3EDEE">Pi incident agent</text>
+  <path class="a ln" d="M 68 234 V472" stroke="#FF5252" stroke-width="2" stroke-dasharray="238 238"/>
+  <g class="a sl0">
+    <circle cx="68" cy="262" r="9.3" fill="#141011" stroke="#6B5A5E" stroke-width="1.5"/>
+    <use class="a ck0 pop" href="#g-check-o" x="57" y="251" width="22" height="22"/>
+    <text x="92" y="270" font-size="22" fill="#F3EDEE">Detected</text>
+  </g>
+  <g class="a sl1">
+    <circle cx="68" cy="304" r="9.3" fill="#141011" stroke="#6B5A5E" stroke-width="1.5"/>
+    <use class="a ck1 pop" href="#g-check-o" x="57" y="293" width="22" height="22"/>
+    <text x="92" y="312" font-size="22" fill="#F3EDEE">Investigating</text>
+  </g>
+  <g class="a sl2">
+    <circle cx="68" cy="346" r="9.3" fill="#141011" stroke="#6B5A5E" stroke-width="1.5"/>
+    <use class="a ck2 pop" href="#g-check-o" x="57" y="335" width="22" height="22"/>
+    <text x="92" y="354" font-size="22" fill="#F3EDEE">Root cause found</text>
+  </g>
+  <g class="a sl3">
+    <circle cx="68" cy="388" r="9.3" fill="#141011" stroke="#6B5A5E" stroke-width="1.5"/>
+    <use class="a ck3 pop" href="#g-check-o" x="57" y="377" width="22" height="22"/>
+    <text x="92" y="396" font-size="22" fill="#F3EDEE">Fixing</text>
+  </g>
+  <g class="a sl4">
+    <circle cx="68" cy="430" r="9.3" fill="#141011" stroke="#6B5A5E" stroke-width="1.5"/>
+    <use class="a ck4 pop" href="#g-check-o" x="57" y="419" width="22" height="22"/>
+    <text x="92" y="438" font-size="22" fill="#F3EDEE">Ready for review</text>
+  </g>
+  <g class="a sl5">
+    <circle cx="68" cy="472" r="8" fill="#141011" stroke="#FF5252" stroke-width="2.5"/>
+    <text x="92" y="480" font-size="22" fill="#F3EDEE">Deploy</text>
+  </g>
+  <path d="M 48 500 H1144" stroke="#443438" stroke-width="1.5"/>
+  <use href="#g-person" x="48" y="567" width="40" height="40"/>
+  <text x="100" y="595" font-size="22" font-weight="500" fill="#F3EDEE">You</text>
+  <text class="a nn" x="316" y="595" font-size="22" fill="#B9AAAE">Not needed until deploy</text>
+
+  <!-- Voice callback at T+25 s -->
+  <path class="a cla" d="M 996.7 472 H789" stroke="#FF5252" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <g class="a cl callout">
+    <rect x="294" y="330" width="484" height="160" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+    <use href="#g-pi" x="314" y="346" width="28" height="28"/>
+    <text x="354" y="368" font-size="22" font-weight="700" fill="#FF5252">Voice callback</text>
+    <text x="758" y="368" font-size="20" fill="#B9AAAE" text-anchor="end">T+25 s</text>
+    <text font-size="22" fill="#F3EDEE">
+      <tspan x="314" y="408">“Engineer, your Durable Agent Red Team</tspan>
+      <tspan x="314" y="438">found a production issue, and found</tspan>
+      <tspan x="314" y="468">the fix. It’s waiting on your review.”</tspan>
+    </text>
+  </g>
+
+  <!-- You arrive at T+30 s -->
+  <g class="a cd">
+    <rect x="744" y="516" width="400" height="142" rx="12" fill="#21191B" stroke="#FF5252" stroke-width="2"/>
+    <text x="764" y="548" font-size="20" fill="#B9AAAE">T+30 s: you arrive</text>
+    <text x="764" y="580" font-size="22" font-weight="700" fill="#F3EDEE">Deploy waiting for your approval</text>
+    <rect x="764" y="598" width="204" height="42" rx="8" fill="#FF5252"/>
+    <text x="866" y="626" font-size="22" font-weight="700" fill="#141011" text-anchor="middle">Approve deploy</text>
+    <rect x="980" y="598" width="116" height="42" rx="8" fill="none" stroke="#6B5A5E" stroke-width="2"/>
+    <text x="1038" y="626" font-size="22" font-weight="500" fill="#F3EDEE" text-anchor="middle">Decline</text>
+  </g>
+
+  <!-- Playhead -->
+  <path class="head" d="M 1144 134 V658" stroke="#FF5252" stroke-width="2.5"/>
+</svg>
